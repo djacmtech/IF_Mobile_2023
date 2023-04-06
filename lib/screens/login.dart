@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/screens/signup.dart';
+import 'package:internship_fair/screens/info.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,7 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
+    var size = MediaQuery.of(context).size;
+    double sizefont = size.width * 0.04;
 
     void togglePasswordView() {
       setState(() {
@@ -29,15 +31,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
     void signIn(String sapid, String email, String password) async {
       if (formKey.currentState!.validate()) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const InfoPage()));
       }
     }
 
     final sapidField = Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
-        style: const TextStyle(fontSize: 17),
+        keyboardType: TextInputType.number,
+        style: TextStyle(fontSize: sizefont),
         autofocus: false,
         controller: sapidController,
         validator: (value) {
@@ -69,7 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
     final emailField = Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
-        style: const TextStyle(fontSize: 17),
+        keyboardType: TextInputType.emailAddress,
+        style: TextStyle(fontSize: sizefont),
         autofocus: false,
         controller: emailController,
         validator: (value) {
@@ -102,16 +106,16 @@ class _LoginScreenState extends State<LoginScreen> {
     final passwordField = Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
-        style: const TextStyle(fontSize: 17),
+        style: TextStyle(fontSize: sizefont),
         obscureText: isHidden,
         autofocus: false,
         controller: passwordController,
         validator: (value) {
           if (value!.isEmpty) {
-            return ("Please enter your Password");
+            return ("Please Enter your Password");
           }
           if (!RegExp(r'^.{8,}$').hasMatch(value)) {
-            return ("Please enter a valid Password");
+            return ("Please Enter a valid Password");
           }
           return null;
         },
@@ -165,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Text("OR",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontFamily: 'poppins', fontSize: 13, color: greyColor)),
+                fontFamily: 'poppins', fontSize: sizefont*0.8, color: greyColor)),
         const SizedBox(
           width: 5,
           height: 2,
@@ -187,18 +191,18 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(5),
         color: blackTeal,
         child: MaterialButton(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: EdgeInsets.symmetric(vertical: sizefont*0.7),
             onPressed: () {
               signIn(sapidController.text, emailController.text,
                   passwordController.text);
             },
             child: SizedBox(
-              width: width,
+              width: size.width,
               child: Text(
                 "LOGIN",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: 'poppins', fontSize: 17, color: whiteColor),
+                    fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
               ),
             )));
 
@@ -207,13 +211,13 @@ class _LoginScreenState extends State<LoginScreen> {
         borderRadius: BorderRadius.circular(5),
         color: blackColor,
         child: MaterialButton(
-            padding: const EdgeInsets.symmetric(vertical: 20),
+            padding: EdgeInsets.symmetric(vertical: sizefont*0.7),
             onPressed: () {
               // signIn(sapidController.text, emailController.text, passwordController.text);
             },
             child: Container(
               alignment: Alignment.center,
-              width: width,
+              width: size.width,
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -222,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       flex: 1,
                       fit: FlexFit.loose,
                       child: SizedBox(
-                          height: 20,
+                          height: sizefont,
                           child: Image.asset("assets/images/Google.png",
                               fit: BoxFit.contain)
                           // SvgPicture.asset("assets/images/google.svg")
@@ -245,7 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'poppins',
-                            fontSize: 17,
+                            fontSize: sizefont,
                             color: whiteColor),
                       ),
                     ),
@@ -254,92 +258,93 @@ class _LoginScreenState extends State<LoginScreen> {
             )));
 
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: whiteColor,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding:
-                  EdgeInsets.symmetric(vertical: 27, horizontal: width * 0.06),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "LOGIN",
-                      style: TextStyle(
-                          fontFamily: 'alumni',
-                          color: blackTeal,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    GestureDetector(
-                      child: const Text("New here? Sign up Here",
-                          style:
-                              TextStyle(fontFamily: 'poppins', fontSize: 17)),
+    resizeToAvoidBottomInset: false,
+    backgroundColor: whiteColor,
+    body: SafeArea(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding:
+              EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "LOGIN",
+                  style: TextStyle(
+                      fontFamily: 'alumni',
+                      color: blackTeal,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                ),
+                GestureDetector(
+                  child: Text("New here? Sign up Here",
+                      style:
+                          TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Signup(),
+                      ),
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text("SAPID",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                sapidField,
+                Text("E-mail ID",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                emailField,
+                Text("Password",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                passwordField,
+                const SizedBox(
+                  height: 9,
+                ),
+                GestureDetector(
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      child: Text("Forgot Password?",
+                          style: TextStyle(
+                              fontFamily: 'poppins',
+                              fontSize: sizefont,
+                              color: blackTeal)),
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Signup(),
+                            builder: (context) => const LoginScreen(),
                           ),
                         );
                       },
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text("SAPID",
-                        style: TextStyle(fontFamily: 'poppins', fontSize: 17)),
-                    sapidField,
-                    const Text("E-mail ID",
-                        style: TextStyle(fontFamily: 'poppins', fontSize: 17)),
-                    emailField,
-                    const Text("Password",
-                        style: TextStyle(fontFamily: 'poppins', fontSize: 17)),
-                    passwordField,
-                    const SizedBox(
-                      height: 9,
-                    ),
-                    GestureDetector(
-                      child: Container(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          child: Text("Forgot Password?",
-                              style: TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontSize: 17,
-                                  color: blackTeal)),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    loginButton,
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    orRow,
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    loginButton2,
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 15,
+                ),
+                loginButton,
+                const SizedBox(
+                  height: 15,
+                ),
+                orRow,
+                const SizedBox(
+                  height: 15,
+                ),
+                loginButton2,
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    ),
+    );
   }
 }
