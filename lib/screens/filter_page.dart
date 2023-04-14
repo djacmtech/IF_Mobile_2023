@@ -40,10 +40,14 @@ class _filterState extends State<filter> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
-                  iconSize: sizefont*1.5,
-                  onPressed: () => Navigator.of(context).pop(MaterialPageRoute(builder: (context) => JobProfile())),),
-                SizedBox(width: size.width*0.2),
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios_new_outlined,
+                      color: blackColor),
+                  iconSize: sizefont * 1.5,
+                  onPressed: () => Navigator.of(context).pop(
+                      MaterialPageRoute(builder: (context) => JobProfile())),
+                ),
+                SizedBox(width: size.width * 0.2),
                 const Icon(Icons.filter_alt_sharp, color: Colors.teal),
                 SizedBox(width: 6.0),
                 Text(
@@ -98,17 +102,17 @@ class _filterState extends State<filter> {
               ),
             ),
             SfRangeSlider(
-                    min: 3000.0,
-                    max: 10000.0,
-                    values: _values,
-                    interval: 1000.0,
-                    showLabels: true,
-                    onChanged: (SfRangeValues newValues) {
-                       setState(() {
-                           _values = newValues;
-                        });
-                    }
-              ),
+              min: 3000.0,
+              max: 10000.0,
+              values: _values,
+              interval: 1000.0,
+              showLabels: true,
+              onChanged: (SfRangeValues newValues) {
+                setState(() {
+                  _values = newValues;
+                });
+              },
+            ),
             // SliderTheme(
             //   data: SliderThemeData(
             //     thumbColor: Colors.teal,

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  const MaterialApp(
-      home: JobDesc(companyName: 'Company A', duration: '3 months', id: 123, jobPosition: 'Intern', minStipend: '3000', workfromHome: 'On Site',),
+      home: JobProfile(),
     );
   }
 }

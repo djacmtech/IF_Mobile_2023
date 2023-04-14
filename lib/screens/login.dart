@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:internship_fair/constants/constants.dart';
+import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:internship_fair/screens/info.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 
@@ -33,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     void signIn(String sapid, String email, String password) async {
       if (formKey.currentState!.validate()) {
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const InfoPage()));
+            MaterialPageRoute(builder: (context) => const JobProfile()));
       }
     }
 

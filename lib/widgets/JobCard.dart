@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:internship_fair/screens/jobdesc.dart';
 
 class JobCard extends StatelessWidget {
   final String? companyName;
@@ -279,7 +280,10 @@ class JobCard extends StatelessWidget {
                       // color: Color(0xF2D3748),
                       color: Colors.teal),
                 )),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const JobDesc(companyName: 'Company A', duration: '3 months', id: 123, jobPosition: 'Intern', minStipend: '3000', workfromHome: 'On Site',)));
+            },
           ),
         ],
       ),
