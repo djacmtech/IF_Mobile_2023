@@ -72,7 +72,7 @@ class JobCard extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.045,
                 // width: 33.14,
                 width: MediaQuery.of(context).size.width * 0.092,
-                child: SvgPicture.asset('assets/Vector.svg'),
+                child: Image.asset('assets/images/Vector.png'),
               )
             ],
           ),

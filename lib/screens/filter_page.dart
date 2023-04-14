@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:internship_fair/constants/constants.dart';
 
-class filter extends StatefulWidget {
-  const filter({super.key});
+class Filter extends StatefulWidget {
+  const Filter({super.key});
 
   @override
-  State<filter> createState() => _filterState();
+  State<Filter> createState() => _FilterState();
 }
 
 class MyCustomIconData extends IconData {
@@ -18,12 +19,12 @@ class MyCustomIconData extends IconData {
         );
 }
 
-class _filterState extends State<filter> {
+class _FilterState extends State<Filter> {
   final TextEditingController _textEditingController = TextEditingController();
   final TextEditingController _textEditingController2 = TextEditingController();
   bool _isChecked = false;
   bool _isCorrected = false;
-  SfRangeValues _values = SfRangeValues(3000.0, 10000.0);
+  SfRangeValues _values = const SfRangeValues(3000.0, 10000.0);
   @override
   Widget build(BuildContext context) {
     double _currentValue = 5000.0;
@@ -51,7 +52,7 @@ class _filterState extends State<filter> {
                 const Icon(Icons.filter_alt_sharp, color: Colors.teal),
                 SizedBox(width: 6.0),
                 Text(
-                  "FILTERS",
+                  "FilterS",
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 20,
@@ -102,10 +103,17 @@ class _filterState extends State<filter> {
               ),
             ),
             SfRangeSlider(
-              min: 3000.0,
+              labelFormatterCallback: (dynamic actualValue, String formattedText) {
+                var formattedText = NumberFormat.compactCurrency(
+                  decimalDigits: 2,
+                  symbol: '₹', // if you want to add currency symbol then pass that in this else leave it empty.
+                  ).format(actualValue);
+                        return ' $formattedText' ;
+                    },
+              min: 2000,
               max: 10000.0,
               values: _values,
-              interval: 1000.0,
+              interval: 2000.0,
               showLabels: true,
               onChanged: (SfRangeValues newValues) {
                 setState(() {

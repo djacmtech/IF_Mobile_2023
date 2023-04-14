@@ -30,7 +30,7 @@ class _JobProfileState extends State<JobProfile> {
                 IconButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => filter()));
+                          MaterialPageRoute(builder: (context) => Filter()));
                     },
                     icon: Icon(Icons.filter_alt_sharp, color: Colors.teal)),
               ],
