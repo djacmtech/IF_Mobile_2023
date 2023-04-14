@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:internship_fair/constants/constants.dart';
 //import 'package:internship_fair/screens/home.dart';
@@ -15,10 +17,16 @@ class _InfoPageState extends State<InfoPage> {
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController sapidController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController whatsappController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmpasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  bool _isHidden1 = true;
+  bool _isHidden2 = true;
 
   List<String> genders = <String>['Male', 'Female', 'Prefer not to say'];
   String genderval = 'Male';
@@ -28,6 +36,8 @@ class _InfoPageState extends State<InfoPage> {
   String gradval = '2023';
   List<String> depts = <String>['CS','IT','DS','AIML','AIDS','IOT','EXTC','MECH'];
   String deptval = 'CS';
+  List<String> memb = <String>['Yes', 'No'];
+  String membval = 'No';
 
   @override
   Widget build(BuildContext context) {
@@ -81,12 +91,12 @@ class _InfoPageState extends State<InfoPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          labelText: 'Enter Full Name',
-          labelStyle: TextStyle(
-            fontFamily: 'poppins',
-            color: textgreen,
-            fontSize: sizefont,
-          ),
+          // labelText: 'Enter Full Name',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
           suffixIcon: nameController.text.isEmpty ? Container(width: 0,): IconButton(
             icon: Icon(
               Icons.close,
@@ -94,7 +104,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             onPressed: () => nameController.clear(),
           ),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -127,12 +137,12 @@ class _InfoPageState extends State<InfoPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          labelText: 'SAPID',
-          labelStyle: TextStyle(
-            fontFamily: 'poppins',
-            color: textgreen,
-            fontSize: sizefont,
-          ),
+          // labelText: 'SAPID',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
           suffixIcon: sapidController.text.isEmpty ? Container(width: 0,): IconButton(
             icon: Icon(
               Icons.close,
@@ -140,7 +150,53 @@ class _InfoPageState extends State<InfoPage> {
             ),
             onPressed: () => sapidController.clear(),
           ),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: greyColor)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+          isDense: true,
+        ),
+      ),
+    );
+
+    final emailField = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        style: TextStyle(fontSize: sizefont),
+        autofocus: false,
+        controller: emailController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please enter your E-mail ID");
+          }
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]")
+              .hasMatch(value)) {
+            return ("Please Enter a valid E-mail");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          emailController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          // labelText: 'Email-ID',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
+          suffixIcon: emailController.text.isEmpty ? Container(width: 0,): IconButton(
+            icon: Icon(
+              Icons.close,
+              size: sizefont,
+            ),
+            onPressed: () => emailController.clear(),
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.005, horizontal: size.width*0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -173,12 +229,12 @@ class _InfoPageState extends State<InfoPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          labelText: 'Mobile No.',
-          labelStyle: TextStyle(
-            fontFamily: 'poppins',
-            color: textgreen,
-            fontSize: sizefont,
-          ),
+          // labelText: 'Mobile No.',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
           suffixIcon: phoneController.text.isEmpty ? Container(width: 0,): IconButton(
             icon: Icon(
               Icons.close,
@@ -186,7 +242,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             onPressed: () => phoneController.clear(),
           ),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -219,12 +275,12 @@ class _InfoPageState extends State<InfoPage> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          labelText: 'WhatsApp No.',
-          labelStyle: TextStyle(
-            fontFamily: 'poppins',
-            color: textgreen,
-            fontSize: sizefont,
-          ),
+          // labelText: 'WhatsApp No.',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
           suffixIcon: whatsappController.text.isEmpty ? Container(width: 0,): IconButton(
             icon: Icon(
               Icons.close,
@@ -232,7 +288,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             onPressed: () => whatsappController.clear(),
           ),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -280,11 +336,11 @@ class _InfoPageState extends State<InfoPage> {
             color: textgreen,
             size: 20,
           ),
-          labelText: "Enter DOB",
-          labelStyle: TextStyle(fontSize: sizefont,
-            fontFamily: 'poppins',
-            color: textgreen,
-          ),
+          // labelText: "Enter DOB",
+          // labelStyle: TextStyle(fontSize: sizefont,
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          // ),
           suffixIcon: dobController.text.isEmpty? Container(width: 0,): IconButton(
             icon: Icon(
               Icons.close,
@@ -293,7 +349,7 @@ class _InfoPageState extends State<InfoPage> {
             ),
             onPressed: () => dobController.clear(),
           ),
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -324,7 +380,7 @@ class _InfoPageState extends State<InfoPage> {
         Flexible(
           flex: 1,
           fit: FlexFit.loose,
-          child: Container(
+          child: SizedBox(
             child: DropdownButton<String>(
               value: genderval,
               isExpanded: true,
@@ -492,6 +548,52 @@ class _InfoPageState extends State<InfoPage> {
       ],
     );
 
+    final acmmemb = Row(
+      children: [
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: Text(
+            'ACM Member',
+            style: TextStyle(
+                fontFamily: 'poppins',
+                color: textgreen,
+                fontSize: sizefont),
+          ),
+        ),
+        SizedBox(
+          width: 0.05 * size.width,
+        ),
+        Flexible(
+          flex: 1,
+          fit: FlexFit.loose,
+          child: DropdownButton<String>(
+            value: membval,
+            elevation: 16,
+            icon: const Icon(Icons.arrow_drop_down),
+            iconSize: 24,
+            dropdownColor: whiteColor,
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            underline: Container(
+              height: 2,
+              color: darkgrey,
+            ),
+            onChanged: (String? value) {
+              setState(() {
+                membval = value!;
+              });
+            },
+            items: memb.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+
     final uploadButton = Row(
       children: [
         Flexible(
@@ -513,12 +615,12 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: SizedBox(
             height: sizefont*2.6,
-            width: size.width*0.27,
+            width: size.width*0.3,
             child: Material(
                 elevation: 5,
                 borderRadius: BorderRadius.circular(5),
                 color: whiteColor,
-                child: MaterialButton(                    padding: EdgeInsets.symmetric(vertical: sizefont*0.8),
+                child: MaterialButton( padding: EdgeInsets.symmetric(vertical: sizefont*0.8),
                     onPressed: () {
                       selectPDF();
                     },
@@ -540,6 +642,106 @@ class _InfoPageState extends State<InfoPage> {
       ],
     );
 
+    final passwordField = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        style: TextStyle(fontSize: sizefont),
+        obscureText: _isHidden1,
+        autofocus: false,
+        controller: passwordController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please enter your Password");
+          }
+          if (!RegExp(r'^.{8,}$').hasMatch(value)) {
+            return ("Please enter a valid Password");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          passwordController.text = value!;
+        },
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: greyColor)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+          isDense: true,
+          suffixIcon: InkWell(
+            onTap: (){
+              setState(() {
+                _isHidden1 = !_isHidden1;
+              });
+            },
+            child: FittedBox(
+              alignment: Alignment.center,
+              fit: BoxFit.fitHeight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  _isHidden1 ? Icons.visibility_off : Icons.visibility,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
+    final confirmPasswordField = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        style: TextStyle(fontSize: sizefont),
+        obscureText: _isHidden2,
+        autofocus: false,
+        controller: confirmpasswordController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please confirm your Password");
+          }
+          if (value != passwordController.text) {
+            return 'The password does not match';
+          }
+          return null;
+        },
+        onSaved: (value) {
+          confirmpasswordController.text = value!;
+        },
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(10),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: greyColor)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+          isDense: true,
+          suffixIcon: InkWell(
+            onTap: (){
+              setState(() {
+                _isHidden2 = !_isHidden2;
+              });
+            },
+            child: FittedBox(
+              alignment: Alignment.center,
+              fit: BoxFit.fitHeight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Icon(
+                  _isHidden2 ? Icons.visibility_off : Icons.visibility,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+
     final submitButton = Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(5),
@@ -552,7 +754,7 @@ class _InfoPageState extends State<InfoPage> {
             child: SizedBox(
               width: size.width,
               child: Text(
-                "Submit",
+                "Register",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
@@ -562,15 +764,17 @@ class _InfoPageState extends State<InfoPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
-      appBar: AppBar(
-          leading: IconButton(icon: Icon(Icons.arrow_back, color: whiteColor),
-          onPressed: () => Navigator.of(context).pop(),),
-          centerTitle: true,
-          backgroundColor: textgreen,
-          title: const Text(
-            'Student Details',
-            style: TextStyle(fontFamily: 'poppins'),
-          )),
+      // appBar: AppBar(
+      //     leading: IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
+      //     iconSize: sizefont*1.5,
+      //     onPressed: () => Navigator.of(context).pop(),),
+      //     centerTitle: true,
+      //     backgroundColor: whiteColor,
+      //     title: Text(
+      //       'Student Details',
+      //       style: TextStyle(fontFamily: 'poppins',
+      //       fontSize: sizefont*1.5, color: blackColor),
+      //     )),
       body:SingleChildScrollView(
         child: Padding(
           padding:
@@ -581,15 +785,55 @@ class _InfoPageState extends State<InfoPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text(
+                      "SIGN UP",
+                      style: TextStyle(
+                        fontFamily: 'alumni',
+                        color: blackTeal,
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    GestureDetector(
+                      child: Text("Already have an Account? Login Here",
+                          style:
+                              TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                Text("Full Name",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                 nameField,
+                Text("SAPID",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                 sapidField,
+                Text("E-mail ID",
+                  style:TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                emailField,
+                Text("Password",
+                  style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                passwordField,
+                Text("Confirm Password",
+                  style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                confirmPasswordField,
+                Text("Phone No.",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                 phoneField,
+                Text("WhatsApp No.",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                 whatsappField,
+                Text("Date of Birth",
+                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                 dobField,
                 gender,
                 year,
                 department,
                 gradyear,
+                acmmemb,
                 const SizedBox(
                 height: 12,
                 ),

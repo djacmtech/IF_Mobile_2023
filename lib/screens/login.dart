@@ -1,6 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:internship_fair/constants/constants.dart';
-import 'package:internship_fair/screens/signup.dart';
 import 'package:internship_fair/screens/info.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 
@@ -57,7 +58,20 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(10),
+          // labelText: 'SAPID',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
+          suffixIcon: sapidController.text.isEmpty ? Container(width: 0,): IconButton(
+            icon: Icon(
+              Icons.close,
+              size: sizefont,
+            ),
+            onPressed: () => sapidController.clear(),
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -72,7 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
     final emailField = Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
-        keyboardType: TextInputType.emailAddress,
         style: TextStyle(fontSize: sizefont),
         autofocus: false,
         controller: emailController,
@@ -91,7 +104,20 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(10),
+          // labelText: 'Email-ID',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
+          suffixIcon: emailController.text.isEmpty ? Container(width: 0,): IconButton(
+            icon: Icon(
+              Icons.close,
+              size: sizefont,
+            ),
+            onPressed: () => emailController.clear(),
+          ),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.005, horizontal: size.width*0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -240,8 +266,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     Flexible(
-                      flex: 1,
-                      fit: FlexFit.loose,
+                      flex: 1, fit: FlexFit.loose,
                       // child:
                       // SizedBox(
                       child: Text(
@@ -287,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Signup(),
+                        builder: (context) => const InfoPage(),
                       ),
                     );
                   },
@@ -295,9 +320,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                Text("SAPID",
-                    style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
-                sapidField,
+                // Text("SAPID",
+                //     style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                // sapidField,
                 Text("E-mail ID",
                     style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                 emailField,
@@ -331,14 +356,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 15,
                 ),
                 loginButton,
-                const SizedBox(
-                  height: 15,
-                ),
-                orRow,
-                const SizedBox(
-                  height: 15,
-                ),
-                loginButton2,
+                // const SizedBox(
+                //   height: 15,
+                // ),
+                // orRow,
+                // const SizedBox(
+                //   height: 15,
+                // ),
+                // loginButton2,
               ],
             ),
           ),

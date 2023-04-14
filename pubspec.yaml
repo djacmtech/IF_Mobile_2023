@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.4
   file_picker: ^5.2.7
+  image_picker: ^0.8.7+1
 
 dev_dependencies:
   flutter_test:
@@ -62,8 +63,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/google.svg
-    - assets/images/Google.png
+    - assets/images/
 
   fonts:
     - family: alumni
