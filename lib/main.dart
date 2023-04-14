@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:internship_fair/screens/login.dart';
 
 void main() {
@@ -13,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: LoginScreen(),
     );
   }

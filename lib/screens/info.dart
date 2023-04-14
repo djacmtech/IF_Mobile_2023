@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:internship_fair/constants/constants.dart';
 //import 'package:internship_fair/screens/home.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:intl/intl.dart';
 
 class InfoPage extends StatefulWidget {
@@ -59,7 +60,7 @@ class _InfoPageState extends State<InfoPage> {
         String dob) async {
       if (formKey.currentState!.validate()) {
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const InfoPage()));
+            .push(MaterialPageRoute(builder: (context) => const JobProfile()));
       }
     }
 
