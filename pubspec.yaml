@@ -42,6 +42,7 @@ dependencies:
   flutter_svg: ^2.0.4
   file_picker: ^5.2.7
   image_picker: ^0.8.7+1
+  syncfusion_flutter_sliders: ^21.1.39
 
 
 dev_dependencies:
