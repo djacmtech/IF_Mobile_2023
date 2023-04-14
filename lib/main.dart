@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/login.dart';
 
 void main() {
@@ -11,8 +12,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      home: LoginScreen(),
+    return const MaterialApp(
+      home: MyCart(),
     );
   }
 }
