@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:internship_fair/screens/signup.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
 
 void main() {
@@ -14,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: JobProfile(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

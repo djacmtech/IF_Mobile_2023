@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../widgets/JobCard.dart';
 import 'filter_page.dart';
 
@@ -40,8 +39,10 @@ class _JobProfileState extends State<JobProfile> {
           elevation: 0,
           title: Text(
             'Job Profile',
-            style: GoogleFonts.poppins(
-                fontWeight: FontWeight.w500, color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'poppins',
+                fontWeight: FontWeight.w500,
+                color: Colors.black),
           ),
           toolbarHeight: 50,
           centerTitle: true,

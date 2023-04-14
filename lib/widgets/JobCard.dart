@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class JobCard extends StatelessWidget {
@@ -51,7 +50,8 @@ class JobCard extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.033,
                 child: Text(
                   position!,
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
+                    fontFamily: 'poppins',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                     fontStyle: FontStyle.normal,
@@ -80,8 +80,10 @@ class JobCard extends StatelessWidget {
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
               companyName!,
-              style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500, fontSize: 10),
+              style: TextStyle(
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10),
             ),
           ),
           SizedBox(height: 4),
@@ -90,7 +92,8 @@ class JobCard extends StatelessWidget {
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
               location!,
-              style: GoogleFonts.poppins(
+              style: TextStyle(
+                  fontFamily: 'poppins',
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
                   color: Colors.grey),
@@ -124,7 +127,8 @@ class JobCard extends StatelessWidget {
                 width: 30,
                 child: Text(
                   'MODE',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
+                      fontFamily: 'poppins',
                       fontWeight: FontWeight.w400,
                       fontSize: 10,
                       // color: Color(0xF2D3748),
@@ -161,7 +165,8 @@ class JobCard extends StatelessWidget {
                 width: 63,
                 child: Text(
                   'MIN STIPEND',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
+                      fontFamily: 'poppins',
                       fontWeight: FontWeight.w400,
                       fontSize: 10,
                       color: Colors.grey),
@@ -196,7 +201,8 @@ class JobCard extends StatelessWidget {
                 width: 56.39,
                 child: Text(
                   'DURATION',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
+                      fontFamily: 'poppins',
                       fontWeight: FontWeight.w400,
                       fontSize: 10,
                       // color: Color(0xF2D3748),
@@ -215,7 +221,8 @@ class JobCard extends StatelessWidget {
                   width: 40,
                   child: Text(
                     mode!,
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
+                        fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 11,
                         // color: Color(0xF2D3748),
@@ -229,7 +236,8 @@ class JobCard extends StatelessWidget {
                   width: 40,
                   child: Text(
                     stipend!,
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
+                        fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 11,
                         // color: Color(0xF2D3748),
@@ -243,7 +251,8 @@ class JobCard extends StatelessWidget {
                   width: 85,
                   child: Text(
                     duration!,
-                    style: GoogleFonts.poppins(
+                    style: TextStyle(
+                        fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 11,
                         // color: Color(0xF2D3748),
@@ -263,7 +272,8 @@ class JobCard extends StatelessWidget {
                 height: 18,
                 child: Text(
                   'View details >',
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
+                      fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       fontSize: 10,
                       // color: Color(0xF2D3748),
