@@ -14,7 +14,8 @@ class _SignupPageState extends State<Signup> {
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmpasswordController = TextEditingController();
+  final TextEditingController confirmpasswordController =
+      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool _isHidden = true;
@@ -27,11 +28,11 @@ class _SignupPageState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
-
-    void signUp(String name, String email, String password, String confirmPassword) async {
+    void signUp(String name, String email, String password,
+        String confirmPassword) async {
       if (_formKey.currentState!.validate()) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const HomePage()));
+            MaterialPageRoute(builder: (context) => const HomePage()));
       }
     }
 
@@ -121,7 +122,8 @@ class _SignupPageState extends State<Signup> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: size.width*0.01, horizontal: size.width*0.03),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: size.width * 0.01, horizontal: size.width * 0.03),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(color: greyColor)),
@@ -197,10 +199,10 @@ class _SignupPageState extends State<Signup> {
         borderRadius: BorderRadius.circular(5),
         color: blackTeal,
         child: MaterialButton(
-            padding: EdgeInsets.symmetric(vertical: sizefont*0.7),
+            padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
             onPressed: () {
-              signUp(fullnameController.text, emailController.text, passwordController.text,
-              confirmpasswordController.text);
+              signUp(fullnameController.text, emailController.text,
+                  passwordController.text, confirmpasswordController.text);
             },
             child: SizedBox(
               width: size.width,
@@ -208,7 +210,9 @@ class _SignupPageState extends State<Signup> {
                 "SIGN UP",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
+                    fontFamily: 'poppins',
+                    fontSize: sizefont,
+                    color: whiteColor),
               ),
             )));
 
@@ -218,8 +222,8 @@ class _SignupPageState extends State<Signup> {
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.only(
-              top: size.height * 0.05,
-              left: size.width * 0.08,
+              top: size.height * 0.08,
+              left: size.width * 0.06,
               right: size.width * 0.08,
             ),
             child: SingleChildScrollView(
@@ -243,8 +247,8 @@ class _SignupPageState extends State<Signup> {
                     ),
                     GestureDetector(
                       child: Text("Already have an Account? Login Here",
-                          style:
-                              TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                          style: TextStyle(
+                              fontFamily: 'poppins', fontSize: sizefont)),
                       onTap: () {
                         Navigator.of(context).pop();
                       },
@@ -253,23 +257,23 @@ class _SignupPageState extends State<Signup> {
                       height: 10,
                     ),
                     Text("Full Name",
-                        style:
-                            TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                        style: TextStyle(
+                            fontFamily: 'poppins', fontSize: sizefont)),
                     nameField,
                     Text("E-mail ID",
-                        style:
-                            TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                        style: TextStyle(
+                            fontFamily: 'poppins', fontSize: sizefont)),
                     emailField,
                     Text("Password",
-                        style:
-                            TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                        style: TextStyle(
+                            fontFamily: 'poppins', fontSize: sizefont)),
                     passwordField,
                     Text("Confirm Password",
-                        style:
-                            TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                        style: TextStyle(
+                            fontFamily: 'poppins', fontSize: sizefont)),
                     confirmPasswordField,
                     const SizedBox(
-                      height: 12,
+                      height: 15,
                     ),
                     signupButton,
                   ],
