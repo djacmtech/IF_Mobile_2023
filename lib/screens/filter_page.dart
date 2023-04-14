@@ -107,7 +107,7 @@ class _FilterState extends State<Filter> {
               ),
             ),
             SizedBox(
-              width: size.width * 0.94,
+              width: size.width * 0.958,
               child: SfRangeSlider(
                 labelFormatterCallback:
                     (dynamic actualValue, String formattedText) {
