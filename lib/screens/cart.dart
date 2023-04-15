@@ -46,18 +46,13 @@ class _MyCartState extends State<MyCart> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_outlined,
-              color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         title: const Text(
           "IF CART ",
-          style: TextStyle(
-              fontFamily: 'Poppins',
-              fontSize: 25,
-              fontWeight: FontWeight.normal,
-              color: Colors.black),
+          style: TextStyle(fontFamily: 'Poppins', fontSize: 25, fontWeight: FontWeight.normal, color: Colors.black),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -76,8 +71,7 @@ class _MyCartState extends State<MyCart> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(
-              vertical: size.height * 0.04, horizontal: size.width * 0.04),
+          padding: EdgeInsets.symmetric(vertical: size.height * 0.04, horizontal: size.width * 0.04),
           child: Column(
             children: [
               Expanded(
@@ -100,8 +94,7 @@ class _MyCartState extends State<MyCart> {
                         // ),
                         title: Text(
                           cartItems[index].name,
-                          style: const TextStyle(
-                              color: Colors.teal, fontWeight: FontWeight.bold),
+                          style: const TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
                         ),
                         subtitle: Text(cartItems[index].description),
                         trailing: Text(cartItems[index].price.toString()),
@@ -119,10 +112,7 @@ class _MyCartState extends State<MyCart> {
                   children: [
                     const Text(
                       "SUMMARY ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20.0),
                       textAlign: TextAlign.left,
                     ),
                     const Divider(
@@ -134,10 +124,7 @@ class _MyCartState extends State<MyCart> {
                       children: [
                         const Text(
                           "  INTERVIEWS",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.0),
+                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                           textAlign: TextAlign.left,
                         ),
                         SizedBox(
@@ -145,10 +132,7 @@ class _MyCartState extends State<MyCart> {
                         ),
                         Text(
                           '${cartItems.length}',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15.0),
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                         ),
                       ],
                     ),
@@ -158,10 +142,7 @@ class _MyCartState extends State<MyCart> {
                         children: [
                           const Text(
                             "  TOTAL",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                             textAlign: TextAlign.left,
                           ),
                           SizedBox(
@@ -169,10 +150,7 @@ class _MyCartState extends State<MyCart> {
                           ),
                           Text(
                             '${cartItems.length * 50}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                           ),
                         ],
                       ),
@@ -188,10 +166,7 @@ class _MyCartState extends State<MyCart> {
                         children: [
                           const Text(
                             "  Grand Total",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0),
+                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                             textAlign: TextAlign.left,
                           ),
                           SizedBox(
@@ -199,10 +174,7 @@ class _MyCartState extends State<MyCart> {
                           ),
                           Text(
                             '${cartItems.length * 50}',
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0),
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                           ),
                         ],
                       ),
@@ -211,24 +183,19 @@ class _MyCartState extends State<MyCart> {
                       padding: EdgeInsets.only(top: 15.0),
                       child: Text(
                         " Note: Please pay the above amount through gpay to   UPID: 34235346536",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15.0),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15.0),
                       ),
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        FilePickerResult? result =
-                            await FilePicker.platform.pickFiles();
+                        FilePickerResult? result = await FilePicker.platform.pickFiles();
                         if (result != null) {
                           print(result.files.single.name);
                           // Code to handle the picked file
                         } // Code to handle file picking
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors
-                            .white, // Set the background color of the button
+                        backgroundColor: Colors.white, // Set the background color of the button
                       ),
                       child: const Text(
                         'Upload File',
@@ -240,15 +207,12 @@ class _MyCartState extends State<MyCart> {
                         // Perform action when the button is pressed
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors
-                            .white, // Set the background color of the button
-                        textStyle: const TextStyle(
-                            color: Colors.black), // Set the text color
+                        backgroundColor: Colors.white, // Set the background color of the button
+                        textStyle: const TextStyle(color: Colors.black), // Set the text color
                       ),
                       child: const Text(
                         'Submit',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     )
                   ],

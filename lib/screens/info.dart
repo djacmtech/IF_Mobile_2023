@@ -22,8 +22,7 @@ class _InfoPageState extends State<InfoPage> {
   final TextEditingController whatsappController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmpasswordController =
-      TextEditingController();
+  final TextEditingController confirmpasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   bool _isHidden1 = true;
@@ -35,16 +34,7 @@ class _InfoPageState extends State<InfoPage> {
   String yearval = 'FE';
   List<String> grads = <String>['2023', '2024', '2025', '2026'];
   String gradval = '2023';
-  List<String> depts = <String>[
-    'CS',
-    'IT',
-    'DS',
-    'AIML',
-    'AIDS',
-    'IOT',
-    'EXTC',
-    'MECH'
-  ];
+  List<String> depts = <String>['CS', 'IT', 'DS', 'AIML', 'AIDS', 'IOT', 'EXTC', 'MECH'];
   String deptval = 'CS';
   List<String> memb = <String>['Yes', 'No'];
   String membval = 'No';
@@ -56,11 +46,11 @@ class _InfoPageState extends State<InfoPage> {
 
     PlatformFile? pickedfile;
 
-    void collect(String name, String sapid, String phone, String whatsapp,
-        String dob) async {
+    void collect(String name, String sapid, String phone, String whatsapp, String dob) async {
       if (formKey.currentState!.validate()) {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const JobProfile()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const JobProfile();
+        }));
       }
     }
 
@@ -116,14 +106,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => nameController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -167,14 +153,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => sapidController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -190,8 +172,7 @@ class _InfoPageState extends State<InfoPage> {
           if (value!.isEmpty) {
             return ("Please enter your E-mail ID");
           }
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]")
-              .hasMatch(value)) {
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]").hasMatch(value)) {
             return ("Please Enter a valid E-mail");
           }
           return null;
@@ -218,14 +199,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => emailController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.005, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.005, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -269,14 +246,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => phoneController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -320,14 +293,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => whatsappController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -353,8 +322,7 @@ class _InfoPageState extends State<InfoPage> {
             );
             if (pickedDate != null) {
               print(pickedDate);
-              String formattedDate =
-                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
               print(formattedDate);
               setState(() {
                 dobController.text = formattedDate;
@@ -386,14 +354,11 @@ class _InfoPageState extends State<InfoPage> {
                     ),
                     onPressed: () => dobController.clear(),
                   ),
-            contentPadding: EdgeInsets.symmetric(
-                vertical: size.width * 0.01, horizontal: size.width * 0.03),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: greyColor)),
+            contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
             focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5),
-                borderSide: BorderSide(color: blackTeal, width: 2.0)),
+                borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
             isDense: true,
           )),
     );
@@ -405,8 +370,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Gender',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -423,8 +387,7 @@ class _InfoPageState extends State<InfoPage> {
               icon: const Icon(Icons.arrow_drop_down),
               iconSize: 24,
               dropdownColor: whiteColor,
-              style: TextStyle(
-                  color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+              style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
               underline: Container(
                 height: 2,
                 color: darkgrey,
@@ -453,8 +416,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Academic Year',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -469,8 +431,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -498,8 +459,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Department',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -514,8 +474,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -543,8 +502,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Graduation Year',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -559,8 +517,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -588,8 +545,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'ACM Member',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -604,8 +560,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -633,8 +588,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Resume',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -669,10 +623,7 @@ class _InfoPageState extends State<InfoPage> {
                             )),
                             TextSpan(
                               text: "Add File",
-                              style: TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontSize: sizefont * 0.8,
-                                  color: darkgrey),
+                              style: TextStyle(fontFamily: 'poppins', fontSize: sizefont * 0.8, color: darkgrey),
                             ),
                           ],
                         )))))),
@@ -700,14 +651,10 @@ class _InfoPageState extends State<InfoPage> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
           suffixIcon: InkWell(
             onTap: () {
@@ -752,12 +699,9 @@ class _InfoPageState extends State<InfoPage> {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
           suffixIcon: InkWell(
             onTap: () {
@@ -787,11 +731,7 @@ class _InfoPageState extends State<InfoPage> {
         child: MaterialButton(
             padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
             onPressed: () {
-              collect(
-                  nameController.text,
-                  sapidController.text,
-                  phoneController.text,
-                  whatsappController.text,
+              collect(nameController.text, sapidController.text, phoneController.text, whatsappController.text,
                   dobController.text);
             },
             child: SizedBox(
@@ -799,10 +739,7 @@ class _InfoPageState extends State<InfoPage> {
               child: Text(
                 "Register",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'poppins',
-                    fontSize: sizefont,
-                    color: whiteColor),
+                style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
               ),
             )));
 
@@ -812,7 +749,7 @@ class _InfoPageState extends State<InfoPage> {
       // appBar: AppBar(
       //     leading: IconButton(icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
       //     iconSize: sizefont*1.5,
-      //     onPressed: () => Navigator.of(context).pop(),),
+      //     onPressed: () => Navigator.pop(context),),
       //     centerTitle: true,
       //     backgroundColor: whiteColor,
       //     title: Text(
@@ -822,8 +759,7 @@ class _InfoPageState extends State<InfoPage> {
       //     )),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+          padding: EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
           child: Form(
               key: formKey,
               child: Column(
@@ -841,62 +777,30 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   GestureDetector(
                     child: Text("Already have an Account? Login Here",
-                        style: TextStyle(
-                            fontFamily: 'poppins', fontSize: sizefont)),
+                        style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                     onTap: () {
-                      Navigator.of(context).pop();
+                      Navigator.pop(context);
                     },
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text("Full Name",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("Full Name", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   nameField,
-                  Text("SAPID",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("SAPID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   sapidField,
-                  Text("E-mail ID",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("E-mail ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   emailField,
-                  Text("Password",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   passwordField,
                   Text("Confirm Password",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                      style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   confirmPasswordField,
-                  Text("Phone No.",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("Phone No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   phoneField,
-                  Text("WhatsApp No.",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("WhatsApp No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   whatsappField,
-                  Text("Date of Birth",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("Date of Birth", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   dobField,
                   gender,
                   year,
