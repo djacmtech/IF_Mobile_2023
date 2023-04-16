@@ -29,8 +29,10 @@ class _JobProfileState extends State<JobProfile> {
               children: [
                 IconButton(
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const Filter()));
+                      print('Before navigation');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Filter()));
+                      print('After navigation');
                     },
                     icon:
                         const Icon(Icons.filter_alt_sharp, color: Colors.teal)),

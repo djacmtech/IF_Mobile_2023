@@ -45,7 +45,7 @@ class _FilterState extends State<Filter> {
                   icon: Icon(Icons.arrow_back_ios_new_outlined,
                       color: blackColor),
                   iconSize: sizefont * 1.5,
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 SizedBox(width: size.width * 0.2),
                 const Icon(Icons.filter_alt_sharp, color: Colors.teal),
