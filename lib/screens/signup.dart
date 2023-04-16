@@ -14,8 +14,7 @@ class _SignupPageState extends State<Signup> {
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmpasswordController =
-      TextEditingController();
+  final TextEditingController confirmpasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool _isHidden = true;
@@ -28,11 +27,11 @@ class _SignupPageState extends State<Signup> {
 
   @override
   Widget build(BuildContext context) {
-    void signUp(String name, String email, String password,
-        String confirmPassword) async {
+    void signUp(String name, String email, String password, String confirmPassword) async {
       if (_formKey.currentState!.validate()) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomePage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return const HomePage();
+        }));
       }
     }
 
@@ -57,12 +56,9 @@ class _SignupPageState extends State<Signup> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -78,8 +74,7 @@ class _SignupPageState extends State<Signup> {
           if (value!.isEmpty) {
             return ("Please enter your E-mail ID");
           }
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]")
-              .hasMatch(value)) {
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]").hasMatch(value)) {
             return ("Please Enter a valid E-mail");
           }
           return null;
@@ -90,12 +85,9 @@ class _SignupPageState extends State<Signup> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -122,14 +114,10 @@ class _SignupPageState extends State<Signup> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
           suffixIcon: InkWell(
             onTap: _togglePasswordView,
@@ -170,12 +158,9 @@ class _SignupPageState extends State<Signup> {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
           suffixIcon: InkWell(
             onTap: _togglePasswordView,
@@ -201,18 +186,15 @@ class _SignupPageState extends State<Signup> {
         child: MaterialButton(
             padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
             onPressed: () {
-              signUp(fullnameController.text, emailController.text,
-                  passwordController.text, confirmpasswordController.text);
+              signUp(fullnameController.text, emailController.text, passwordController.text,
+                  confirmpasswordController.text);
             },
             child: SizedBox(
               width: size.width,
               child: Text(
                 "SIGN UP",
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'poppins',
-                    fontSize: sizefont,
-                    color: whiteColor),
+                style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
               ),
             )));
 
@@ -247,30 +229,21 @@ class _SignupPageState extends State<Signup> {
                     ),
                     GestureDetector(
                       child: Text("Already have an Account? Login Here",
-                          style: TextStyle(
-                              fontFamily: 'poppins', fontSize: sizefont)),
+                          style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                       onTap: () {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context);
                       },
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Text("Full Name",
-                        style: TextStyle(
-                            fontFamily: 'poppins', fontSize: sizefont)),
+                    Text("Full Name", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                     nameField,
-                    Text("E-mail ID",
-                        style: TextStyle(
-                            fontFamily: 'poppins', fontSize: sizefont)),
+                    Text("E-mail ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                     emailField,
-                    Text("Password",
-                        style: TextStyle(
-                            fontFamily: 'poppins', fontSize: sizefont)),
+                    Text("Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                     passwordField,
-                    Text("Confirm Password",
-                        style: TextStyle(
-                            fontFamily: 'poppins', fontSize: sizefont)),
+                    Text("Confirm Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                     confirmPasswordField,
                     const SizedBox(
                       height: 15,

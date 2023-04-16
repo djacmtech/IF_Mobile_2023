@@ -42,10 +42,9 @@ class _FilterState extends State<Filter> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back_ios_new_outlined,
-                      color: blackColor),
+                  icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
                   iconSize: sizefont * 1.5,
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 SizedBox(width: size.width * 0.2),
                 const Icon(Icons.filter_alt_sharp, color: Colors.teal),
@@ -67,8 +66,7 @@ class _FilterState extends State<Filter> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          right: size.width * 0.62, bottom: size.height * 0.01),
+                      padding: EdgeInsets.only(right: size.width * 0.62, bottom: size.height * 0.01),
                       child: const Text(
                         "CATEGORY",
                         style: TextStyle(
@@ -109,12 +107,10 @@ class _FilterState extends State<Filter> {
             SizedBox(
               width: size.width * 0.958,
               child: SfRangeSlider(
-                labelFormatterCallback:
-                    (dynamic actualValue, String formattedText) {
+                labelFormatterCallback: (dynamic actualValue, String formattedText) {
                   var formattedText = NumberFormat.compactCurrency(
                     decimalDigits: 2,
-                    symbol:
-                        '₹', // if you want to add currency symbol then pass that in this else leave it empty.
+                    symbol: '₹', // if you want to add currency symbol then pass that in this else leave it empty.
                   ).format(actualValue);
                   return ' $formattedText';
                 },
@@ -164,8 +160,7 @@ class _FilterState extends State<Filter> {
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        right: size.width * 0.63, bottom: size.height * 0.01),
+                    padding: EdgeInsets.only(right: size.width * 0.63, bottom: size.height * 0.01),
                     child: const Text(
                       "COMPANY",
                       style: TextStyle(
@@ -242,18 +237,14 @@ class _FilterState extends State<Filter> {
               padding: EdgeInsets.only(left: size.width * 0.71),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors
-                        .transparent, // Set the background color to transparent
+                    backgroundColor: Colors.transparent, // Set the background color to transparent
                     elevation: 0, // Set the elevation to 0 to remove the shadow
                   ),
                   onPressed: () {},
                   child: const FittedBox(
                     child: Text(
                       "Clear All",
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.normal,
-                          color: Colors.teal),
+                      style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.normal, color: Colors.teal),
                     ),
                   )),
             )
