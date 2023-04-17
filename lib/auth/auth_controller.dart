@@ -30,7 +30,7 @@ class AuthController {
     try {
       final box = GetStorage();
       box.write('token', res['token']);
-      box.write('id', res['user']['id']);
+      box.write('id', res['data']['id']);
     } catch (e) {
       print(e);
     }

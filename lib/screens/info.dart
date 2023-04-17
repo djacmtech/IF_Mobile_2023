@@ -6,6 +6,11 @@ import 'package:internship_fair/constants/constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({Key? key}) : super(key: key);
@@ -46,14 +51,68 @@ class _InfoPageState extends State<InfoPage> {
 
     PlatformFile? pickedfile;
 
-    void collect(String name, String sapid, String phone, String whatsapp, String dob) async {
-      if (formKey.currentState!.validate()) {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const JobProfile();
-        }));
+    // void collect(String name, String sapid, String phone, String whatsapp, String dob) async {
+    //   if (formKey.currentState!.validate()) {
+    //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //       return const JobProfile();
+    //     }));
+    //   }
+    // }
+
+    Future<void> sendFormData(
+      {required String name,
+      required String sap,
+      required String gender,
+      required String dob,
+      required String email,
+      required String phone,
+      required String whatsapp,
+      required String dept,
+      required String academicYear,
+      required String graduationYear,
+      required String password,
+      required String confirmPassword,
+      required String resumePath}
+      ) async {
+      final uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/register');
+      final request = http.MultipartRequest('POST', uri);
+
+      // Add form fields
+      request.fields['name'] = name;
+      request.fields['sap'] = sap;
+      request.fields['gender'] = gender;
+      request.fields['dob'] = dob;
+      request.fields['email'] = email;
+      request.fields['phone'] = phone;
+      request.fields['whatsapp'] = whatsapp;
+      request.fields['dept'] = dept;
+      request.fields['academicYear'] = academicYear;
+      request.fields['graduationYear'] = graduationYear;
+      request.fields['password'] = password;
+      request.fields['confirmPassword'] = confirmPassword;
+      request.fields['resume']=resumePath;
+
+      // Add resume file
+      final resumeFile = File(resumePath);
+      String imageName = resumeFile.path.split('/').last;
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath('image', resumePath);
+      request.files.add(multipartFile);
+      http.StreamedResponse response = await request.send();
+      String responseBody = await response.stream.transform(utf8.decoder).join();
+      var responseJson = json.encode(responseBody);
+      print(responseJson);
+      print(response.statusCode);
+      // Send request
+      //final responseJson = await request.send();
+      if (response.statusCode == 200) {
+        // Handle success
+        print('Form data submitted successfully');
+      } else {
+        // Handle error
+        print('Error submitting form data. Status code: ${response.statusCode}');
       }
     }
-
+    String resume = "C:\\Users\\sid55\\Desktop\\IF BROCHURE 23.pdf";
     Future selectPDF() async {
       try {
         FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -63,6 +122,7 @@ class _InfoPageState extends State<InfoPage> {
         );
         if (result == null) {
           pickedfile = result!.files.first;
+          resume =  result.files.first.path!;
         }
       } catch (e) {
         print(e);
@@ -731,8 +791,12 @@ class _InfoPageState extends State<InfoPage> {
         child: MaterialButton(
             padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
             onPressed: () {
-              collect(nameController.text, sapidController.text, phoneController.text, whatsappController.text,
-                  dobController.text);
+              // collect(nameController.text, sapidController.text, phoneController.text, whatsappController.text,
+              //     dobController.text);
+              sendFormData(name: nameController.text, sap: sapidController.text, gender: genderval, dob: dobController.text, 
+              email: emailController.text, phone: phoneController.text, whatsapp: whatsappController.text, 
+              dept: deptval, academicYear: yearval, graduationYear: gradval, password: passwordController.text, 
+              confirmPassword: confirmpasswordController.text, resumePath: resume);
             },
             child: SizedBox(
               width: size.width,

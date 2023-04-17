@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/filter_page.dart';
+import 'package:internship_fair/screens/info.dart';
 import 'package:internship_fair/screens/login.dart';
 import 'package:internship_fair/splash_screen.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: InfoPage(),
     );
   }
 }
