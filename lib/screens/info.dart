@@ -94,8 +94,8 @@ class _InfoPageState extends State<InfoPage> {
 
       // Add resume file
       final resumeFile = File(resumePath);
-      String imageName = resumeFile.path.split('/').last;
-      http.MultipartFile multipartFile = await http.MultipartFile.fromPath('image', resumePath);
+      String fileName = resumeFile.path.split('/').last;
+      http.MultipartFile multipartFile = await http.MultipartFile.fromPath('resume', resumePath);
       request.files.add(multipartFile);
       http.StreamedResponse response = await request.send();
       String responseBody = await response.stream.transform(utf8.decoder).join();
@@ -112,6 +112,20 @@ class _InfoPageState extends State<InfoPage> {
         print('Error submitting form data. Status code: ${response.statusCode}');
       }
     }
+
+    (String filename, String url) async {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.files.add(
+        http.MultipartFile(
+          'picture',
+          File(filename).readAsBytes().asStream(),
+          File(filename).lengthSync(),
+          filename: filename.split("/").last
+        )
+      );
+      var res = await request.send();
+    };
+
     String resume = "C:\\Users\\sid55\\Desktop\\IF BROCHURE 23.pdf";
     Future selectPDF() async {
       try {

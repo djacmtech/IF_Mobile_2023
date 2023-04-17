@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:internship_fair/constants/constants.dart';
+import 'package:internship_fair/models/getjob_api.dart';
+import 'package:internship_fair/models/getjob_model.dart' as data;
 import 'package:internship_fair/screens/login.dart';
 import '../widgets/JobCard.dart';
 import 'filter_page.dart';
@@ -12,12 +15,11 @@ class JobProfile extends StatefulWidget {
 }
 
 class _JobProfileState extends State<JobProfile> {
-  List<String> jobPosi = ['Frontend', 'Backend', 'App Dev'];
-  List<String> locations = ['Mumbai', 'Delhi', 'Bangalore'];
-  List<String> stipend = ['4500', '7000', '6000'];
-  List<String> compName = ['Apple', 'AWS', 'Google'];
-  List<String> time = ['2000', '1500', '2000'];
-  List<String> workMode = ['Online', 'Offline', 'Online'];
+  List<data.Data> _getJob = [];
+
+  getJob() async {
+    _getJob = await GetJobApi().getJobData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,10 @@ class _JobProfileState extends State<JobProfile> {
           elevation: 0,
           title: const Text(
             'Job Profile',
-            style: TextStyle(fontFamily: 'poppins', fontWeight: FontWeight.w500, color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'poppins',
+                fontWeight: FontWeight.w500,
+                color: Colors.black),
           ),
           toolbarHeight: 50,
           centerTitle: true,
@@ -42,7 +47,8 @@ class _JobProfileState extends State<JobProfile> {
             IconButton(
                 onPressed: () {
                   GetStorage().erase();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
                     return LoginScreen();
                   }));
                 },
@@ -56,18 +62,34 @@ class _JobProfileState extends State<JobProfile> {
             children: [
               const SizedBox(height: 30),
               Center(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: compName.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return JobCard(
-                            companyName: compName[index],
-                            duration: time[index],
-                            stipend: stipend[index],
-                            location: locations[index],
-                            position: jobPosi[index],
-                            mode: workMode[index]);
-                      }))
+                child: FutureBuilder(
+                    future: getJob(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: textgreen,
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: _getJob.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return JobCard(
+                              companyName: _getJob[index].company,
+                              duration: _getJob[index].duration,
+                              stipend: _getJob[index].stipend.toString(),
+                              location: _getJob[index].location,
+                              position: _getJob[index].role,
+                              mode: _getJob[index].mode,
+                              logo: _getJob[index].logo,
+                            );
+                          },
+                        );
+                      }
+                    })),
+              )
             ],
           ),
         ));

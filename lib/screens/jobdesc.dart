@@ -35,8 +35,11 @@ class _JobDescState extends State<JobDesc> {
         Text(
           widget.jobPosition,
           textAlign: TextAlign.left,
-          style:
-              TextStyle(color: textgreen, fontFamily: "poppins", fontSize: sizefont * 1.5, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: textgreen,
+              fontFamily: "poppins",
+              fontSize: sizefont * 1.5,
+              fontWeight: FontWeight.bold),
         ),
         SizedBox(
           height: 0.003 * size.height,
@@ -390,7 +393,10 @@ class _JobDescState extends State<JobDesc> {
               child: Text(
                 "Apply",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
+                style: TextStyle(
+                    fontFamily: 'poppins',
+                    fontSize: sizefont,
+                    color: whiteColor),
               ),
             )));
 
@@ -407,11 +413,15 @@ class _JobDescState extends State<JobDesc> {
           backgroundColor: whiteColor,
           title: Text(
             'Job Description',
-            style: TextStyle(fontFamily: 'poppins', fontSize: sizefont * 1.5, color: blackColor),
+            style: TextStyle(
+                fontFamily: 'poppins',
+                fontSize: sizefont * 1.5,
+                color: blackColor),
           )),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+          padding:
+              EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
