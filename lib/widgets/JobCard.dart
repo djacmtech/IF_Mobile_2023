@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:internship_fair/screens/jobdesc.dart';
 
 class JobCard extends StatelessWidget {
   final String? companyName;
@@ -8,6 +8,7 @@ class JobCard extends StatelessWidget {
   final String? location;
   final String? position;
   final String? mode;
+  final String? logo;
 
   const JobCard(
       {Key? key,
@@ -16,7 +17,8 @@ class JobCard extends StatelessWidget {
       required this.stipend,
       required this.location,
       required this.position,
-      required this.mode})
+      required this.mode,
+      this.logo})
       : super(key: key);
 
   @override
@@ -50,7 +52,7 @@ class JobCard extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.033,
                 child: Text(
                   position!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontFamily: 'poppins',
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -71,7 +73,14 @@ class JobCard extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.045,
                 // width: 33.14,
                 width: MediaQuery.of(context).size.width * 0.092,
-                child: SvgPicture.asset('assets/Vector.svg'),
+
+                // child: Image.network(logo.toString()),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(logo!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               )
             ],
           ),
@@ -80,19 +89,19 @@ class JobCard extends StatelessWidget {
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
               companyName!,
-              style: TextStyle(
+              style: const TextStyle(
                   fontFamily: 'poppins',
                   fontWeight: FontWeight.w500,
                   fontSize: 10),
             ),
           ),
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Container(
             margin:
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
               location!,
-              style: TextStyle(
+              style: const TextStyle(
                   fontFamily: 'poppins',
                   fontWeight: FontWeight.w400,
                   fontSize: 10,
@@ -107,16 +116,16 @@ class JobCard extends StatelessWidget {
                     left: MediaQuery.of(context).size.width * 0.05),
                 height: 13,
                 width: 13,
-                child: Center(
+                decoration: const BoxDecoration(
+                  color: Colors.teal,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
                   child: Icon(
                     Icons.location_pin,
                     color: Colors.white,
                     size: 10,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  shape: BoxShape.circle,
                 ),
               ),
               Container(
@@ -125,7 +134,7 @@ class JobCard extends StatelessWidget {
                     left: MediaQuery.of(context).size.width * 0.0194),
                 height: 21,
                 width: 30,
-                child: Text(
+                child: const Text(
                   'MODE',
                   style: TextStyle(
                       fontFamily: 'poppins',
@@ -145,16 +154,16 @@ class JobCard extends StatelessWidget {
                     left: MediaQuery.of(context).size.width * 0.0194),
                 height: 13,
                 width: 13,
-                child: Center(
+                decoration: const BoxDecoration(
+                  color: Colors.teal,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
                   child: Icon(
                     Icons.currency_rupee_outlined,
                     color: Colors.white,
                     size: 10,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  shape: BoxShape.circle,
                 ),
               ),
               Container(
@@ -163,7 +172,7 @@ class JobCard extends StatelessWidget {
                     left: MediaQuery.of(context).size.width * 0.0194),
                 height: 21,
                 width: 63,
-                child: Text(
+                child: const Text(
                   'MIN STIPEND',
                   style: TextStyle(
                       fontFamily: 'poppins',
@@ -181,16 +190,16 @@ class JobCard extends StatelessWidget {
                     top: MediaQuery.of(context).size.height * 0.023),
                 height: 13,
                 width: 13,
-                child: Center(
+                decoration: const BoxDecoration(
+                  color: Colors.teal,
+                  shape: BoxShape.circle,
+                ),
+                child: const Center(
                   child: Icon(
                     Icons.timelapse_outlined,
                     color: Colors.white,
                     size: 10,
                   ),
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.teal,
-                  shape: BoxShape.circle,
                 ),
               ),
               Container(
@@ -199,7 +208,7 @@ class JobCard extends StatelessWidget {
                     left: MediaQuery.of(context).size.width * 0.0194),
                 height: 21,
                 width: 56.39,
-                child: Text(
+                child: const Text(
                   'DURATION',
                   style: TextStyle(
                       fontFamily: 'poppins',
@@ -221,7 +230,7 @@ class JobCard extends StatelessWidget {
                   width: 40,
                   child: Text(
                     mode!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 11,
@@ -236,7 +245,7 @@ class JobCard extends StatelessWidget {
                   width: 40,
                   child: Text(
                     stipend!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 11,
@@ -251,7 +260,7 @@ class JobCard extends StatelessWidget {
                   width: 85,
                   child: Text(
                     duration!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
                         fontSize: 11,
@@ -270,7 +279,7 @@ class JobCard extends StatelessWidget {
                     // right: MediaQuery.of(context).size.width * 0.055,
                     left: MediaQuery.of(context).size.width * 0.61),
                 height: 18,
-                child: Text(
+                child: const Text(
                   'View details >',
                   style: TextStyle(
                       fontFamily: 'poppins',
@@ -279,7 +288,19 @@ class JobCard extends StatelessWidget {
                       // color: Color(0xF2D3748),
                       color: Colors.teal),
                 )),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const JobDesc(
+                            companyName: 'Company A',
+                            duration: '3 months',
+                            id: 123,
+                            jobPosition: 'Intern',
+                            minStipend: '3000',
+                            workfromHome: 'On Site',
+                          )));
+            },
           ),
         ],
       ),

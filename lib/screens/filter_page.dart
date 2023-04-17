@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:internship_fair/screens/JobProfile.dart';
+
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:internship_fair/constants/constants.dart';
 
-class filter extends StatefulWidget {
-  const filter({super.key});
+class Filter extends StatefulWidget {
+  const Filter({super.key});
 
   @override
-  State<filter> createState() => _filterState();
+  State<Filter> createState() => _FilterState();
 }
 
 class MyCustomIconData extends IconData {
@@ -18,15 +19,15 @@ class MyCustomIconData extends IconData {
         );
 }
 
-class _filterState extends State<filter> {
+class _FilterState extends State<Filter> {
   final TextEditingController _textEditingController = TextEditingController();
   final TextEditingController _textEditingController2 = TextEditingController();
   bool _isChecked = false;
   bool _isCorrected = false;
-  SfRangeValues _values = SfRangeValues(3000.0, 10000.0);
+  SfRangeValues _values = const SfRangeValues(3000.0, 10000.0);
   @override
   Widget build(BuildContext context) {
-    double _currentValue = 5000.0;
+    // double _currentValue = 5000.0;
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
     return Scaffold(
@@ -41,17 +42,15 @@ class _filterState extends State<filter> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back_ios_new_outlined,
-                      color: blackColor),
+                  icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
                   iconSize: sizefont * 1.5,
-                  onPressed: () => Navigator.of(context).pop(
-                      MaterialPageRoute(builder: (context) => JobProfile())),
+                  onPressed: () => Navigator.pop(context),
                 ),
                 SizedBox(width: size.width * 0.2),
                 const Icon(Icons.filter_alt_sharp, color: Colors.teal),
-                SizedBox(width: 6.0),
-                Text(
-                  "FILTERS",
+                const SizedBox(width: 6.0),
+                const Text(
+                  "Filters",
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 20,
@@ -61,14 +60,14 @@ class _filterState extends State<filter> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: EdgeInsets.only(top: size.width * 0.07),
               child: Padding(
                 padding: const EdgeInsets.all(28.5),
                 child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(right: 280.0, bottom: 4.0),
-                      child: Text(
+                    Padding(
+                      padding: EdgeInsets.only(right: size.width * 0.62, bottom: size.height * 0.01),
+                      child: const Text(
                         "CATEGORY",
                         style: TextStyle(
                           fontFamily: 'Poppins',
@@ -78,8 +77,12 @@ class _filterState extends State<filter> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4.0),
-                          border: Border.all(width: 2.0)),
+                        borderRadius: BorderRadius.circular(4.0),
+                        border: Border.all(
+                          width: 2.0,
+                          color: blackTeal,
+                        ),
+                      ),
                       child: TextField(
                         controller: _textEditingController,
                       ),
@@ -88,12 +91,12 @@ class _filterState extends State<filter> {
                 ),
               ),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(
-                right: 290.5,
+                right: size.width * 0.7,
                 top: 15.0,
               ),
-              child: Text(
+              child: const Text(
                 "STIPEND",
                 style: TextStyle(
                   fontFamily: 'Poppins',
@@ -101,17 +104,27 @@ class _filterState extends State<filter> {
                 ),
               ),
             ),
-            SfRangeSlider(
-              min: 3000.0,
-              max: 10000.0,
-              values: _values,
-              interval: 1000.0,
-              showLabels: true,
-              onChanged: (SfRangeValues newValues) {
-                setState(() {
-                  _values = newValues;
-                });
-              },
+            SizedBox(
+              width: size.width * 0.958,
+              child: SfRangeSlider(
+                labelFormatterCallback: (dynamic actualValue, String formattedText) {
+                  var formattedText = NumberFormat.compactCurrency(
+                    decimalDigits: 2,
+                    symbol: '₹', // if you want to add currency symbol then pass that in this else leave it empty.
+                  ).format(actualValue);
+                  return ' $formattedText';
+                },
+                min: 2000,
+                max: 10000.0,
+                values: _values,
+                interval: 2000.0,
+                showLabels: true,
+                onChanged: (SfRangeValues newValues) {
+                  setState(() {
+                    _values = newValues;
+                  });
+                },
+              ),
             ),
             // SliderTheme(
             //   data: SliderThemeData(
@@ -146,9 +159,9 @@ class _filterState extends State<filter> {
               padding: const EdgeInsets.all(28.5),
               child: Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(right: 282.0, bottom: 12.0),
-                    child: Text(
+                  Padding(
+                    padding: EdgeInsets.only(right: size.width * 0.63, bottom: size.height * 0.01),
+                    child: const Text(
                       "COMPANY",
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -159,13 +172,16 @@ class _filterState extends State<filter> {
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4.0),
-                        border: Border.all(width: 2.0)),
+                        border: Border.all(
+                          width: 2.0,
+                          color: blackTeal,
+                        )),
                     child: TextField(
                       controller: _textEditingController2,
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 260.0),
+                    padding: EdgeInsets.only(right: size.width * 0.05),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -190,7 +206,7 @@ class _filterState extends State<filter> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 260.0),
+                    padding: EdgeInsets.only(right: size.width * 0.5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -218,21 +234,17 @@ class _filterState extends State<filter> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 300.0),
+              padding: EdgeInsets.only(left: size.width * 0.71),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors
-                        .transparent, // Set the background color to transparent
+                    backgroundColor: Colors.transparent, // Set the background color to transparent
                     elevation: 0, // Set the elevation to 0 to remove the shadow
                   ),
                   onPressed: () {},
                   child: const FittedBox(
                     child: Text(
                       "Clear All",
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.normal,
-                          color: Colors.teal),
+                      style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.normal, color: Colors.teal),
                     ),
                   )),
             )
