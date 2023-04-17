@@ -72,10 +72,27 @@ class _InfoPageState extends State<InfoPage> {
       required String graduationYear,
       required String password,
       required String confirmPassword,
-      required String resumePath}
+      required String resumePath,
+      //required String member,
+      }
       ) async {
-      final uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/register');
-      final request = http.MultipartRequest('POST', uri);
+      //final uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/register');
+      //final request = http.MultipartRequest('POST', uri);
+      var request = http.MultipartRequest(
+      'POST',
+      Uri.parse("https://acm-if.onrender.com/api/acm-if/register"),
+      );
+      Map<String, String> headers = {
+      "Content-type": "multipart/form-data"
+    };
+    request.files.add(
+        http.MultipartFile(
+          'picture',
+          File(fileName).readAsBytes().asStream(),
+          File(filename).lengthSync(),
+          filename: filename.split("/").last
+        )
+      );
 
       // Add form fields
       request.fields['name'] = name;
@@ -91,10 +108,11 @@ class _InfoPageState extends State<InfoPage> {
       request.fields['password'] = password;
       request.fields['confirmPassword'] = confirmPassword;
       request.fields['resume']=resumePath;
+      //request.fields['member']= member  'Yes'? 1: 0;
 
       // Add resume file
       final resumeFile = File(resumePath);
-      String fileName = resumeFile.path.split('/').last;
+      //String fileName = resumeFile.path.split('/').last;
       http.MultipartFile multipartFile = await http.MultipartFile.fromPath('resume', resumePath);
       request.files.add(multipartFile);
       http.StreamedResponse response = await request.send();
@@ -126,7 +144,7 @@ class _InfoPageState extends State<InfoPage> {
       var res = await request.send();
     };
 
-    String resume = "C:\\Users\\sid55\\Desktop\\IF BROCHURE 23.pdf";
+    String resume = "";
     Future selectPDF() async {
       try {
         FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -134,9 +152,16 @@ class _InfoPageState extends State<InfoPage> {
           allowedExtensions: ['pdf'],
           allowMultiple: false,
         );
-        if (result == null) {
+        if (result != null) {
+          
           pickedfile = result!.files.first;
           resume =  result.files.first.path!;
+          print(resume);
+          File selectedFile = File(result.files.single.path!);
+          setState(() {
+            var lastSeperator = selectedFile!.path.lastIndexOf(Platform.pathSeparator);
+            filename = selectedFile.path.substring(lastSeperator + 1);
+          });
         }
       } catch (e) {
         print(e);
@@ -810,7 +835,9 @@ class _InfoPageState extends State<InfoPage> {
               sendFormData(name: nameController.text, sap: sapidController.text, gender: genderval, dob: dobController.text, 
               email: emailController.text, phone: phoneController.text, whatsapp: whatsappController.text, 
               dept: deptval, academicYear: yearval, graduationYear: gradval, password: passwordController.text, 
-              confirmPassword: confirmpasswordController.text, resumePath: resume);
+              confirmPassword: confirmpasswordController.text, resumePath: resume, 
+              //member: membval
+              );
             },
             child: SizedBox(
               width: size.width,
