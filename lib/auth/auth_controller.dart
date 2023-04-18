@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 class AuthController {
   Future<String> login(
@@ -24,6 +26,77 @@ class AuthController {
     final response = jsonDecode(body);
     init(response);
     return "Success";
+  }
+
+  Future<String> register(
+    String name,
+    String sap,
+    String gender,
+    String email,
+    String whatsapp,
+    String dept,
+    String academicYear,
+    String graduationYear,
+    String password,
+    String confirmPassword,
+    File pdf,
+    int member,
+  ) async {
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse("https://acm-if.onrender.com/api/acm-if/register"),
+    );
+    request.fields.addAll({
+      "name": name,
+      "email": email,
+      "sap": sap,
+      "contact": whatsapp,
+      "gender": gender,
+      "academicYear": academicYear,
+      "department": dept,
+      "graduationYear": graduationYear,
+      'acmMember': member.toString(),
+      'password': password,
+      "confirmPassword": confirmPassword,
+    });
+    http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+      'resume',
+      pdf.path,
+      contentType: MediaType("application", "pdf"),
+    );
+    request.files.add(
+      multipartFile,
+    );
+    // print(name);
+    // print(email);
+    // print(sap);
+    // print(whatsapp);
+    // print(gender);
+    // print(academicYear);
+    // print(dept);
+    // print(graduationYear);
+    // print(member);
+    // print(password);
+    // print(confirmPassword);
+    // print(pdf);
+    // print("request: " + request.toString());
+    var res = await request.send();
+    print("This is response:" + res.toString());
+    print('Error submitting form data. Status code: ${res.statusCode}');
+    var response = jsonDecode(await res.stream.bytesToString());
+    print(response);
+
+    if (res.statusCode == 200) {
+      // Handle success
+
+      print('Form data submitted successfully');
+      return "Success";
+    } else {
+      // Handle error
+      print('Error submitting form data. Status code: ${res.statusCode}');
+      return "fail";
+    }
+    init(response);
   }
 
   void init(res) async {

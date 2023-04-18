@@ -1,11 +1,15 @@
 // ignore_for_file: avoid_print, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:internship_fair/auth/auth_controller.dart';
 import 'package:internship_fair/constants/constants.dart';
 //import 'package:internship_fair/screens/home.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:intl/intl.dart';
+import 'package:motion_toast/motion_toast.dart';
 import 'package:path/path.dart';
 import 'package:async/async.dart';
 import 'dart:io';
@@ -29,144 +33,170 @@ class _InfoPageState extends State<InfoPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmpasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  AuthController authController = AuthController();
 
   bool _isHidden1 = true;
   bool _isHidden2 = true;
 
   List<String> genders = <String>['Male', 'Female', 'Prefer not to say'];
   String genderval = 'Male';
-  List<String> years = <String>['FE', 'SE', 'TE', 'BE'];
-  String yearval = 'FE';
+  List<String> years = <String>['2021', '2022', '2023', '2024'];
+  String yearval = '2021';
   List<String> grads = <String>['2023', '2024', '2025', '2026'];
   String gradval = '2023';
   List<String> depts = <String>['CS', 'IT', 'DS', 'AIML', 'AIDS', 'IOT', 'EXTC', 'MECH'];
   String deptval = 'CS';
   List<String> memb = <String>['Yes', 'No'];
   String membval = 'No';
+  String resume = "";
+  PlatformFile? pickedfile;
+  File? pdf;
+  String? fileName;
+
+  // void collect(String name, String sapid, String phone, String whatsapp, String dob) async {
+  //   if (formKey.currentState!.validate()) {
+  //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+  //       return const JobProfile();
+  //     }));
+  //   }
+  // }
+
+  Future selectPDF() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf'],
+        allowMultiple: false,
+      );
+      if (result != null) {
+        pickedfile = result.files.first;
+        resume = result.files.first.path!;
+        print(resume);
+        File selectedFile = File(result.files.single.path!);
+
+        setState(() {
+          pdf = File(result.files.single.path!);
+          print('This is pdf: ' + pdf!.path);
+          var lastSeperator = selectedFile.path.lastIndexOf(Platform.pathSeparator);
+          fileName = selectedFile.path.substring(lastSeperator + 1);
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void register(
+      String name,
+      String sap,
+      String gender,
+      String email,
+      String whatsapp,
+      String dept,
+      String academicYear,
+      String graduationYear,
+      String password,
+      String confirmPassword,
+      File pdf,
+      int member,
+      BuildContext context) async {
+    if (formKey.currentState!.validate()) {
+      // Navigator.of(context).push(
+      //     MaterialPageRoute(builder: (context) => const JobProfile()));
+      Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
+      String status = '';
+
+      try {
+        status = await authController.register(name, sap, gender, email, whatsapp, dept, academicYear, graduationYear,
+            password, confirmPassword, pdf, member);
+      } on Exception catch (e) {
+        Loader.hide();
+        print(e);
+      }
+      Loader.hide();
+
+      if (status == "Success") {
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => JobProfile())));
+      }
+      // authController.login(email, password);
+      // Navigator.push(context, MaterialPageRoute(builder: (context) {
+      //   return const JobProfile();
+      // }));
+    }
+  }
+
+  // Future<void> sendFormData({
+  //   required String name,
+  //   required String sap,
+  //   required String gender,
+  //   required String dob,
+  //   required String email,
+  //   required String whatsapp,
+  //   required String dept,
+  //   required String academicYear,
+  //   required String graduationYear,
+  //   required String password,
+  //   required String confirmPassword,
+  //   required File pdf,
+  //   required int member,
+  // }) async {
+  //   var request = http.MultipartRequest(
+  //     'POST',
+  //     Uri.parse("https://acm-if.onrender.com/api/acm-if/register"),
+  //   );
+  //   request.fields.addAll({
+  //     "name": name,
+  //     "email": email,
+  //     "sap": sap,
+  //     "contact": whatsapp,
+  //     "gender": gender,
+  //     "academicYear": academicYear,
+  //     "department": dept,
+  //     "graduationYear": graduationYear,
+  //     'acmMember': member.toString(),
+  //     'password': password,
+  //     "confirmPassword": confirmPassword,
+  //   });
+  //   http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+  //     'resume',
+  //     pdf.path,
+  //     contentType: MediaType("application", "pdf"),
+  //   );
+  //   request.files.add(
+  //     multipartFile,
+  //   );
+  //   // print(name);
+  //   // print(email);
+  //   // print(sap);
+  //   // print(whatsapp);
+  //   // print(gender);
+  //   // print(academicYear);
+  //   // print(dept);
+  //   // print(graduationYear);
+  //   // print(member);
+  //   // print(password);
+  //   // print(confirmPassword);
+  //   // print(pdf);
+  //   // print("request: " + request.toString());
+  //   var res = await request.send();
+  //   print("This is response:" + res.toString());
+  //   print('Error submitting form data. Status code: ${res.statusCode}');
+  //   var response = jsonDecode(await res.stream.bytesToString());
+  //   print(response);
+
+  //   if (res.statusCode == 200) {
+  //     // Handle success
+  //     print('Form data submitted successfully');
+  //   } else {
+  //     // Handle error
+  //     print('Error submitting form data. Status code: ${res.statusCode}');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
-
-    PlatformFile? pickedfile;
-
-    // void collect(String name, String sapid, String phone, String whatsapp, String dob) async {
-    //   if (formKey.currentState!.validate()) {
-    //     Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //       return const JobProfile();
-    //     }));
-    //   }
-    // }
-
-    Future<void> sendFormData(
-      {required String name,
-      required String sap,
-      required String gender,
-      required String dob,
-      required String email,
-      required String phone,
-      required String whatsapp,
-      required String dept,
-      required String academicYear,
-      required String graduationYear,
-      required String password,
-      required String confirmPassword,
-      required String resumePath,
-      //required String member,
-      }
-      ) async {
-      //final uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/register');
-      //final request = http.MultipartRequest('POST', uri);
-      var request = http.MultipartRequest(
-      'POST',
-      Uri.parse("https://acm-if.onrender.com/api/acm-if/register"),
-      );
-      Map<String, String> headers = {
-      "Content-type": "multipart/form-data"
-    };
-    request.files.add(
-        http.MultipartFile(
-          'picture',
-          File(fileName).readAsBytes().asStream(),
-          File(filename).lengthSync(),
-          filename: filename.split("/").last
-        )
-      );
-
-      // Add form fields
-      request.fields['name'] = name;
-      request.fields['sap'] = sap;
-      request.fields['gender'] = gender;
-      request.fields['dob'] = dob;
-      request.fields['email'] = email;
-      request.fields['phone'] = phone;
-      request.fields['whatsapp'] = whatsapp;
-      request.fields['dept'] = dept;
-      request.fields['academicYear'] = academicYear;
-      request.fields['graduationYear'] = graduationYear;
-      request.fields['password'] = password;
-      request.fields['confirmPassword'] = confirmPassword;
-      request.fields['resume']=resumePath;
-      //request.fields['member']= member  'Yes'? 1: 0;
-
-      // Add resume file
-      final resumeFile = File(resumePath);
-      //String fileName = resumeFile.path.split('/').last;
-      http.MultipartFile multipartFile = await http.MultipartFile.fromPath('resume', resumePath);
-      request.files.add(multipartFile);
-      http.StreamedResponse response = await request.send();
-      String responseBody = await response.stream.transform(utf8.decoder).join();
-      var responseJson = json.encode(responseBody);
-      print(responseJson);
-      print(response.statusCode);
-      // Send request
-      //final responseJson = await request.send();
-      if (response.statusCode == 200) {
-        // Handle success
-        print('Form data submitted successfully');
-      } else {
-        // Handle error
-        print('Error submitting form data. Status code: ${response.statusCode}');
-      }
-    }
-
-    (String filename, String url) async {
-      var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.files.add(
-        http.MultipartFile(
-          'picture',
-          File(filename).readAsBytes().asStream(),
-          File(filename).lengthSync(),
-          filename: filename.split("/").last
-        )
-      );
-      var res = await request.send();
-    };
-
-    String resume = "";
-    Future selectPDF() async {
-      try {
-        FilePickerResult? result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['pdf'],
-          allowMultiple: false,
-        );
-        if (result != null) {
-          
-          pickedfile = result!.files.first;
-          resume =  result.files.first.path!;
-          print(resume);
-          File selectedFile = File(result.files.single.path!);
-          setState(() {
-            var lastSeperator = selectedFile!.path.lastIndexOf(Platform.pathSeparator);
-            filename = selectedFile.path.substring(lastSeperator + 1);
-          });
-        }
-      } catch (e) {
-        print(e);
-      }
-    }
 
     final nameField = Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -307,52 +337,52 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
 
-    final phoneField = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: TextFormField(
-        keyboardType: TextInputType.phone,
-        style: TextStyle(fontSize: sizefont),
-        autofocus: false,
-        controller: phoneController,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return ("Please enter your Mobile No.");
-          }
-          if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)) {
-            return ("Please Enter a valid Mobile No.");
-          }
-          return null;
-        },
-        onSaved: (value) {
-          phoneController.text = value!;
-        },
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          // labelText: 'Mobile No.',
-          // labelStyle: TextStyle(
-          //   fontFamily: 'poppins',
-          //   color: textgreen,
-          //   fontSize: sizefont,
-          // ),
-          suffixIcon: phoneController.text.isEmpty
-              ? Container(
-                  width: 0,
-                )
-              : IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    size: sizefont,
-                  ),
-                  onPressed: () => phoneController.clear(),
-                ),
-          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
-          isDense: true,
-        ),
-      ),
-    );
+    //  final phoneField = Padding(
+    //   padding: const EdgeInsets.symmetric(vertical: 5),
+    //   child: TextFormField(
+    //     keyboardType: TextInputType.phone,
+    //     style: TextStyle(fontSize: sizefont),
+    //     autofocus: false,
+    //     controller: phoneController,
+    //     validator: (value) {
+    //       if (value!.isEmpty) {
+    //         return ("Please enter your Mobile No.");
+    //       }
+    //       if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)) {
+    //         return ("Please Enter a valid Mobile No.");
+    //       }
+    //       return null;
+    //     },
+    //     onSaved: (value) {
+    //       phoneController.text = value!;
+    //     },
+    //     textInputAction: TextInputAction.next,
+    //     decoration: InputDecoration(
+    //       // labelText: 'Mobile No.',
+    //       // labelStyle: TextStyle(
+    //       //   fontFamily: 'poppins',
+    //       //   color: textgreen,
+    //       //   fontSize: sizefont,
+    //       // ),
+    //       suffixIcon: phoneController.text.isEmpty
+    //           ? Container(
+    //               width: 0,
+    //             )
+    //           : IconButton(
+    //               icon: Icon(
+    //                 Icons.close,
+    //                 size: sizefont,
+    //               ),
+    //               onPressed: () => phoneController.clear(),
+    //             ),
+    //       contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+    //       border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
+    //       focusedBorder: OutlineInputBorder(
+    //           borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
+    //       isDense: true,
+    //     ),
+    //   ),
+    // );
 
     final whatsappField = Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -401,66 +431,66 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
 
-    final dobField = Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: TextFormField(
-          controller: dobController,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your Date of Birth';
-            }
-            return null;
-          },
-          readOnly: true,
-          onTap: () async {
-            DateTime? pickedDate = await showDatePicker(
-              context: context,
-              initialDate: DateTime(2003),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2005),
-            );
-            if (pickedDate != null) {
-              print(pickedDate);
-              String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-              print(formattedDate);
-              setState(() {
-                dobController.text = formattedDate;
-              });
-            } else {
-              print("Date is not selected");
-            }
-          },
-          decoration: InputDecoration(
-            prefixIcon: Icon(
-              Icons.calendar_today,
-              color: textgreen,
-              size: 20,
-            ),
-            // labelText: "Enter DOB",
-            // labelStyle: TextStyle(fontSize: sizefont,
-            //   fontFamily: 'poppins',
-            //   color: textgreen,
-            // ),
-            suffixIcon: dobController.text.isEmpty
-                ? Container(
-                    width: 0,
-                  )
-                : IconButton(
-                    icon: Icon(
-                      Icons.close,
-                      size: 20,
-                      color: textgreen,
-                    ),
-                    onPressed: () => dobController.clear(),
-                  ),
-            contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
-            focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
-            isDense: true,
-          )),
-    );
+    // final dobField = Padding(
+    //   padding: const EdgeInsets.symmetric(vertical: 5),
+    //   child: TextFormField(
+    //       controller: dobController,
+    //       validator: (value) {
+    //         if (value == null || value.isEmpty) {
+    //           return 'Please enter your Date of Birth';
+    //         }
+    //         return null;
+    //       },
+    //       readOnly: true,
+    //       onTap: () async {
+    //         DateTime? pickedDate = await showDatePicker(
+    //           context: context,
+    //           initialDate: DateTime(2003),
+    //           firstDate: DateTime(2000),
+    //           lastDate: DateTime(2005),
+    //         );
+    //         if (pickedDate != null) {
+    //           print(pickedDate);
+    //           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+    //           print(formattedDate);
+    //           setState(() {
+    //             dobController.text = formattedDate;
+    //           });
+    //         } else {
+    //           print("Date is not selected");
+    //         }
+    //       },
+    //       decoration: InputDecoration(
+    //         prefixIcon: Icon(
+    //           Icons.calendar_today,
+    //           color: textgreen,
+    //           size: 20,
+    //         ),
+    //         // labelText: "Enter DOB",
+    //         // labelStyle: TextStyle(fontSize: sizefont,
+    //         //   fontFamily: 'poppins',
+    //         //   color: textgreen,
+    //         // ),
+    //         suffixIcon: dobController.text.isEmpty
+    //             ? Container(
+    //                 width: 0,
+    //               )
+    //             : IconButton(
+    //                 icon: Icon(
+    //                   Icons.close,
+    //                   size: 20,
+    //                   color: textgreen,
+    //                 ),
+    //                 onPressed: () => dobController.clear(),
+    //               ),
+    //         contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+    //         border:
+    //             OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
+    //         focusedBorder: OutlineInputBorder(
+    //             borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
+    //         isDense: true,
+    //       )),
+    // );
 
     final gender = Row(
       children: [
@@ -693,22 +723,24 @@ class _InfoPageState extends State<InfoPage> {
         SizedBox(
           width: 0.05 * size.width,
         ),
-        Flexible(
-            flex: 1,
-            fit: FlexFit.loose,
-            child: SizedBox(
-                height: sizefont * 2.6,
-                width: size.width * 0.3,
-                child: Material(
+        fileName == null
+            ? Flexible(
+                flex: 1,
+                fit: FlexFit.loose,
+                child: SizedBox(
+                  height: sizefont * 2.6,
+                  width: size.width * 0.3,
+                  child: Material(
                     elevation: 5,
                     borderRadius: BorderRadius.circular(5),
                     color: whiteColor,
                     child: MaterialButton(
-                        padding: EdgeInsets.symmetric(vertical: sizefont * 0.8),
-                        onPressed: () {
-                          selectPDF();
-                        },
-                        child: Text.rich(TextSpan(
+                      padding: EdgeInsets.symmetric(vertical: sizefont * 0.8),
+                      onPressed: () {
+                        selectPDF();
+                      },
+                      child: Text.rich(
+                        TextSpan(
                           children: [
                             WidgetSpan(
                                 child: Icon(
@@ -725,7 +757,20 @@ class _InfoPageState extends State<InfoPage> {
                               style: TextStyle(fontFamily: 'poppins', fontSize: sizefont * 0.8, color: darkgrey),
                             ),
                           ],
-                        )))))),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : Text(
+                fileName!,
+                style: TextStyle(
+                  color: blackTeal,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
       ],
     );
 
@@ -823,30 +868,44 @@ class _InfoPageState extends State<InfoPage> {
       ),
     );
 
-    final submitButton = Material(
-        elevation: 5,
-        borderRadius: BorderRadius.circular(5),
-        color: blackTeal,
-        child: MaterialButton(
-            padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
-            onPressed: () {
-              // collect(nameController.text, sapidController.text, phoneController.text, whatsappController.text,
-              //     dobController.text);
-              sendFormData(name: nameController.text, sap: sapidController.text, gender: genderval, dob: dobController.text, 
-              email: emailController.text, phone: phoneController.text, whatsapp: whatsappController.text, 
-              dept: deptval, academicYear: yearval, graduationYear: gradval, password: passwordController.text, 
-              confirmPassword: confirmpasswordController.text, resumePath: resume, 
-              //member: membval
-              );
-            },
-            child: SizedBox(
-              width: size.width,
-              child: Text(
-                "Register",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
-              ),
-            )));
+    Widget submitButton = Container(
+        // elevation: 5,
+        // borderRadius: BorderRadius.circular(5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: blackTeal,
+        ),
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
+          child: InkWell(
+              onTap: () {
+                // Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
+                register(
+                    nameController.text,
+                    sapidController.text,
+                    genderval,
+                    emailController.text,
+                    whatsappController.text,
+                    deptval,
+                    yearval,
+                    gradval,
+                    passwordController.text,
+                    confirmpasswordController.text,
+                    pdf!,
+                    membval == "Yes" ? 1 : 0,
+                    context
+                    //member: membval
+                    );
+              },
+              child: SizedBox(
+                width: size.width,
+                child: Text(
+                  "Register",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
+                ),
+              )),
+        ));
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -901,12 +960,12 @@ class _InfoPageState extends State<InfoPage> {
                   Text("Confirm Password",
                       style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   confirmPasswordField,
-                  Text("Phone No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
-                  phoneField,
+                  // Text("Phone No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                  // phoneField,
                   Text("WhatsApp No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   whatsappField,
-                  Text("Date of Birth", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
-                  dobField,
+                  // Text("Date of Birth", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                  // dobField,
                   gender,
                   year,
                   department,

@@ -19,6 +19,14 @@ class _JobProfileState extends State<JobProfile> {
 
   getJob() async {
     _getJob = await GetJobApi().getJobData();
+    print(_getJob);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getJob();
+    super.initState();
   }
 
   @override
@@ -35,10 +43,7 @@ class _JobProfileState extends State<JobProfile> {
           elevation: 0,
           title: const Text(
             'Job Profile',
-            style: TextStyle(
-                fontFamily: 'poppins',
-                fontWeight: FontWeight.w500,
-                color: Colors.black),
+            style: TextStyle(fontFamily: 'poppins', fontWeight: FontWeight.w500, color: Colors.black),
           ),
           toolbarHeight: 50,
           centerTitle: true,
@@ -47,8 +52,7 @@ class _JobProfileState extends State<JobProfile> {
             IconButton(
                 onPressed: () {
                   GetStorage().erase();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                     return LoginScreen();
                   }));
                 },
@@ -75,6 +79,7 @@ class _JobProfileState extends State<JobProfile> {
                         return ListView.builder(
                           shrinkWrap: true,
                           itemCount: _getJob.length,
+                          physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
                             return JobCard(
                               companyName: _getJob[index].company,

@@ -50,7 +50,7 @@ class Data {
   late final String about;
   late final String description;
   late final String link;
-  late final String requirements;
+  late final String? requirements;
   late final String skills;
   late final String perks;
   late final String createdAt;

@@ -48,6 +48,7 @@ dependencies:
   flutter_overlay_loader: ^2.0.0
   motion_toast: ^2.6.6
   http: ^0.13.5
+  http_parser: ^4.0.2
 
 
 dev_dependencies:
