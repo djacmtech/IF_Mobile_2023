@@ -9,6 +9,10 @@ class JobCard extends StatelessWidget {
   final String? position;
   final String? mode;
   final String? logo;
+  final String? perks;
+  final String? requirements;
+  final String? skills;
+  final String? about;
 
   const JobCard(
       {Key? key,
@@ -18,6 +22,10 @@ class JobCard extends StatelessWidget {
       required this.location,
       required this.position,
       required this.mode,
+      required this.perks,
+      required this.about,
+      required this.requirements,
+      required this.skills,
       this.logo})
       : super(key: key);
 
@@ -293,12 +301,13 @@ class JobCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => const JobDesc(
-                            companyName: 'Company A',
-                            duration: '3 months',
-                            id: 123,
-                            jobPosition: 'Intern',
-                            minStipend: '3000',
-                            workfromHome: 'On Site',
+                            companyName: 'companyName',
+                            duration: 'duration',
+                            userid: 7,
+                            jobid: 2,
+                            jobPosition: 'position',
+                            minStipend: 'stipend',
+                            workfromHome: 'mode',
                           )));
             },
           ),

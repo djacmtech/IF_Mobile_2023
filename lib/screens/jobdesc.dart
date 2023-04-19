@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:internship_fair/constants/constants.dart';
+import 'package:internship_fair/models/addtocart.dart';
+import 'package:internship_fair/screens/cart.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class JobDesc extends StatefulWidget {
   final String jobPosition, companyName, minStipend, duration, workfromHome;
-  final int id;
+  final int userid, jobid;
   const JobDesc(
       {Key? key,
-      required this.id,
+      required this.userid,
+      required this.jobid,
       required this.jobPosition,
       required this.companyName,
       required this.minStipend,
@@ -28,6 +33,34 @@ class _JobDescState extends State<JobDesc> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
+
+    // void cartAdd(String userid, String jobid) async {
+    //   Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
+    //     String status = '';
+
+    //     try {
+    //       status = await Cart.addCart(userid, jobid);
+    //     } on Exception catch (e) {
+    //       Loader.hide();
+    //       print(e);
+    //     }
+    //     Loader.hide();
+
+    //     if (status == "Success") {
+    //       Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MyCart())));
+    //     } else {
+    //       MotionToast.error(
+    //               height: 65,
+    //               borderRadius: 10,
+    //               padding: EdgeInsets.zero,
+    //               title: Text(
+    //                 "Couldn't add to Cart",
+    //                 style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
+    //               ),
+    //               description: Text("Try Again"))
+    //           .show(context);
+    //     }
+    // }
 
     final jobPosn = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -387,7 +420,9 @@ class _JobDescState extends State<JobDesc> {
         color: blackTeal,
         child: MaterialButton(
             padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
-            onPressed: () {},
+            onPressed: () {
+              //cartAdd(userid.toString(), jobid.toString());
+            },
             child: SizedBox(
               width: size.width,
               child: Text(
