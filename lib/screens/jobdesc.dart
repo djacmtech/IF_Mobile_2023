@@ -51,7 +51,8 @@ class _JobDescState extends State<JobDesc> {
     double sizefont = size.width * 0.04;
 
     void cartAdd() async {
-      //Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
+      Loader.show(context,
+          progressIndicator: CircularProgressIndicator(color: blackTeal));
       String status = '';
       int userid = GetStorage().read("id");
       try {
@@ -360,51 +361,50 @@ class _JobDescState extends State<JobDesc> {
       ],
     );
 
-    // final whoCan = ExpansionPanelList(
-    //   expansionCallback: (panelIndex, isExpanded) {
-    //     setState(() {
-    //       whocan = !whocan;
-    //     });
-    //   },
-    //   dividerColor: greyColor,
-    //   animationDuration: const Duration(milliseconds: 500),
-    //   children: [
-    //     ExpansionPanel(
-    //       headerBuilder: (context, isExpanded) {
-    //         return Padding(
-    //           padding: const EdgeInsets.only(bottom: 8.0),
-    //           child: ListTile(
-    //             title: Text(
-    //               'Requirements',
-    //               style: TextStyle(
-    //                 color: blackColor,
-    //                 fontFamily: "poppins",
-    //                 fontSize: sizefont,
-    //               ),
-    //             ),
-    //           ),
-    //         );
-    //       },
-    //       body: Padding(
-    //         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-    //         child: ListTile(
-    //           contentPadding: const EdgeInsets.only(bottom: 10),
-    //           title:
-    //           Text(
-    //             widget.requirements!,
-    //             style: TextStyle(
-    //               color: blackColor,
-    //               fontFamily: "poppins",
-    //               fontSize: sizefont * 0.8,
-    //             ),
-    //           ),
-    //         ),
-    //       ),
-    //       isExpanded: whocan,
-    //       canTapOnHeader: true,
-    //     ),
-    //   ],
-    // );
+    final whoCan = ExpansionPanelList(
+      expansionCallback: (panelIndex, isExpanded) {
+        setState(() {
+          whocan = !whocan;
+        });
+      },
+      dividerColor: greyColor,
+      animationDuration: const Duration(milliseconds: 500),
+      children: [
+        ExpansionPanel(
+          headerBuilder: (context, isExpanded) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: ListTile(
+                title: Text(
+                  'Requirements',
+                  style: TextStyle(
+                    color: blackColor,
+                    fontFamily: "poppins",
+                    fontSize: sizefont,
+                  ),
+                ),
+              ),
+            );
+          },
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            child: ListTile(
+              contentPadding: const EdgeInsets.only(bottom: 10),
+              title: Text(
+                widget.requirements!,
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont * 0.8,
+                ),
+              ),
+            ),
+          ),
+          isExpanded: whocan,
+          canTapOnHeader: true,
+        ),
+      ],
+    );
 
     final perkS = ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) {
@@ -514,10 +514,10 @@ class _JobDescState extends State<JobDesc> {
                 SizedBox(
                   height: size.width * 0.03,
                 ),
-                //whoCan,
-                // SizedBox(
-                //   height: size.width * 0.03,
-                // ),
+                whoCan,
+                SizedBox(
+                  height: size.width * 0.03,
+                ),
                 perkS,
                 SizedBox(
                   height: size.width * 0.05,

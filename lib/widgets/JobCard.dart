@@ -35,10 +35,10 @@ class JobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.058, 5,
+      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.058, 0,
           MediaQuery.of(context).size.width * 0.05, 0),
       width: MediaQuery.of(context).size.width * 0.85,
-      height: MediaQuery.of(context).size.height * 0.264,
+      height: MediaQuery.of(context).size.height * 0.27,
       margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).size.height * 0.031,
           left: MediaQuery.of(context).size.width * 0.072,
@@ -66,12 +66,12 @@ class JobCard extends StatelessWidget {
               new Spacer(),
               Container(
                 margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.031,
+                  top: MediaQuery.of(context).size.height * 0.02,
                 ),
                 // height: 28.88,
-                height: MediaQuery.of(context).size.width * 0.04,
+                height: MediaQuery.of(context).size.width * 0.1,
                 // width: 33.14,
-                width: MediaQuery.of(context).size.width * 0.092,
+                width: MediaQuery.of(context).size.width * 0.1,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(logo!),
@@ -104,8 +104,7 @@ class JobCard extends StatelessWidget {
             children: [
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.009,
-                    left: MediaQuery.of(context).size.width * 0.0),
+                    top: MediaQuery.of(context).size.height * 0.01),
                 height: 15,
                 width: 15,
                 decoration: const BoxDecoration(
@@ -260,7 +259,7 @@ class JobCard extends StatelessWidget {
           ),
           // SizedBox(height: 10),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.017,
+            height: MediaQuery.of(context).size.height * 0.01,
           ),
           Row(
             children: [
@@ -291,10 +290,9 @@ class JobCard extends StatelessWidget {
                                 about: about!,
                                 perks: perks!,
                                 skills: skills!,
-                                //requirements: requirements!,
+                                requirements: requirements!,
                                 logo: logo!,
                                 location: location!,
-                                // id: null,
                               )));
                 },
               ),

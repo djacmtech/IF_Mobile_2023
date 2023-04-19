@@ -53,7 +53,7 @@ class _JobProfileState extends State<JobProfile> {
                 onPressed: () {
                   GetStorage().erase();
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                    return LoginScreen();
+                    return const LoginScreen();
                   }));
                 },
                 icon: const Icon(Icons.logout, color: Colors.teal)),
@@ -81,6 +81,10 @@ class _JobProfileState extends State<JobProfile> {
                           itemCount: _getJob.length,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
+                            if (_getJob[index].requirements == null)
+                            {
+                              _getJob[index].requirements = "No specific requirements";
+                            }
                             return JobCard(
                               companyName: _getJob[index].company,
                               duration: _getJob[index].duration,
