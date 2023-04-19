@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:internship_fair/screens/login.dart';
 import '../widgets/JobCard.dart';
 import 'filter_page.dart';
 
@@ -21,35 +23,31 @@ class _JobProfileState extends State<JobProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          flexibleSpace: Container(
-            margin: const EdgeInsets.only(left: 16, top: 25),
-            alignment: Alignment.topLeft,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      print('Before navigation');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Filter()));
-                      print('After navigation');
-                    },
-                    icon:
-                        const Icon(Icons.filter_alt_sharp, color: Colors.teal)),
-              ],
-            ),
-          ),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const Filter();
+                }));
+              },
+              icon: const Icon(Icons.filter_alt_sharp, color: Colors.teal)),
           elevation: 0,
           title: const Text(
             'Job Profile',
-            style: TextStyle(
-                fontFamily: 'poppins',
-                fontWeight: FontWeight.w500,
-                color: Colors.black),
+            style: TextStyle(fontFamily: 'poppins', fontWeight: FontWeight.w500, color: Colors.black),
           ),
           toolbarHeight: 50,
           centerTitle: true,
           backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  GetStorage().erase();
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                    return LoginScreen();
+                  }));
+                },
+                icon: const Icon(Icons.logout, color: Colors.teal)),
+          ],
         ),
         backgroundColor: Colors.grey[100],
         body: SingleChildScrollView(
