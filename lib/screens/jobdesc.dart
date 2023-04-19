@@ -7,7 +7,7 @@ import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class JobDesc extends StatefulWidget {
-  final String? jobPosition, companyName, minStipend, duration, workfromHome, about, skills, perks, requirements;
+  final String? jobPosition, companyName, minStipend, duration, workfromHome, about, skills, perks, requirements, logo, location;
   final int jobid;
   const JobDesc(
       {Key? key,
@@ -19,7 +19,9 @@ class JobDesc extends StatefulWidget {
       required this.workfromHome,
       required this.about,
       required this.perks,
+      required this.location,
       this.requirements,
+      this.logo,
       required this.skills})
       : super(key: key);
 
@@ -39,12 +41,11 @@ class _JobDescState extends State<JobDesc> {
     double sizefont = size.width * 0.04;
 
     void cartAdd() async {
-      Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
+      //Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
         String status = '';
-        String? userid = GetStorage().read("ID");
+        int userid = GetStorage().read("id");
         try {
-          print(userid);
-          status = await addCart(userid!, widget.jobid.toString());
+          status = await addCart(userid, widget.jobid);
         } on Exception catch (e) {
           Loader.hide();
           print(e);
@@ -67,40 +68,56 @@ class _JobDescState extends State<JobDesc> {
         }
     }
 
-    final jobPosn = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final jobPosn = Row(
       children: [
-        Text(
-          widget.jobPosition!,
-          textAlign: TextAlign.left,
-          style: TextStyle(
-              color: textgreen,
-              fontFamily: "poppins",
-              fontSize: sizefont * 1.5,
-              fontWeight: FontWeight.bold),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.jobPosition!,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  color: textgreen,
+                  fontFamily: "poppins",
+                  fontSize: sizefont * 1.5,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 0.003 * size.height,
+            ),
+            Text(
+              widget.companyName!,
+              style: TextStyle(
+                color: blackColor,
+                fontFamily: "poppins",
+                fontSize: sizefont * 1.2,
+              ),
+            ),
+            SizedBox(
+              height: 0.003 * size.height,
+            ),
+            Text(
+              widget.location!,
+              style: TextStyle(
+                color: darkgrey,
+                fontFamily: "poppins",
+                fontSize: sizefont,
+              ),
+            ),
+          ],
         ),
         SizedBox(
-          height: 0.003 * size.height,
+          width: size.width*0.2,
         ),
-        Text(
-          widget.companyName!,
-          style: TextStyle(
-            color: blackColor,
-            fontFamily: "poppins",
-            fontSize: sizefont * 1.2,
+        Container(
+          width: size.width*0.2,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(widget.logo!),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 0.003 * size.height,
-        ),
-        Text(
-          'Location',
-          style: TextStyle(
-            color: darkgrey,
-            fontFamily: "poppins",
-            fontSize: sizefont,
-          ),
-        ),
+        )
       ],
     );
 
@@ -329,51 +346,51 @@ class _JobDescState extends State<JobDesc> {
       ],
     );
 
-    final whoCan = ExpansionPanelList(
-      expansionCallback: (panelIndex, isExpanded) {
-        setState(() {
-          whocan = !whocan;
-        });
-      },
-      dividerColor: greyColor,
-      animationDuration: const Duration(milliseconds: 500),
-      children: [
-        ExpansionPanel(
-          headerBuilder: (context, isExpanded) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: ListTile(
-                title: Text(
-                  'Requirements',
-                  style: TextStyle(
-                    color: blackColor,
-                    fontFamily: "poppins",
-                    fontSize: sizefont,
-                  ),
-                ),
-              ),
-            );
-          },
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: ListTile(
-              contentPadding: const EdgeInsets.only(bottom: 10),
-              title: 
-              Text(
-                widget.requirements!,
-                style: TextStyle(
-                  color: blackColor,
-                  fontFamily: "poppins",
-                  fontSize: sizefont * 0.8,
-                ),
-              ),
-            ),
-          ),
-          isExpanded: whocan,
-          canTapOnHeader: true,
-        ),
-      ],
-    );
+    // final whoCan = ExpansionPanelList(
+    //   expansionCallback: (panelIndex, isExpanded) {
+    //     setState(() {
+    //       whocan = !whocan;
+    //     });
+    //   },
+    //   dividerColor: greyColor,
+    //   animationDuration: const Duration(milliseconds: 500),
+    //   children: [
+    //     ExpansionPanel(
+    //       headerBuilder: (context, isExpanded) {
+    //         return Padding(
+    //           padding: const EdgeInsets.only(bottom: 8.0),
+    //           child: ListTile(
+    //             title: Text(
+    //               'Requirements',
+    //               style: TextStyle(
+    //                 color: blackColor,
+    //                 fontFamily: "poppins",
+    //                 fontSize: sizefont,
+    //               ),
+    //             ),
+    //           ),
+    //         );
+    //       },
+    //       body: Padding(
+    //         padding: const EdgeInsets.symmetric(horizontal: 15.0),
+    //         child: ListTile(
+    //           contentPadding: const EdgeInsets.only(bottom: 10),
+    //           title: 
+    //           Text(
+    //             widget.requirements!,
+    //             style: TextStyle(
+    //               color: blackColor,
+    //               fontFamily: "poppins",
+    //               fontSize: sizefont * 0.8,
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //       isExpanded: whocan,
+    //       canTapOnHeader: true,
+    //     ),
+    //   ],
+    // );
 
     final perkS = ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) {
@@ -483,10 +500,10 @@ class _JobDescState extends State<JobDesc> {
                 SizedBox(
                   height: size.width * 0.03,
                 ),
-                whoCan,
-                SizedBox(
-                  height: size.width * 0.03,
-                ),
+                //whoCan,
+                // SizedBox(
+                //   height: size.width * 0.03,
+                // ),
                 perkS,
                 SizedBox(
                   height: size.width * 0.05,

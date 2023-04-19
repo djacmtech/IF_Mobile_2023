@@ -6,23 +6,23 @@ import 'package:http_parser/http_parser.dart';
 
 //class Cart {
 Future<String> addCart (
-  String userid,
-  String jobid,
+  int userid,
+  int jobid,
 ) async {
-    Uri uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/login');
+    print(userid);
+    print(jobid);
+    Uri uri = Uri.parse("https://acm-if.onrender.com/api/acm-if/add-to-cart");
     final res = await http.post(uri,
-        body: jsonEncode({
-          "userid": userid.toString(),
-          "jobid": jobid,
-        }),
-        headers: {'Content-Type': 'application/json'});
-    final body = res.body;
+      body: jsonEncode({
+        "userId": userid,
+        "jobId": jobid,
+      }),
+      headers: {'Content-Type': 'application/json'}
+      );
     if (res.statusCode != 200) {
-      print('Couldnt add to cart');
+      print("Couldnt add to cart");
       return "Couldnt add to cart";
     }
-
     print(res.body);
-    final response = jsonDecode(body);
     return "Success";
 }

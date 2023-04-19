@@ -311,8 +311,10 @@ class JobCard extends StatelessWidget {
                             workfromHome: mode!,
                             about: about!,
                             perks: perks!,
-                            skills: skills,
-                            requirements: requirements!,
+                            skills: skills!,
+                            //requirements: requirements!,
+                            logo: logo!,
+                            location: location!,
                           )));
             },
           ),
