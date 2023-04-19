@@ -303,11 +303,14 @@ class JobCard extends StatelessWidget {
                       builder: (context) => const JobDesc(
                             companyName: 'companyName',
                             duration: 'duration',
-                            userid: 7,
                             jobid: 2,
                             jobPosition: 'position',
                             minStipend: 'stipend',
                             workfromHome: 'mode',
+                            about: "about",
+                            perks: "perks",
+                            skills: "skills",
+                            requirements: "requirements",
                           )));
             },
           ),

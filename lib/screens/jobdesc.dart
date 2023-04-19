@@ -6,17 +6,20 @@ import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class JobDesc extends StatefulWidget {
-  final String jobPosition, companyName, minStipend, duration, workfromHome;
-  final int userid, jobid;
+  final String jobPosition, companyName, minStipend, duration, workfromHome, about, skills, perks, requirements;
+  final int jobid;
   const JobDesc(
       {Key? key,
-      required this.userid,
       required this.jobid,
       required this.jobPosition,
       required this.companyName,
       required this.minStipend,
       required this.duration,
-      required this.workfromHome})
+      required this.workfromHome,
+      required this.about,
+      required this.perks,
+      required this.requirements,
+      required this.skills})
       : super(key: key);
 
   @override
