@@ -9,8 +9,6 @@ Future<String> addCart (
   int userid,
   int jobid,
 ) async {
-    print(userid);
-    print(jobid);
     Uri uri = Uri.parse("https://acm-if.onrender.com/api/acm-if/add-to-cart");
     final res = await http.post(uri,
       body: jsonEncode({
@@ -20,9 +18,9 @@ Future<String> addCart (
       headers: {'Content-Type': 'application/json'}
       );
     if (res.statusCode != 200) {
-      print("Couldnt add to cart");
       return "Couldnt add to cart";
     }
     print(res.body);
+    
     return "Success";
 }
