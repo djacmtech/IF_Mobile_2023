@@ -1,10 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/filter_page.dart';
+import 'package:internship_fair/screens/jobdesc.dart';
 import 'package:internship_fair/screens/login.dart';
 import 'package:internship_fair/splash_screen.dart';
+import 'package:internship_fair/screens/summary.dart';
 
 void main() async {
   await GetStorage.init();

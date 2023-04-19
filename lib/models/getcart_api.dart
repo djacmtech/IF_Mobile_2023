@@ -27,8 +27,8 @@ class CartAPI {
   Cartjob? cartjob;
 
   Job? getJob;
-  List<Job>? _getJob = [];
-  Future<List<Job>?> getCart() async {
+  List<Job>? _getCart= [];
+  getCart() async {
     try {
       var request = http.Request(
           'GET', Uri.parse('https://acm-if.onrender.com/api/acm-if/get-cart'));
@@ -42,25 +42,29 @@ class CartAPI {
         // Map<String, dynamic> data = jsonDecode(streamResponse.body);
         // Map<String, dynamic> cartData = data['data']['jobs'];
         var data = jsonDecode(streamResponse.body);
-        var jobs = data["jobs"];
-        company = data["data"]["jobs"][0]["company"];
-        location = data["data"]["jobs"][0]["location"];
-        mode = data["data"]["jobs"][0]["mode"];
-        stipend = data["data"]["jobs"][0]["stipend"];
-        duration = data["data"]["jobs"][0]["duration"];
-        about = data["data"]["jobs"][0]["about"];
-        role = data["data"][0]["role"];
-        logo = data["data"][0]["logo"];
-        id = data["data"][0]["id"];
-        requirements = data["data"]["jobs"][0][0]["requirements"];
-        perks = data["data"]["jobs"][0][0]["perks"];
-        skills = data["data"]["jobs"][0][0]["skills"];
+        print(data);
+        var jobs = data["data"]["jobs"];
+        var jobData = data["data"];
+        print(jobs);
+        // id = jobs[0]["id"];
+        // role = jobs[0]["role"];
+        // company = jobs[0]["company"];
+        // logo = jobs[0]["logo"];
+        // location = jobs[0]["location"];
+        // mode = jobs[0]["mode"];
+        // stipend = jobs[0]["stipend"];
+        // duration = jobs[0]["duration"];
+        // about = jobs[0]["about"];
+        // skills = jobs[0]["skills"];
+        // requirements = jobs[0]["requirements"];
+        // perks = jobs[0]["perks"];
 
         print(response.statusCode);
-        var getJob = Data1.fromJson(data);
-        _getJob = getJob.jobs;
-
-        return _getJob;
+        var getJob = Data1.fromJson(jobData);
+        print(getJob);
+        _getCart = getJob.jobs;
+        print(_getCart);
+        return _getCart;
 
         // return cartData;
       }

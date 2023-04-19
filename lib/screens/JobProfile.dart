@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:internship_fair/constants/constants.dart';
+import 'package:internship_fair/models/getjob_api.dart';
+import 'package:internship_fair/models/getjob_model.dart' as data;
 import 'package:internship_fair/screens/login.dart';
 import '../widgets/JobCard.dart';
 import 'filter_page.dart';
@@ -12,12 +15,19 @@ class JobProfile extends StatefulWidget {
 }
 
 class _JobProfileState extends State<JobProfile> {
-  List<String> jobPosi = ['Frontend', 'Backend', 'App Dev'];
-  List<String> locations = ['Mumbai', 'Delhi', 'Bangalore'];
-  List<String> stipend = ['4500', '7000', '6000'];
-  List<String> compName = ['Apple', 'AWS', 'Google'];
-  List<String> time = ['2000', '1500', '2000'];
-  List<String> workMode = ['Online', 'Offline', 'Online'];
+  List<data.Data> _getJob = [];
+
+  getJob() async {
+    _getJob = await GetJobApi().getJobData();
+    print(_getJob);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getJob();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +53,7 @@ class _JobProfileState extends State<JobProfile> {
                 onPressed: () {
                   GetStorage().erase();
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                    return LoginScreen();
+                    return const LoginScreen();
                   }));
                 },
                 icon: const Icon(Icons.logout, color: Colors.teal)),
@@ -56,18 +66,44 @@ class _JobProfileState extends State<JobProfile> {
             children: [
               const SizedBox(height: 30),
               Center(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: compName.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return JobCard(
-                            companyName: compName[index],
-                            duration: time[index],
-                            stipend: stipend[index],
-                            location: locations[index],
-                            position: jobPosi[index],
-                            mode: workMode[index]);
-                      }))
+                child: FutureBuilder(
+                    future: getJob(),
+                    builder: ((context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            color: textgreen,
+                          ),
+                        );
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: _getJob.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                            if (_getJob[index].requirements == null)
+                            {
+                              _getJob[index].requirements = "No specific requirements";
+                            }
+                            return JobCard(
+                              companyName: _getJob[index].company,
+                              duration: _getJob[index].duration,
+                              stipend: _getJob[index].stipend.toString(),
+                              location: _getJob[index].location,
+                              position: _getJob[index].role,
+                              mode: _getJob[index].mode,
+                              logo: _getJob[index].logo,
+                              requirements: _getJob[index].requirements,
+                              perks: _getJob[index].perks,
+                              about: _getJob[index].about,
+                              skills: _getJob[index].skills,
+                              jobid: _getJob[index].id,
+                            );
+                          },
+                        );
+                      }
+                    })),
+              )
             ],
           ),
         ));

@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
+import 'package:internship_fair/models/addtocart.dart';
+import 'package:internship_fair/screens/cart.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class JobDesc extends StatefulWidget {
-  final String jobPosition, companyName, minStipend, duration, workfromHome;
-  final int id;
+  final String? jobPosition,
+      companyName,
+      minStipend,
+      duration,
+      workfromHome,
+      about,
+      skills,
+      perks,
+      requirements,
+      logo,
+      location;
+  final int jobid;
   const JobDesc(
       {Key? key,
-      required this.id,
+      required this.jobid,
       required this.jobPosition,
       required this.companyName,
       required this.minStipend,
       required this.duration,
-      required this.workfromHome})
+      required this.workfromHome,
+      required this.about,
+      required this.perks,
+      required this.location,
+      this.requirements,
+      this.logo,
+      required this.skills})
       : super(key: key);
 
   @override
@@ -29,37 +50,89 @@ class _JobDescState extends State<JobDesc> {
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
 
-    final jobPosn = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    void cartAdd() async {
+      Loader.show(context,
+          progressIndicator: CircularProgressIndicator(color: blackTeal));
+      String status = '';
+      int userid = GetStorage().read("id");
+      try {
+        status = await addCart(userid, widget.jobid);
+      } on Exception catch (e) {
+        Loader.hide();
+        print(e);
+      }
+      Loader.hide();
+
+      if (status == "Success") {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: ((context) => MyCart())));
+      } else {
+        MotionToast.error(
+                height: 65,
+                borderRadius: 10,
+                padding: EdgeInsets.zero,
+                title: Text(
+                  "Couldn't add to Cart",
+                  style: TextStyle(
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                description: Text("Try Again"))
+            .show(context);
+      }
+    }
+
+    final jobPosn = Row(
       children: [
-        Text(
-          widget.jobPosition,
-          textAlign: TextAlign.left,
-          style:
-              TextStyle(color: textgreen, fontFamily: "poppins", fontSize: sizefont * 1.5, fontWeight: FontWeight.bold),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.jobPosition!,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  color: textgreen,
+                  fontFamily: "poppins",
+                  fontSize: sizefont * 1.5,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 0.003 * size.height,
+            ),
+            Text(
+              widget.companyName!,
+              style: TextStyle(
+                color: blackColor,
+                fontFamily: "poppins",
+                fontSize: sizefont * 1.2,
+              ),
+            ),
+            SizedBox(
+              height: 0.003 * size.height,
+            ),
+            Text(
+              widget.location!,
+              style: TextStyle(
+                color: darkgrey,
+                fontFamily: "poppins",
+                fontSize: sizefont,
+              ),
+            ),
+          ],
         ),
         SizedBox(
-          height: 0.003 * size.height,
+          width: size.width * 0.2,
         ),
-        Text(
-          widget.companyName,
-          style: TextStyle(
-            color: blackColor,
-            fontFamily: "poppins",
-            fontSize: sizefont * 1.2,
+        Container(
+          width: size.width * 0.2,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(widget.logo!),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 0.003 * size.height,
-        ),
-        Text(
-          'Location',
-          style: TextStyle(
-            color: darkgrey,
-            fontFamily: "poppins",
-            fontSize: sizefont,
-          ),
-        ),
+        )
       ],
     );
 
@@ -96,7 +169,7 @@ class _JobDescState extends State<JobDesc> {
                   ),
                 ),
                 Text(
-                  widget.workfromHome,
+                  widget.workfromHome!,
                   style: TextStyle(
                     color: blackColor,
                     fontFamily: "poppins",
@@ -140,7 +213,7 @@ class _JobDescState extends State<JobDesc> {
                   ),
                 ),
                 Text(
-                  widget.minStipend,
+                  widget.minStipend!,
                   style: TextStyle(
                     color: blackColor,
                     fontFamily: "poppins",
@@ -184,7 +257,7 @@ class _JobDescState extends State<JobDesc> {
                   ),
                 ),
                 Text(
-                  widget.duration,
+                  widget.duration!,
                   style: TextStyle(
                     color: blackColor,
                     fontFamily: "poppins",
@@ -228,7 +301,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 30),
               title: Text(
-                'MPYG is a one-of-a-kind platform aimed at helping yoga enthusiasts get a personalized & real-time feedback-based yoga experience. It is an artificial intelligence-based yoga platform that provides real-time audiovisual instructions to people of all ages taking into account their medical conditions.',
+                widget.about!,
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -258,7 +331,7 @@ class _JobDescState extends State<JobDesc> {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: ListTile(
                 title: Text(
-                  'Job Details',
+                  'Skills',
                   style: TextStyle(
                     color: blackColor,
                     fontFamily: "poppins",
@@ -273,7 +346,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 30),
               title: Text(
-                'MPYG is a one-of-a-kind platform aimed at helping yoga enthusiasts get a personalized & real-time feedback-based yoga experience. It is an artificial intelligence-based yoga platform that provides real-time audiovisual instructions to people of all ages taking into account their medical conditions.',
+                widget.skills!,
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -303,7 +376,7 @@ class _JobDescState extends State<JobDesc> {
               padding: const EdgeInsets.only(bottom: 8.0),
               child: ListTile(
                 title: Text(
-                  'Who Can Apply',
+                  'Requirements',
                   style: TextStyle(
                     color: blackColor,
                     fontFamily: "poppins",
@@ -318,7 +391,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 10),
               title: Text(
-                'MPYG is a one-of-a-kind platform aimed at helping yoga enthusiasts get a personalized & real-time feedback-based yoga experience. It is an artificial intelligence-based yoga platform that provides real-time audiovisual instructions to people of all ages taking into account their medical conditions.',
+                widget.requirements!,
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -363,7 +436,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 30),
               title: Text(
-                'MPYG is a one-of-a-kind platform aimed at helping yoga enthusiasts get a personalized & real-time feedback-based yoga experience. It is an artificial intelligence-based yoga platform that provides real-time audiovisual instructions to people of all ages taking into account their medical conditions.',
+                widget.perks!,
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -384,13 +457,18 @@ class _JobDescState extends State<JobDesc> {
         color: blackTeal,
         child: MaterialButton(
             padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
-            onPressed: () {},
+            onPressed: () {
+              cartAdd();
+            },
             child: SizedBox(
               width: size.width,
               child: Text(
                 "Apply",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
+                style: TextStyle(
+                    fontFamily: 'poppins',
+                    fontSize: sizefont,
+                    color: whiteColor),
               ),
             )));
 
@@ -407,11 +485,15 @@ class _JobDescState extends State<JobDesc> {
           backgroundColor: whiteColor,
           title: Text(
             'Job Description',
-            style: TextStyle(fontFamily: 'poppins', fontSize: sizefont * 1.5, color: blackColor),
+            style: TextStyle(
+                fontFamily: 'poppins',
+                fontSize: sizefont * 1.5,
+                color: blackColor),
           )),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+          padding:
+              EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
