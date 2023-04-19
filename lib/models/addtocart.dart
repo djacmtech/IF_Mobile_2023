@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
-class Cart {
+//class Cart {
 Future<String> addCart (
   String userid,
   String jobid,
@@ -13,29 +13,16 @@ Future<String> addCart (
     final res = await http.post(uri,
         body: jsonEncode({
           "userid": userid.toString(),
-          "jobid": jobid.toString(),
+          "jobid": jobid,
         }),
         headers: {'Content-Type': 'application/json'});
     final body = res.body;
     if (res.statusCode != 200) {
-      print('incorrect');
-      return "incorrect_user_details";
+      print('Couldnt add to cart');
+      return "Couldnt add to cart";
     }
 
     print(res.body);
     final response = jsonDecode(body);
-    init(response);
     return "Success";
-}
-  void init(res) async {
-    try {
-      final box = GetStorage();
-      box.write('token', res['token']);
-      box.write('id', res['data']['id']);
-      box.write('id', res['data']['userid']);
-      box.write('id', res['data']['jobs']['id']);
-    } catch (e) {
-      print(e);
-    }
-  }
 }
