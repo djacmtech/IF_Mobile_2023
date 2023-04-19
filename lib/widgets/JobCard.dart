@@ -312,7 +312,7 @@ class JobCard extends StatelessWidget {
                             about: about!,
                             perks: perks!,
                             skills: skills!,
-                            //requirements: requirements!,
+                            requirements: requirements!,
                             logo: logo!,
                             location: location!,
                           )));
