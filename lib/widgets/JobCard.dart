@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:internship_fair/screens/jobdesc.dart';
+import 'package:internship_fair/screens/summary.dart';
 
 class JobCard extends StatelessWidget {
   final String? companyName;
@@ -34,10 +35,10 @@ class JobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // height: 169,
-      // width: 308,
+      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.058, 0,
+          MediaQuery.of(context).size.width * 0.05, 0),
       width: MediaQuery.of(context).size.width * 0.85,
-      height: MediaQuery.of(context).size.height * 0.264,
+      height: MediaQuery.of(context).size.height * 0.27,
       margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).size.height * 0.031,
           left: MediaQuery.of(context).size.width * 0.072,
@@ -52,39 +53,25 @@ class JobCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                margin: EdgeInsets.only(
-                    left: MediaQuery.of(context).size.width * 0.0417,
-                    top: MediaQuery.of(context).size.height * 0.028),
-                // width: 200,
-                width: MediaQuery.of(context).size.width * 0.55,
-                // height: 21,
-                height: MediaQuery.of(context).size.height * 0.033,
-                child: Text(
-                  position!,
-                  style: const TextStyle(
-                    fontFamily: 'poppins',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    color: Colors.teal,
-                  ),
+              Text(
+                position!,
+                style: const TextStyle(
+                  fontFamily: 'poppins',
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  color: Colors.teal,
                 ),
               ),
-              // SizedBox(width: 36.49),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.101,
-              ),
+              new Spacer(),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.031,
-                    right: MediaQuery.of(context).size.width * 0.0313),
+                  top: MediaQuery.of(context).size.height * 0.02,
+                ),
                 // height: 28.88,
-                height: MediaQuery.of(context).size.height * 0.045,
+                height: MediaQuery.of(context).size.width * 0.1,
                 // width: 33.14,
-                width: MediaQuery.of(context).size.width * 0.092,
-
-                // child: Image.network(logo.toString()),
+                width: MediaQuery.of(context).size.width * 0.1,
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: NetworkImage(logo!),
@@ -94,38 +81,32 @@ class JobCard extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            margin:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
-            child: Text(
-              companyName!,
-              style: const TextStyle(
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 10),
-            ),
+          Text(
+            companyName!,
+            style: const TextStyle(
+                fontFamily: 'poppins',
+                fontWeight: FontWeight.w500,
+                fontSize: 13),
           ),
           const SizedBox(height: 4),
           Container(
-            margin:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: Text(
               location!,
               style: const TextStyle(
                   fontFamily: 'poppins',
                   fontWeight: FontWeight.w400,
-                  fontSize: 10,
+                  fontSize: 13,
                   color: Colors.grey),
             ),
           ),
+
           Row(
             children: [
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.0125,
-                    left: MediaQuery.of(context).size.width * 0.05),
-                height: 13,
-                width: 13,
+                    top: MediaQuery.of(context).size.height * 0.01),
+                height: 15,
+                width: 15,
                 decoration: const BoxDecoration(
                   color: Colors.teal,
                   shape: BoxShape.circle,
@@ -134,36 +115,33 @@ class JobCard extends StatelessWidget {
                   child: Icon(
                     Icons.location_pin,
                     color: Colors.white,
-                    size: 10,
+                    size: 12,
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.width * 0.023,
+                    top: MediaQuery.of(context).size.width * 0.029,
                     left: MediaQuery.of(context).size.width * 0.0194),
                 height: 21,
-                width: 30,
+                width: MediaQuery.of(context).size.width * 0.12,
                 child: const Text(
                   'MODE',
                   style: TextStyle(
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w400,
-                      fontSize: 10,
+                      fontSize: 12,
                       // color: Color(0xF2D3748),
                       color: Colors.grey),
                 ),
               ),
-              // SizedBox(width: 15),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.042,
-              ),
+
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.0125,
+                    top: MediaQuery.of(context).size.height * 0.0115,
                     left: MediaQuery.of(context).size.width * 0.0194),
-                height: 13,
-                width: 13,
+                height: 15,
+                width: 15,
                 decoration: const BoxDecoration(
                   color: Colors.teal,
                   shape: BoxShape.circle,
@@ -172,34 +150,34 @@ class JobCard extends StatelessWidget {
                   child: Icon(
                     Icons.currency_rupee_outlined,
                     color: Colors.white,
-                    size: 10,
+                    size: 12,
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.023,
+                    top: MediaQuery.of(context).size.height * 0.019,
                     left: MediaQuery.of(context).size.width * 0.0194),
                 height: 21,
-                width: 63,
+                width: 80,
                 child: const Text(
                   'MIN STIPEND',
                   style: TextStyle(
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w400,
-                      fontSize: 10,
+                      fontSize: 12,
                       color: Colors.grey),
                 ),
               ),
               // SizedBox(width: 15),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.042,
+                width: MediaQuery.of(context).size.width * 0.015,
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.023),
-                height: 13,
-                width: 13,
+                    top: MediaQuery.of(context).size.height * 0.0115),
+                height: 15,
+                width: 15,
                 decoration: const BoxDecoration(
                   color: Colors.teal,
                   shape: BoxShape.circle,
@@ -208,22 +186,22 @@ class JobCard extends StatelessWidget {
                   child: Icon(
                     Icons.timelapse_outlined,
                     color: Colors.white,
-                    size: 10,
+                    size: 12,
                   ),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.023,
-                    left: MediaQuery.of(context).size.width * 0.0194),
+                    top: MediaQuery.of(context).size.height * 0.019,
+                    left: MediaQuery.of(context).size.width * 0.018),
                 height: 21,
-                width: 56.39,
+                width: 62,
                 child: const Text(
                   'DURATION',
                   style: TextStyle(
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w400,
-                      fontSize: 10,
+                      fontSize: 12,
                       // color: Color(0xF2D3748),
                       color: Colors.grey),
                 ),
@@ -235,7 +213,7 @@ class JobCard extends StatelessWidget {
             children: [
               Container(
                   margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.1055),
+                      left: MediaQuery.of(context).size.width * 0.055),
                   height: 18,
                   width: 40,
                   child: Text(
@@ -243,13 +221,13 @@ class JobCard extends StatelessWidget {
                     style: const TextStyle(
                         fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
-                        fontSize: 11,
+                        fontSize: 12,
                         // color: Color(0xF2D3748),
                         color: Colors.black),
                   )),
               Container(
                   margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.0917),
+                      left: MediaQuery.of(context).size.width * 0.1),
                   // color: Colors.black,
                   height: 18,
                   width: 40,
@@ -258,22 +236,22 @@ class JobCard extends StatelessWidget {
                     style: const TextStyle(
                         fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
-                        fontSize: 11,
+                        fontSize: 12,
                         // color: Color(0xF2D3748),
                         color: Colors.black),
                   )),
               Container(
                   margin: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.1611),
+                      left: MediaQuery.of(context).size.width * 0.168),
                   // color: Colors.black,
                   height: 18,
-                  width: 85,
+                  width: MediaQuery.of(context).size.width * 0.19,
                   child: Text(
                     duration!,
                     style: const TextStyle(
                         fontFamily: 'poppins',
                         fontWeight: FontWeight.w500,
-                        fontSize: 11,
+                        fontSize: 12,
                         // color: Color(0xF2D3748),
                         color: Colors.black),
                   )),
@@ -281,42 +259,44 @@ class JobCard extends StatelessWidget {
           ),
           // SizedBox(height: 10),
           SizedBox(
-            height: MediaQuery.of(context).size.height * 0.016,
+            height: MediaQuery.of(context).size.height * 0.01,
           ),
-          InkWell(
-            child: Container(
-                margin: EdgeInsets.only(
-                    // right: MediaQuery.of(context).size.width * 0.055,
-                    left: MediaQuery.of(context).size.width * 0.61),
-                height: 18,
-                child: const Text(
-                  'View details >',
-                  style: TextStyle(
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 10,
-                      // color: Color(0xF2D3748),
-                      color: Colors.teal),
-                )),
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => JobDesc(
-                            companyName: companyName!,
-                            duration: duration!,
-                            jobid: jobid!,
-                            jobPosition: position!,
-                            minStipend: stipend!,
-                            workfromHome: mode!,
-                            about: about!,
-                            perks: perks!,
-                            skills: skills!,
-                            requirements: requirements!,
-                            logo: logo!,
-                            location: location!,
-                          )));
-            },
+          Row(
+            children: [
+              new Spacer(),
+              InkWell(
+                child: Container(
+                    height: 18,
+                    child: const Text(
+                      'View details >',
+                      style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          // color: Color(0xF2D3748),
+                          color: Colors.teal),
+                    )),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => JobDesc(
+                                companyName: companyName!,
+                                duration: duration!,
+                                jobid: jobid!,
+                                jobPosition: position!,
+                                minStipend: stipend!,
+                                workfromHome: mode!,
+                                about: about!,
+                                perks: perks!,
+                                skills: skills!,
+                                requirements: requirements!,
+                                logo: logo!,
+                                location: location!,
+                              )));
+                },
+              ),
+            ],
           ),
         ],
       ),

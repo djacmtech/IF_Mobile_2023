@@ -7,7 +7,17 @@ import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class JobDesc extends StatefulWidget {
-  final String? jobPosition, companyName, minStipend, duration, workfromHome, about, skills, perks, requirements, logo, location;
+  final String? jobPosition,
+      companyName,
+      minStipend,
+      duration,
+      workfromHome,
+      about,
+      skills,
+      perks,
+      requirements,
+      logo,
+      location;
   final int jobid;
   const JobDesc(
       {Key? key,
@@ -41,31 +51,36 @@ class _JobDescState extends State<JobDesc> {
     double sizefont = size.width * 0.04;
 
     void cartAdd() async {
-        Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
-        String status = '';
-        int userid = GetStorage().read("id");
-        try {
-          status = await addCart(userid, widget.jobid);
-        } on Exception catch (e) {
-          Loader.hide();
-          print(e);
-        }
+      Loader.show(context,
+          progressIndicator: CircularProgressIndicator(color: blackTeal));
+      String status = '';
+      int userid = GetStorage().read("id");
+      try {
+        status = await addCart(userid, widget.jobid);
+      } on Exception catch (e) {
         Loader.hide();
+        print(e);
+      }
+      Loader.hide();
 
-        if (status == "Success") {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MyCart())));
-        } else {
-          MotionToast.error(
-                  height: 65,
-                  borderRadius: 10,
-                  padding: EdgeInsets.zero,
-                  title: Text(
-                    "Couldn't add to Cart",
-                    style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
-                  ),
-                  description: Text("Try Again"))
-              .show(context);
-        }
+      if (status == "Success") {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: ((context) => MyCart())));
+      } else {
+        MotionToast.error(
+                height: 65,
+                borderRadius: 10,
+                padding: EdgeInsets.zero,
+                title: Text(
+                  "Couldn't add to Cart",
+                  style: TextStyle(
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                description: Text("Try Again"))
+            .show(context);
+      }
     }
 
     final jobPosn = Row(
@@ -107,10 +122,10 @@ class _JobDescState extends State<JobDesc> {
           ],
         ),
         SizedBox(
-          width: size.width*0.2,
+          width: size.width * 0.2,
         ),
         Container(
-          width: size.width*0.2,
+          width: size.width * 0.2,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(widget.logo!),
@@ -375,8 +390,7 @@ class _JobDescState extends State<JobDesc> {
             padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 10),
-              title: 
-              Text(
+              title: Text(
                 widget.requirements!,
                 style: TextStyle(
                   color: blackColor,
