@@ -89,6 +89,11 @@ class _JobProfileState extends State<JobProfile> {
                               position: _getJob[index].role,
                               mode: _getJob[index].mode,
                               logo: _getJob[index].logo,
+                              requirements: _getJob[index].requirements,
+                              perks: _getJob[index].perks,
+                              about: _getJob[index].about,
+                              skills: _getJob[index].skills,
+                              jobid: _getJob[index].id,
                             );
                           },
                         );

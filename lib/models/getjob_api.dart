@@ -38,6 +38,11 @@ class GetJobApi {
         mode = data["data"][0]["mode"];
         duration = data["data"][0]["duration"];
         logo = data["data"][0]["logo"];
+        id = data["data"][0]["id"];
+        requirements = data["data"][0]["requirements"];
+        perks = data["data"][0]["perks"];
+        skills = data["data"][0]["skills"];
+        about = data["data"][0]["about"];
         debugPrint(company);
         print(response.statusCode);
         var getJob = GetJob.fromJson(data);
