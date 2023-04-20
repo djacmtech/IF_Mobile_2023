@@ -280,20 +280,23 @@ class JobCard extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => JobDesc(
-                                companyName: companyName!,
-                                duration: duration!,
-                                jobid: jobid!,
-                                jobPosition: position!,
-                                minStipend: stipend!,
-                                workfromHome: mode!,
-                                about: about!,
-                                perks: perks!,
-                                skills: skills!,
-                                requirements: requirements!,
-                                logo: logo!,
-                                location: location!,
-                              )));
+                          builder: (context) => 
+                          Summary()
+                          // JobDesc(
+                          //       companyName: companyName!,
+                          //       duration: duration!,
+                          //       jobid: jobid!,
+                          //       jobPosition: position!,
+                          //       minStipend: stipend!,
+                          //       workfromHome: mode!,
+                          //       about: about!,
+                          //       perks: perks!,
+                          //       skills: skills!,
+                          //       requirements: requirements!,
+                          //       logo: logo!,
+                          //       location: location!,
+                          //     )
+                              ));
                 },
               ),
             ],

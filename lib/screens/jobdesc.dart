@@ -64,9 +64,38 @@ class _JobDescState extends State<JobDesc> {
       Loader.hide();
 
       if (status == "Success") {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: ((context) => MyCart())));
-      } else {
+        MotionToast(
+          primaryColor: blackTeal,
+                height: 65,
+                borderRadius: 10,
+                padding: EdgeInsets.zero,
+                title: Text(
+                  "Job successfully added to Cart",
+                  style: TextStyle(
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                description: Text(""))
+            .show(context);
+      } else if (status == "Job already in cart")
+      {
+         MotionToast.error(
+                height: 65,
+                borderRadius: 10,
+                padding: EdgeInsets.zero,
+                title: Text(
+                  "Job already in cart",
+                  style: TextStyle(
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                description: Text(""))
+            .show(context);
+      }
+      
+      else {
         MotionToast.error(
                 height: 65,
                 borderRadius: 10,
