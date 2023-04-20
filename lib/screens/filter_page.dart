@@ -18,6 +18,7 @@ class _FilterState extends State<Filter> {
   final TextEditingController _textEditingController2 = TextEditingController();
   bool _isChecked = false;
   bool _isCorrected = false;
+  bool _isTicked = false;
   SfRangeValues _values = const SfRangeValues(2000.0, 12000.0);
   int low = 2000, high = 12000;
 
@@ -32,68 +33,63 @@ class _FilterState extends State<Filter> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 75,
-            ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                IconButton(
+                /*IconButton(
                   icon: Icon(Icons.arrow_back_ios_new_outlined,
                       color: blackColor),
                   iconSize: sizefont * 1.5,
                   onPressed: () => Navigator.pop(context),
-                ),
-                SizedBox(width: size.width * 0.2),
-                const Icon(Icons.filter_alt_sharp, color: Colors.teal),
-                const SizedBox(width: 6.0),
-                const Text(
+                ),*/
+                Icon(Icons.filter_alt_sharp, color: Colors.teal),
+                SizedBox(width: size.width * 0.01),
+                SizedBox(height: size.height * 0.12),
+                Text(
                   "Filters",
                   style: TextStyle(
                     fontFamily: 'Poppins',
-                    fontSize: 20,
+                    fontSize: sizefont * 1.7,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
               ],
             ),
             Padding(
-              padding: EdgeInsets.only(top: size.width * 0.07),
-              child: Padding(
-                padding: const EdgeInsets.all(28.5),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: size.width * 0.62, bottom: size.height * 0.01),
-                      child: const Text(
-                        "CATEGORY",
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.normal,
-                        ),
+              padding: EdgeInsets.only(top: size.width * 0.013),
+              child: Column(
+                children: [
+                  /* Padding(
+                    padding: EdgeInsets.only(
+                        right: size.width * 0.62, bottom: size.height * 0.01),
+                    child: const Text(
+                      "CATEGORY",
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        border: Border.all(
-                          width: 2.0,
-                          color: blackTeal,
-                        ),
-                      ),
-                      child: TextField(
-                        controller: _textEditingController,
+                  ),*/
+                  /* Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      border: Border.all(
+                        width: 2.0,
+                        color: blackTeal,
                       ),
                     ),
-                  ],
-                ),
+                    child: TextField(
+                      controller: _textEditingController,
+                    ),
+                  ),*/
+                ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                right: size.width * 0.7,
-                top: 15.0,
+                right: size.width * 0.68,
+                // top: size.height * 0.02,
               ),
               child: const Text(
                 "STIPEND",
@@ -140,87 +136,101 @@ class _FilterState extends State<Filter> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(28.5),
-              child: Column(
-                children: [
-                  // Padding(
-                  //   padding: EdgeInsets.only(
-                  //       right: size.width * 0.63, bottom: size.height * 0.01),
-                  //   child: const Text(
-                  //     "COMPANY",
-                  //     style: TextStyle(
-                  //       fontFamily: 'Poppins',
-                  //       fontWeight: FontWeight.normal,
-                  //     ),
-                  //   ),
-                  // ),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //       borderRadius: BorderRadius.circular(4.0),
-                  //       border: Border.all(
-                  //         width: 2.0,
-                  //         color: blackTeal,
-                  //       )),
-                  //   child: TextField(
-                  //     controller: _textEditingController2,
-                  //   ),
-                  // ),
-                  Padding(
-                    padding: EdgeInsets.only(right: size.width * 0.05),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          value: _isChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isChecked = value ?? false;
-                            });
-                          },
-                          activeColor: Colors.teal,
-                          checkColor: Colors.white,
-                        ),
-                        const Text(
-                          "Offline",
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
+            Column(
+              children: [
+                SizedBox(height: size.height * 0.05),
+                // Padding(
+                //   padding: EdgeInsets.only(
+                //       right: size.width * 0.63, bottom: size.height * 0.01),
+                //   child: const Text(
+                //     "COMPANY",
+                //     style: TextStyle(
+                //       fontFamily: 'Poppins',
+                //       fontWeight: FontWeight.normal,
+                //     ),
+                //   ),
+                // ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(4.0),
+                //       border: Border.all(
+                //         width: 2.0,
+                //         color: blackTeal,
+                //       )),
+                //   child: TextField(
+                //     controller: _textEditingController2,
+                //   ),
+                // ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: size.width * 0.7,
+                    top: size.height * 0.02,
+                  ),
+                  child: const Text(
+                    "MODE",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: size.width * 0.5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                          value: _isCorrected,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isCorrected = value ?? false;
-                            });
-                          },
-                          activeColor: Colors.teal,
-                          checkColor: Colors.white,
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.01),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: _isChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isChecked = value ?? false;
+                          });
+                        },
+                        activeColor: Colors.teal,
+                        checkColor: Colors.white,
+                      ),
+                      const Text(
+                        "Offline",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal,
                         ),
-                        const Text(
-                          'Online',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.01),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: _isCorrected,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _isCorrected = value ?? false;
+                          });
+                        },
+                        activeColor: Colors.teal,
+                        checkColor: Colors.white,
+                      ),
+                      const Text(
+                        'Online',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: EdgeInsets.symmetric(
+                horizontal: size.width * 0.005,
+              ),
               child: Row(
                 children: [
                   ElevatedButton(
@@ -261,17 +271,18 @@ class _FilterState extends State<Filter> {
                                       )));
                         }
                       },
-                      child: const FittedBox(
+                      child: FittedBox(
                         child: Text(
                           "Apply",
                           style: TextStyle(
+                              fontSize: sizefont * 1.11,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.normal,
                               color: Colors.teal),
                         ),
                       )),
                   SizedBox(
-                    width: 150,
+                    width: size.width * 0.39,
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -282,11 +293,17 @@ class _FilterState extends State<Filter> {
                       ),
                       onPressed: () {
                         GetJobApi().getJobData(2000, 12000, 'null');
+                        setState(() {
+                          _values = SfRangeValues(2000.0, 12000.0);
+                          _isChecked = false;
+                          _isCorrected = false;
+                        });
                       },
-                      child: const FittedBox(
+                      child: FittedBox(
                         child: Text(
                           "Clear All",
                           style: TextStyle(
+                              fontSize: sizefont * 1.11,
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.normal,
                               color: Colors.teal),

@@ -10,7 +10,8 @@ import 'filter_page.dart';
 class JobProfile extends StatefulWidget {
   final int low, high;
   final String? mode;
-  const JobProfile({Key? key, required this.low, required this.high, required this.mode})
+  const JobProfile(
+      {Key? key, required this.low, required this.high, required this.mode})
       : super(key: key);
 
   @override
@@ -35,13 +36,33 @@ class _JobProfileState extends State<JobProfile> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    double sizefont = size.width * 0.04;
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const Filter();
-                }));
+                // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //   return const Filter();
+                // }));
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    final screenHeight = MediaQuery.of(context).size.height;
+                    final modalHeight = screenHeight *
+                        0.9; // set the height to 80% of the screen height
+
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Filter(),
+                    );
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(size.width * 0.05),
+                        topRight: Radius.circular(size.width * 0.05)),
+                  ),
+                );
               },
               icon: const Icon(Icons.filter_alt_sharp, color: Colors.teal)),
           elevation: 0,
@@ -75,7 +96,7 @@ class _JobProfileState extends State<JobProfile> {
               const SizedBox(height: 30),
               Center(
                 child: FutureBuilder(
-                    future: getJob(widget.low, widget.high,widget.mode),
+                    future: getJob(widget.low, widget.high, widget.mode),
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(

@@ -65,58 +65,93 @@ class _JobDescState extends State<JobDesc> {
 
       if (status == "Success") {
         MotionToast.success(
-                height: 65,
-                borderRadius: 10,
-                padding: EdgeInsets.zero,
-                title: Text(
-                  "Job successfully added to Cart",
-                  style: TextStyle(
-                      color: whiteColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                ),
-                description: Text(""))
-            .show(context);
-      } else if (status == "Job already in cart")
-      {
-         MotionToast(
-            primaryColor: darkgrey,
-            width: size.width*0.8,
-                height: sizefont*5,
-                borderRadius: 10,
-                padding: EdgeInsets.zero,
-                title: Text(
-                  "Job already in cart",
-                  style: TextStyle(
-                    fontFamily: "poppins",
-                      color: whiteColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: sizefont*0.8),
-                ),
-                description: Text("Add another Job",
+          height: sizefont * 5,
+          borderRadius: 10,
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          title: Row(
+            children: [
+              Icon(
+                Icons.check_circle,
+                color: Colors.white,
+                size: sizefont * 2,
+              ),
+              SizedBox(width: 16),
+              Text(
+                "Job Added to Cart",
                 style: TextStyle(
-                    fontFamily: "poppins",
-                      color: blackColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: sizefont*0.7)))
-            .show(context);
-      }
-      
-      else {
-        MotionToast.error(
-                height: 65,
-                borderRadius: 10,
-                padding: EdgeInsets.zero,
-                title: Text(
-                  "Couldn't add to Cart",
-                  style: TextStyle(
-                      fontFamily: "poppins",
-                      color: whiteColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: sizefont),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: sizefont * 0.8,
                 ),
-                description: Text("Try Again"))
-            .show(context);
+              ),
+            ],
+          ),
+          description: Text(
+            "Your selected job has been successfully added to the cart",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: sizefont * 0.7,
+            ),
+          ),
+        ).show(context);
+      } else if (status == "Job already in cart") {
+        MotionToast(
+          primaryColor: darkgrey,
+          width: size.width * 0.8,
+          height: sizefont * 5,
+          borderRadius: 10,
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          title: Text(
+            "Job Already in Cart",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: sizefont * 0.8,
+            ),
+          ),
+          description: Text(
+            "Please remove the existing job before adding a new one",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: sizefont * 0.7,
+            ),
+          ),
+        ).show(context);
+      } else {
+        MotionToast.error(
+          height: sizefont * 5,
+          borderRadius: 10,
+          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          title: Row(
+            children: [
+              // Icon(
+              //   Icons.error_outline,
+              //   color: Colors.white,
+              //   size: 24,
+              // ),
+              // SizedBox(width: 16),
+              Text(
+                "Could Not Add to Cart",
+                style: TextStyle(
+                  fontFamily: "Poppins",
+                  color: whiteColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: sizefont * 0.9,
+                ),
+              ),
+            ],
+          ),
+          description: Text(
+            "Please check your internet connection and try again",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: whiteColor,
+              fontSize: sizefont * 0.7,
+            ),
+          ),
+        ).show(context);
       }
     }
 
@@ -493,7 +528,7 @@ class _JobDescState extends State<JobDesc> {
         borderRadius: BorderRadius.circular(5),
         color: blackTeal,
         child: Container(
-          height: sizefont*3,
+          height: sizefont * 3,
           padding: EdgeInsets.symmetric(vertical: sizefont * 0.5),
           child: MaterialButton(
               onPressed: () {
