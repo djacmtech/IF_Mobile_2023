@@ -17,13 +17,15 @@ class AuthController {
         }),
         headers: {'Content-Type': 'application/json'});
     final body = res.body;
+    print(res.statusCode);
     if (res.statusCode != 200) {
       print('incorrect');
       return "incorrect_user_details";
     }
 
-    print(res.body);   
+    print(res.body);
     final response = jsonDecode(body);
+
     init(response);
     return "Success";
   }

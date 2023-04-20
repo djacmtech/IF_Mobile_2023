@@ -522,9 +522,10 @@ class _JobDescState extends State<JobDesc> {
           padding: EdgeInsets.symmetric(vertical: sizefont * 0.5),
           child: MaterialButton(
               onPressed: () {
-                //cartAdd();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: ((context) => const SummaryPage())));
+                cartAdd();
+                //   Navigator.pushReplacement(context,
+                //       MaterialPageRoute(builder: ((context) => SummaryPage())));
+                // },
               },
               child: SizedBox(
                 width: size.width,

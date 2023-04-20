@@ -21,15 +21,14 @@ class _SummaryState extends State<SummaryPage> {
   int? discount;
   int? credits;
   int? count;
-   
-   var sum;
-   //List<int> sum = [];
+
+  var sum;
+  //List<int> sum1 = [];
 
   getSummaryData() async {
-     sum = await SummaryFunction.SummaryApi().getSummaryInfo();
+    sum = await SummaryFunction.SummaryApi().getSummaryInfo();
     //print(sum[2]);
   }
-
 
   @override
   void initState() {
@@ -40,10 +39,33 @@ class _SummaryState extends State<SummaryPage> {
 
   @override
   Widget build(BuildContext context) {
-  //sum = sum1.toList();
+    //sum = sum1.toList();
 
     return Scaffold(
       backgroundColor: textgreen,
+      appBar: AppBar(
+        leading: Padding(
+          padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.065,
+          ),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_outlined, color: whiteColor),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
+        centerTitle: true,
+        title: Text(
+          'Summary',
+          style: TextStyle(
+              fontFamily: 'poppins',
+              fontSize: 27,
+              fontWeight: FontWeight.w500,
+              color: Colors.white),
+        ),
+        backgroundColor: blackTeal,
+        elevation: 0,
+        toolbarHeight: MediaQuery.of(context).size.height * 0.059,
+      ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(
             MediaQuery.of(context).size.width * 0.1,
@@ -54,208 +76,194 @@ class _SummaryState extends State<SummaryPage> {
           future: getSummaryData(),
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: textgreen,
-                          ),
-                        );
-                      } 
-            else {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: textgreen,
+                ),
+              );
+            } else {
               return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              
-              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-              icon: Icon(Icons.arrow_back_ios_new_outlined, color: whiteColor),
-              onPressed: () => Navigator.pop(context),
-            ),
-                  Text(
-                    'Summary',
-                    style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 27,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                  // Row(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [],
+                  // ),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height * 0.025,
+                  // ),
+                  Divider(
+                    color: Colors.white,
+                    thickness: 1,
                   ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.025,
-              ),
-              Divider(
-                color: Colors.white,
-                thickness: 1,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Interviews',
-                    style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 19,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
                   ),
-                  new Spacer(),
-                  Text(
-                    // _getSummary!.length.toString(),
-                    //sum[0].toString(),
-                    "2",
-                    style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 19,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Interviews',
+                        style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontSize: 19,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                      new Spacer(),
+                      Text(
+                        // _getSummary!.length.toString(),
+                        //sum[0].toString(),
+                        "2",
+                        style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.032,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Discount',
-                    style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 19,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.032,
                   ),
-                  new Spacer(),
-                  Text(
-                    //sum[2].toString(),
-                    "2",
-                    style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 19,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Discount',
+                        style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontSize: 19,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                      new Spacer(),
+                      Text(
+                        //sum[2].toString(),
+                        "2",
+                        style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.035,
-              ),
-              Divider(
-                color: Colors.white,
-                thickness: 1,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.03,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Grand Total',
-                    style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 19,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.035,
                   ),
-                  new Spacer(),
-                  Text(
-                    //sum[1].toString(), 
-                    "1",
-                    style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 19,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                  Divider(
+                    color: Colors.white,
+                    thickness: 1,
                   ),
-                ],
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.036,
-              ),
-              Text(
-                'Note :',
-                style: TextStyle(
-                  fontFamily: 'poppins',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                'Please pay the above amount',
-                style: TextStyle(
-                  fontFamily: 'poppins',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w200,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                'through gpay to',
-                style: TextStyle(
-                  fontFamily: 'poppins',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w200,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                'UPI ID:  34235346536',
-                style: TextStyle(
-                  fontFamily: 'poppins',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.045,
-              ),
-              Text(
-                'Upload screenshot of payment',
-                style: TextStyle(
-                  fontFamily: 'poppins',
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.08,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5), color: greyColor),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.0625,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.08,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5), color: blackColor),
-                child: Center(
-                    child: Text(
-                  'Submit',
-                  style: TextStyle(
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Grand Total',
+                        style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                      new Spacer(),
+                      Text(
+                        //sum[1].toString(),
+                        "1",
+                        style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.036,
+                  ),
+                  Text(
+                    'Note :',
+                    style: TextStyle(
                       fontFamily: 'poppins',
-                      fontSize: 13,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'Please pay the above amount',
+                    style: TextStyle(
+                      fontFamily: 'poppins',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w200,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'through gpay to',
+                    style: TextStyle(
+                      fontFamily: 'poppins',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w200,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'UPI ID:  34235346536',
+                    style: TextStyle(
+                      fontFamily: 'poppins',
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                )),
-              ),
-            ],
-          );
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.045,
+                  ),
+                  Text(
+                    'Upload screenshot of payment',
+                    style: TextStyle(
+                      fontFamily: 'poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: greyColor),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.0625,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: blackColor),
+                    child: Center(
+                        child: Text(
+                      'Submit',
+                      style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    )),
+                  ),
+                ],
+              );
             }
           }),
-          
         ),
       ),
     );
