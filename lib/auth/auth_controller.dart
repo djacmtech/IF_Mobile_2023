@@ -83,7 +83,7 @@ class AuthController {
     var res = await request.send();
     print("This is response:" + res.toString());
     print('Error submitting form data. Status code: ${res.statusCode}');
-    var response = jsonDecode(await res.stream.bytesToString());
+    var response = jsonDecode(await res.stream.toString());
     print(response);
 
     if (res.statusCode == 200) {

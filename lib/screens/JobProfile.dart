@@ -112,7 +112,15 @@ class _JobProfileState extends State<JobProfile> {
                           itemBuilder: (BuildContext context, int index) {
                             if (_getJob[index].requirements == null) {
                               _getJob[index].requirements =
-                                  "No specific requirements";
+                                  ["No specific requirements"];
+                            }
+                            if (_getJob[index].skills == null) {
+                              _getJob[index].skills =
+                                  ["No specific skills"];
+                            }
+                            if (_getJob[index].perks == null) {
+                              _getJob[index].perks =
+                                  ["No specific perks"];
                             }
                             return JobCard(
                               companyName: _getJob[index].company,

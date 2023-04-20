@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/addtocart.dart';
 import 'package:internship_fair/screens/cart.dart';
+import 'package:internship_fair/screens/summary.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
@@ -13,11 +14,10 @@ class JobDesc extends StatefulWidget {
       duration,
       workfromHome,
       about,
-      skills,
-      perks,
-      requirements,
       logo,
       location;
+  final List<dynamic> skills, perks, requirements;
+
   final int jobid;
   const JobDesc(
       {Key? key,
@@ -30,7 +30,7 @@ class JobDesc extends StatefulWidget {
       required this.about,
       required this.perks,
       required this.location,
-      this.requirements,
+      required this.requirements,
       this.logo,
       required this.skills})
       : super(key: key);
@@ -65,26 +65,14 @@ class _JobDescState extends State<JobDesc> {
 
       if (status == "Success") {
         MotionToast.success(
-          height: sizefont * 5,
+          width: size.width * 0.6,
+          height: 65,
           borderRadius: 10,
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          title: Row(
-            children: [
-              Icon(
-                Icons.check_circle,
-                color: Colors.white,
-                size: sizefont * 2,
-              ),
-              SizedBox(width: 16),
-              Text(
-                "Job Added to Cart",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: sizefont * 0.8,
-                ),
-              ),
-            ],
+          padding: EdgeInsets.zero,
+          title: Text(
+            "Job successfully added to Cart",
+            style: TextStyle(
+                color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
           ),
           description: Text(
             "Your selected job has been successfully added to the cart",
@@ -94,6 +82,9 @@ class _JobDescState extends State<JobDesc> {
             ),
           ),
         ).show(context);
+        //     ),
+        //   ],
+        // ),
       } else if (status == "Job already in cart") {
         MotionToast(
           primaryColor: darkgrey,
@@ -418,7 +409,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 30),
               title: Text(
-                widget.skills!,
+                widget.skills.toString(),
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -463,7 +454,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 10),
               title: Text(
-                widget.requirements!,
+                widget.requirements.toString(),
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -508,7 +499,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 30),
               title: Text(
-                widget.perks!,
+                widget.perks.toString(),
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -532,7 +523,9 @@ class _JobDescState extends State<JobDesc> {
           padding: EdgeInsets.symmetric(vertical: sizefont * 0.5),
           child: MaterialButton(
               onPressed: () {
-                cartAdd();
+                //cartAdd();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: ((context) => SummaryPage())));
               },
               child: SizedBox(
                 width: size.width,
