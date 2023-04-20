@@ -15,9 +15,9 @@ class GetJobApi {
   String? about;
   String? description;
   String? link;
-  String? requirements;
-  String? skills;
-  String? perks;
+  List<dynamic> requirements = [];
+  List<dynamic> skills = [];
+  List<dynamic> perks = [];
   String? createdAt;
   String? updatedAt;
   Null? orderId;

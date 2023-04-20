@@ -27,7 +27,7 @@ class Data {
     required this.discount,
   });
   late final List<Jobs>? jobs;
-  late final int? credits;
+  late final String? credits;
   late final int? totalPrice;
   late final int? discount;
 

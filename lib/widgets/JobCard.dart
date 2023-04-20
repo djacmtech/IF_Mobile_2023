@@ -10,9 +10,9 @@ class JobCard extends StatelessWidget {
   final String? position;
   final String? mode;
   final String? logo;
-  final String? perks;
-  final String? requirements;
-  final String? skills;
+  final List<dynamic> perks;
+  final List<dynamic> requirements;
+  final List<dynamic> skills;
   final String? about;
   final int? jobid;
 
@@ -290,10 +290,10 @@ class JobCard extends StatelessWidget {
                                 minStipend: stipend!,
                                 workfromHome: mode!,
                                 about: about!,
-                                perks: perks!,
-                                skills: skills!,
-                                requirements: requirements!,
-                                logo: logo!,
+                                perks: perks,
+                                skills: skills,
+                                requirements: requirements,
+                                logo: logo,
                                 location: location!,
                               )
                               ));

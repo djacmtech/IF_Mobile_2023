@@ -18,6 +18,7 @@ Future<String> addCart(
         "jobId": jobid,
       }),
       headers: {'Content-Type': 'application/json'});
+  print(res.statusCode);
   if (res.statusCode != 200) {
     print("Couldnt add to cart");
     return "Couldnt add to cart";
@@ -30,6 +31,7 @@ Future<String> addCart(
     final box = GetStorage();
     // box.write('token', res['token']);
     box.write('cartId', response['data']['jobs'][0]['cartjob']['cartId']);
+
   } catch (e) {
     print(e);
   }

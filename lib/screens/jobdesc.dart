@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/addtocart.dart';
 import 'package:internship_fair/screens/cart.dart';
+import 'package:internship_fair/screens/summary.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
@@ -13,11 +14,12 @@ class JobDesc extends StatefulWidget {
       duration,
       workfromHome,
       about,
-      skills,
-      perks,
-      requirements,
       logo,
       location;
+      final List<dynamic> skills,
+      perks,
+      requirements;
+      
   final int jobid;
   const JobDesc(
       {Key? key,
@@ -30,7 +32,7 @@ class JobDesc extends StatefulWidget {
       required this.about,
       required this.perks,
       required this.location,
-      this.requirements,
+      required this.requirements,
       this.logo,
       required this.skills})
       : super(key: key);
@@ -65,6 +67,7 @@ class _JobDescState extends State<JobDesc> {
 
       if (status == "Success") {
         MotionToast.success(
+            width: size.width*0.6,
                 height: 65,
                 borderRadius: 10,
                 padding: EdgeInsets.zero,
@@ -383,7 +386,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 30),
               title: Text(
-                widget.skills!,
+                widget.skills.toString(),
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -428,7 +431,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 10),
               title: Text(
-                widget.requirements!,
+                widget.requirements.toString(),
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -473,7 +476,7 @@ class _JobDescState extends State<JobDesc> {
             child: ListTile(
               contentPadding: const EdgeInsets.only(bottom: 30),
               title: Text(
-                widget.perks!,
+                widget.perks.toString(),
                 style: TextStyle(
                   color: blackColor,
                   fontFamily: "poppins",
@@ -497,7 +500,11 @@ class _JobDescState extends State<JobDesc> {
           padding: EdgeInsets.symmetric(vertical: sizefont * 0.5),
           child: MaterialButton(
               onPressed: () {
-                cartAdd();
+                //cartAdd();
+                Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: ((context) => SummaryPage())));
               },
               child: SizedBox(
                 width: size.width,

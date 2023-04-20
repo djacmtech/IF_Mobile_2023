@@ -47,12 +47,12 @@ class Data {
   late final String mode;
   late final int stipend;
   late final String duration;
-  late final String about;
-  late final String description;
-  late final String link;
-  String? requirements;
-  late final String skills;
-  late final String perks;
+  String? about;
+  String? description;
+  List<dynamic> link= [];
+  List<dynamic> requirements = [];
+  List<dynamic> skills = [];
+  List<dynamic> perks = [];
   late final String createdAt;
   late final String updatedAt;
   late final Null orderId;

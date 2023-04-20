@@ -10,25 +10,26 @@ class SummaryApi {
   // String? interviewCount;
   // String? totalPrice;
   // String? discount;
-  int? interviewCount;
-  int? totalPrice;
-  int? discount;
-  int? cartID;
+  late int interviewCount;
+  late int totalPrice;
+  late int discount;
+  late int cartID;
 
   SummaryClass.Summary? getData;
   List<SummaryClass.Data>? _getData = [];
   List<SummaryClass.Jobs>? _getJob = [];
-  List<int?> sum = [];
+  List<int> sum = [];
 
   // List<SummaryClass.Summary>? _getSummary = [];
 
-  getSummaryInfo() async {
+  Future<List<int?>> getSummaryInfo() async {
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
     String url = "https://acm-if.onrender.com/api/acm-if/get-summary";
     http.Request request = http.Request('GET', Uri.parse(url));
-    cartID = GetStorage().read('cartID');
+    cartID = GetStorage().read('cartId');
     int userID = GetStorage().read('id');
+    print(userID);
     print(cartID);
 
     request.bodyFields = {'userId': '$userID', 'cartId': '$cartID'};
@@ -46,14 +47,14 @@ class SummaryApi {
       discount = res["data"]["discount"];
       var summary = SummaryClass.Summary?.fromJson(res);
       _getJob = summary.data.jobs;
-      interviewCount = _getJob?.length;
+      interviewCount = _getJob!.length;
       print(interviewCount.runtimeType);
       print(interviewCount);
       print("Hello");
-      // sum = [interviewCount, totalPrice, discount];
-      // sum.addAll(interviewCount);
+      sum = [interviewCount, totalPrice, discount];
       print(sum);
-      return sum;
+      
     }
+    return sum;
   }
 }
