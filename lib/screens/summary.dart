@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
+import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:internship_fair/models/summary_model.dart' as SummaryClass;
+import 'package:internship_fair/models/summary_api.dart' as SummaryFunction;
 
-class Summary extends StatefulWidget {
-  const Summary({super.key});
+class SummaryPage extends StatefulWidget {
+  const SummaryPage({super.key});
 
   @override
-  State<Summary> createState() => _SummaryState();
+  State<SummaryPage> createState() => _SummaryState();
 }
 
-class _SummaryState extends State<Summary> {
+class _SummaryState extends State<SummaryPage> {
+  int? interviewCount;
+  int? totalPrice;
+  int? discount;
+  int? credits;
+  int? count;
+
+  List<int> sum = [];
+
+  getSummaryData() async {
+    sum = SummaryFunction.SummaryApi().getSummaryInfo();
+    print(sum[2]);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getSummaryData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +80,7 @@ class _SummaryState extends State<Summary> {
                 ),
                 new Spacer(),
                 Text(
+                  // _getSummary!.length.toString(),
                   '3',
                   style: TextStyle(
                       fontFamily: 'poppins',
@@ -78,7 +106,7 @@ class _SummaryState extends State<Summary> {
                 ),
                 new Spacer(),
                 Text(
-                  '150',
+                  credits.toString(),
                   style: TextStyle(
                       fontFamily: 'poppins',
                       fontSize: 19,
@@ -110,7 +138,7 @@ class _SummaryState extends State<Summary> {
                 ),
                 new Spacer(),
                 Text(
-                  '0',
+                  totalPrice.toString(),
                   style: TextStyle(
                       fontFamily: 'poppins',
                       fontSize: 19,

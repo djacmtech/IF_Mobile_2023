@@ -7,7 +7,7 @@ import 'package:internship_fair/screens/filter_page.dart';
 import 'package:internship_fair/screens/jobdesc.dart';
 import 'package:internship_fair/screens/login.dart';
 import 'package:internship_fair/splash_screen.dart';
-import 'package:internship_fair/screens/summary.dart';
+import 'package:internship_fair/screens/summary.dart' as Summaries;
 
 void main() async {
   await GetStorage.init();
@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: JobProfile(),
+      // home: Summaries.Summary(),
+      home: SplashScreen(),
     );
   }
 }
