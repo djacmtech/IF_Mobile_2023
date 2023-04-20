@@ -22,13 +22,23 @@ class _SummaryState extends State<Summary> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Summary',
-              style: TextStyle(
-                  fontFamily: 'poppins',
-                  fontSize: 27,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white),
+            
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_outlined, color: whiteColor),
+            onPressed: () => Navigator.pop(context),
+          ),
+                Text(
+                  'Summary',
+                  style: TextStyle(
+                      fontFamily: 'poppins',
+                      fontSize: 27,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
+                ),
+              ],
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,

@@ -280,7 +280,9 @@ class JobCard extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => JobDesc(
+                          builder: (context) => 
+                          //Summary()
+                          JobDesc(
                                 companyName: companyName!,
                                 duration: duration!,
                                 jobid: jobid!,
@@ -293,7 +295,8 @@ class JobCard extends StatelessWidget {
                                 requirements: requirements!,
                                 logo: logo!,
                                 location: location!,
-                              )));
+                              )
+                              ));
                 },
               ),
             ],

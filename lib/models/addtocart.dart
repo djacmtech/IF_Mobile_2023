@@ -17,10 +17,15 @@ Future<String> addCart (
       }),
       headers: {'Content-Type': 'application/json'}
       );
-    if (res.statusCode != 200) {
-      return "Couldnt add to cart";
+    var info = jsonDecode(res.body);
+    String message = info["message"];
+    if (message=="Job already in cart")
+    {
+      return "Job already in cart";
+    }
+    else if (res.statusCode != 200) {
+      return "Couldn't add to cart";
     }
     print(res.body);
-    
     return "Success";
 }

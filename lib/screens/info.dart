@@ -116,7 +116,7 @@ class _InfoPageState extends State<InfoPage> {
       Loader.hide();
 
       if (status == "Success") {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => JobProfile())));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => JobProfile(low: 2000,high: 12000,))));
       }
       // authController.login(email, password);
       // Navigator.push(context, MaterialPageRoute(builder: (context) {

@@ -8,7 +8,10 @@ import '../widgets/JobCard.dart';
 import 'filter_page.dart';
 
 class JobProfile extends StatefulWidget {
-  const JobProfile({Key? key}) : super(key: key);
+  final int low, high;
+  final String? mode;
+  const JobProfile({Key? key, required this.low, required this.high, this.mode})
+      : super(key: key);
 
   @override
   State<JobProfile> createState() => _JobProfileState();
@@ -17,15 +20,16 @@ class JobProfile extends StatefulWidget {
 class _JobProfileState extends State<JobProfile> {
   List<data.Data> _getJob = [];
 
-  getJob() async {
-    _getJob = await GetJobApi().getJobData();
+  getJob(int low, int high) async {
+    _getJob = await GetJobApi().getJobData(low, high);
     print(_getJob);
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    getJob();
+    getJob(widget.low, widget.high);
+
     super.initState();
   }
 
@@ -43,7 +47,10 @@ class _JobProfileState extends State<JobProfile> {
           elevation: 0,
           title: const Text(
             'Job Profile',
-            style: TextStyle(fontFamily: 'poppins', fontWeight: FontWeight.w500, color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'poppins',
+                fontWeight: FontWeight.w500,
+                color: Colors.black),
           ),
           toolbarHeight: 50,
           centerTitle: true,
@@ -52,7 +59,8 @@ class _JobProfileState extends State<JobProfile> {
             IconButton(
                 onPressed: () {
                   GetStorage().erase();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
                     return const LoginScreen();
                   }));
                 },
@@ -67,7 +75,7 @@ class _JobProfileState extends State<JobProfile> {
               const SizedBox(height: 30),
               Center(
                 child: FutureBuilder(
-                    future: getJob(),
+                    future: getJob(widget.low, widget.high),
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
@@ -81,9 +89,9 @@ class _JobProfileState extends State<JobProfile> {
                           itemCount: _getJob.length,
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (BuildContext context, int index) {
-                            if (_getJob[index].requirements == null)
-                            {
-                              _getJob[index].requirements = "No specific requirements";
+                            if (_getJob[index].requirements == null) {
+                              _getJob[index].requirements =
+                                  "No specific requirements";
                             }
                             return JobCard(
                               companyName: _getJob[index].company,
