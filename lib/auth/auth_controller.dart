@@ -22,7 +22,7 @@ class AuthController {
       return "incorrect_user_details";
     }
 
-    print(res.body);
+    print(res.body);   
     final response = jsonDecode(body);
     init(response);
     return "Success";

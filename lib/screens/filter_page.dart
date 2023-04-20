@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:internship_fair/models/getjob_api.dart';
+import 'package:internship_fair/screens/JobProfile.dart';
 
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -11,25 +13,20 @@ class Filter extends StatefulWidget {
   State<Filter> createState() => _FilterState();
 }
 
-class MyCustomIconData extends IconData {
-  const MyCustomIconData(int codePoint)
-      : super(
-          codePoint,
-          fontFamily: 'Poppins',
-        );
-}
-
 class _FilterState extends State<Filter> {
   final TextEditingController _textEditingController = TextEditingController();
   final TextEditingController _textEditingController2 = TextEditingController();
   bool _isChecked = false;
   bool _isCorrected = false;
-  SfRangeValues _values = const SfRangeValues(3000.0, 10000.0);
+  SfRangeValues _values = const SfRangeValues(2000.0, 12000.0);
+  int low = 2000, high = 12000;
+
   @override
   Widget build(BuildContext context) {
     // double _currentValue = 5000.0;
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -42,7 +39,8 @@ class _FilterState extends State<Filter> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
+                  icon: Icon(Icons.arrow_back_ios_new_outlined,
+                      color: blackColor),
                   iconSize: sizefont * 1.5,
                   onPressed: () => Navigator.pop(context),
                 ),
@@ -66,7 +64,8 @@ class _FilterState extends State<Filter> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(right: size.width * 0.62, bottom: size.height * 0.01),
+                      padding: EdgeInsets.only(
+                          right: size.width * 0.62, bottom: size.height * 0.01),
                       child: const Text(
                         "CATEGORY",
                         style: TextStyle(
@@ -107,79 +106,66 @@ class _FilterState extends State<Filter> {
             SizedBox(
               width: size.width * 0.958,
               child: SfRangeSlider(
-                labelFormatterCallback: (dynamic actualValue, String formattedText) {
+                labelFormatterCallback:
+                    (dynamic actualValue, String formattedText) {
                   var formattedText = NumberFormat.compactCurrency(
-                    decimalDigits: 2,
-                    symbol: '₹', // if you want to add currency symbol then pass that in this else leave it empty.
+                    symbol:
+                        '₹', // if you want to add currency symbol then pass that in this else leave it empty.
+                    decimalDigits: 0,
                   ).format(actualValue);
                   return ' $formattedText';
                 },
+                showDividers: true,
+                // showTicks: true,
+                enableTooltip: true,
+                tooltipTextFormatterCallback:
+                    (dynamic actualValue, String formattedText) {
+                  actualValue = actualValue.round() - actualValue.round() % 500;
+                  return actualValue.toStringAsFixed(00);
+                },
+
+                inactiveColor: darkgrey,
+                activeColor: blackTeal,
                 min: 2000,
-                max: 10000.0,
+                max: 12000,
                 values: _values,
-                interval: 2000.0,
+                interval: 2000,
                 showLabels: true,
                 onChanged: (SfRangeValues newValues) {
                   setState(() {
                     _values = newValues;
                   });
+                  low = _values.start.round() - _values.start.round() % 500;
+                  high = _values.end.round() - _values.end.round() % 500;
                 },
               ),
             ),
-            // SliderTheme(
-            //   data: SliderThemeData(
-            //     thumbColor: Colors.teal,
-            //     activeTrackColor: Colors.teal,
-            //     inactiveTrackColor: Colors.grey,
-            //     overlayColor: Colors.teal.withOpacity(0.2),
-            //     trackHeight: 4.0,
-            //     thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
-            //     overlayShape: const RoundSliderOverlayShape(overlayRadius: 24.0),
-            //     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-            //     valueIndicatorColor: Colors.teal,
-            //     valueIndicatorTextStyle: const TextStyle(
-            //       color: Colors.white,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            //   child: Slider(
-            //     value: _currentValue,
-            //     min: 3000.0,
-            //     max: 10000.0,
-            //     divisions: 5,
-            //     label: _currentValue.round().toString(),
-            //     onChanged: (double value) {
-            //       setState(() {
-            //         _currentValue = value;
-            //       });
-            //     },
-            //   ),
-            // ),
             Padding(
               padding: const EdgeInsets.all(28.5),
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: size.width * 0.63, bottom: size.height * 0.01),
-                    child: const Text(
-                      "COMPANY",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4.0),
-                        border: Border.all(
-                          width: 2.0,
-                          color: blackTeal,
-                        )),
-                    child: TextField(
-                      controller: _textEditingController2,
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: EdgeInsets.only(
+                  //       right: size.width * 0.63, bottom: size.height * 0.01),
+                  //   child: const Text(
+                  //     "COMPANY",
+                  //     style: TextStyle(
+                  //       fontFamily: 'Poppins',
+                  //       fontWeight: FontWeight.normal,
+                  //     ),
+                  //   ),
+                  // ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //       borderRadius: BorderRadius.circular(4.0),
+                  //       border: Border.all(
+                  //         width: 2.0,
+                  //         color: blackTeal,
+                  //       )),
+                  //   child: TextField(
+                  //     controller: _textEditingController2,
+                  //   ),
+                  // ),
                   Padding(
                     padding: EdgeInsets.only(right: size.width * 0.05),
                     child: Row(
@@ -234,19 +220,80 @@ class _FilterState extends State<Filter> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: size.width * 0.71),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent, // Set the background color to transparent
-                    elevation: 0, // Set the elevation to 0 to remove the shadow
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                children: [
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors
+                            .transparent, // Set the background color to transparent
+                        elevation:
+                            0, // Set the elevation to 0 to remove the shadow
+                      ),
+                      onPressed: () {
+                        if ((_isCorrected == false && _isChecked == false) ||
+                            (_isChecked == true && _isCorrected == true)) {
+                          // GetJobApi().getJobData(low, high);
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (_) => JobProfile(
+                                        low: low,
+                                        high: high,
+                                        mode: 'null',
+                                      )));
+                        } else if (_isCorrected == true &&
+                            _isChecked == false) {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (_) => JobProfile(
+                                        low: low,
+                                        high: high,
+                                        mode: "Online",
+                                      )));
+                        } else if (_isChecked == true &&
+                            _isCorrected == false) {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (_) => JobProfile(
+                                        low: low,
+                                        high: high,
+                                        mode: "Offline",
+                                      )));
+                        }
+                      },
+                      child: const FittedBox(
+                        child: Text(
+                          "Apply",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.normal,
+                              color: Colors.teal),
+                        ),
+                      )),
+                  SizedBox(
+                    width: 150,
                   ),
-                  onPressed: () {},
-                  child: const FittedBox(
-                    child: Text(
-                      "Clear All",
-                      style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.normal, color: Colors.teal),
-                    ),
-                  )),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors
+                            .transparent, // Set the background color to transparent
+                        elevation:
+                            0, // Set the elevation to 0 to remove the shadow
+                      ),
+                      onPressed: () {
+                        GetJobApi().getJobData(2000, 12000, 'null');
+                      },
+                      child: const FittedBox(
+                        child: Text(
+                          "Clear All",
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.normal,
+                              color: Colors.teal),
+                        ),
+                      )),
+                ],
+              ),
             )
           ],
         ),

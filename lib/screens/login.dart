@@ -39,7 +39,8 @@ class _LoginScreenState extends State<LoginScreen> {
       if (formKey.currentState!.validate()) {
         // Navigator.of(context).push(
         //     MaterialPageRoute(builder: (context) => const JobProfile()));
-        Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
+        Loader.show(context,
+            progressIndicator: CircularProgressIndicator(color: blackTeal));
         String status = '';
 
         try {
@@ -51,7 +52,10 @@ class _LoginScreenState extends State<LoginScreen> {
         Loader.hide();
 
         if (status == "Success") {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => JobProfile())));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: ((context) => JobProfile(low: 2000, high: 12000,mode: 'null',))));
         } else {
           MotionToast.error(
                   height: 65,
@@ -60,7 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: EdgeInsets.zero,
                   title: Text(
                     "Incorrect user details",
-                    style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
+                    style: TextStyle(
+                        color: whiteColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                   ),
                   description: Text("Enter registered email and password"))
               .show(context);
@@ -110,10 +117,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: () => sapidController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -129,7 +140,8 @@ class _LoginScreenState extends State<LoginScreen> {
           if (value!.isEmpty) {
             return ("Please enter your E-mail ID");
           }
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]").hasMatch(value)) {
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]")
+              .hasMatch(value)) {
             return ("Please Enter a valid E-mail");
           }
           return null;
@@ -156,10 +168,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: () => emailController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.005, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(
+              vertical: size.width * 0.005, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -187,9 +203,12 @@ class _LoginScreenState extends State<LoginScreen> {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
           suffixIcon: InkWell(
             onTap: togglePasswordView,
@@ -227,7 +246,10 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         Text("OR",
             textAlign: TextAlign.center,
-            style: TextStyle(fontFamily: 'poppins', fontSize: sizefont * 0.8, color: greyColor)),
+            style: TextStyle(
+                fontFamily: 'poppins',
+                fontSize: sizefont * 0.8,
+                color: greyColor)),
         const SizedBox(
           width: 5,
           height: 2,
@@ -251,14 +273,18 @@ class _LoginScreenState extends State<LoginScreen> {
         child: MaterialButton(
             padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
             onPressed: () {
-              signIn(sapidController.text, emailController.text, passwordController.text);
+              signIn(sapidController.text, emailController.text,
+                  passwordController.text);
             },
             child: SizedBox(
               width: size.width,
               child: Text(
                 "LOGIN",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
+                style: TextStyle(
+                    fontFamily: 'poppins',
+                    fontSize: sizefont,
+                    color: whiteColor),
               ),
             )));
 
@@ -281,10 +307,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     Flexible(
                       flex: 1,
                       fit: FlexFit.loose,
-                      child:
-                          SizedBox(height: sizefont, child: Image.asset("assets/images/Google.png", fit: BoxFit.contain)
-                              // SvgPicture.asset("assets/images/google.svg")
-                              ),
+                      child: SizedBox(
+                          height: sizefont,
+                          child: Image.asset("assets/images/Google.png",
+                              fit: BoxFit.contain)
+                          // SvgPicture.asset("assets/images/google.svg")
+                          ),
                     ),
                     Flexible(
                       flex: 0,
@@ -300,7 +328,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         "Login with Google",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
+                        style: TextStyle(
+                            fontFamily: 'poppins',
+                            fontSize: sizefont,
+                            color: whiteColor),
                       ),
                     ),
                     // ),
@@ -313,7 +344,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+            padding: EdgeInsets.symmetric(
+                vertical: 27, horizontal: size.width * 0.06),
             child: Form(
               key: formKey,
               child: Column(
@@ -325,10 +357,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Text(
                     "LOGIN",
-                    style: TextStyle(fontFamily: 'alumni', color: blackTeal, fontSize: 60, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontFamily: 'alumni',
+                        color: blackTeal,
+                        fontSize: 60,
+                        fontWeight: FontWeight.bold),
                   ),
                   GestureDetector(
-                    child: Text("New here? Sign up Here", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                    child: Text("New here? Sign up Here",
+                        style: TextStyle(
+                            fontFamily: 'poppins', fontSize: sizefont)),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -344,9 +382,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Text("SAPID",
                   //     style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                   // sapidField,
-                  Text("E-mail ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                  Text("E-mail ID",
+                      style:
+                          TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                   emailField,
-                  Text("Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                  Text("Password",
+                      style:
+                          TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                   passwordField,
                   const SizedBox(
                     height: 9,
@@ -356,7 +398,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
                         child: Text("Forgot Password?",
-                            style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: blackTeal)),
+                            style: TextStyle(
+                                fontFamily: 'poppins',
+                                fontSize: sizefont,
+                                color: blackTeal)),
                         onTap: () {
                           // Navigator.push(
                           //   context,

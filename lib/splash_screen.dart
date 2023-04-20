@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     if (GetStorage().read('token') == null) {
       return const LoginScreen();
     }
-    return const JobProfile();
+    return const JobProfile(low: 2000, high: 12000, mode: 'null');
   }
 
   @override

@@ -64,9 +64,45 @@ class _JobDescState extends State<JobDesc> {
       Loader.hide();
 
       if (status == "Success") {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: ((context) => MyCart())));
-      } else {
+        MotionToast.success(
+                height: 65,
+                borderRadius: 10,
+                padding: EdgeInsets.zero,
+                title: Text(
+                  "Job successfully added to Cart",
+                  style: TextStyle(
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                description: Text(""))
+            .show(context);
+      } else if (status == "Job already in cart")
+      {
+         MotionToast(
+            primaryColor: darkgrey,
+            width: size.width*0.8,
+                height: sizefont*5,
+                borderRadius: 10,
+                padding: EdgeInsets.zero,
+                title: Text(
+                  "Job already in cart",
+                  style: TextStyle(
+                    fontFamily: "poppins",
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: sizefont*0.8),
+                ),
+                description: Text("Add another Job",
+                style: TextStyle(
+                    fontFamily: "poppins",
+                      color: blackColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: sizefont*0.7)))
+            .show(context);
+      }
+      
+      else {
         MotionToast.error(
                 height: 65,
                 borderRadius: 10,
@@ -74,9 +110,10 @@ class _JobDescState extends State<JobDesc> {
                 title: Text(
                   "Couldn't add to Cart",
                   style: TextStyle(
+                      fontFamily: "poppins",
                       color: whiteColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                      fontSize: sizefont),
                 ),
                 description: Text("Try Again"))
             .show(context);
@@ -455,22 +492,25 @@ class _JobDescState extends State<JobDesc> {
         elevation: 5,
         borderRadius: BorderRadius.circular(5),
         color: blackTeal,
-        child: MaterialButton(
-            padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
-            onPressed: () {
-              cartAdd();
-            },
-            child: SizedBox(
-              width: size.width,
-              child: Text(
-                "Apply",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'poppins',
-                    fontSize: sizefont,
-                    color: whiteColor),
-              ),
-            )));
+        child: Container(
+          height: sizefont*3,
+          padding: EdgeInsets.symmetric(vertical: sizefont * 0.5),
+          child: MaterialButton(
+              onPressed: () {
+                cartAdd();
+              },
+              child: SizedBox(
+                width: size.width,
+                child: Text(
+                  "Apply",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'poppins',
+                      fontSize: sizefont,
+                      color: whiteColor),
+                ),
+              )),
+        ));
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
