@@ -143,7 +143,7 @@ class _InfoPageState extends State<InfoPage> {
             context,
             MaterialPageRoute(
                 builder: ((context) =>
-                    JobProfile(low: 2000, high: 12000, mode: 'null'))));
+                    const JobProfile(low: 2000, high: 12000, mode: 'null'))));
       }
       // authController.login(email, password);
       // Navigator.push(context, MaterialPageRoute(builder: (context) {

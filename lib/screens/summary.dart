@@ -23,7 +23,7 @@ class _SummaryState extends State<SummaryPage> {
   int? count;
    
    var sum;
-   //List<int> sum1 = [];
+   //List<int> sum = [];
 
   getSummaryData() async {
      sum = await SummaryFunction.SummaryApi().getSummaryInfo();

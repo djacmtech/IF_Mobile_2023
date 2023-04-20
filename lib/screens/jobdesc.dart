@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/addtocart.dart';
-import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/summary.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
@@ -91,7 +90,7 @@ class _JobDescState extends State<JobDesc> {
           width: size.width * 0.8,
           height: sizefont * 5,
           borderRadius: 10,
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           title: Text(
             "Job Already in Cart",
             style: TextStyle(
@@ -114,7 +113,7 @@ class _JobDescState extends State<JobDesc> {
         MotionToast.error(
           height: sizefont * 5,
           borderRadius: 10,
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           title: Row(
             children: [
               // Icon(
@@ -525,7 +524,7 @@ class _JobDescState extends State<JobDesc> {
               onPressed: () {
                 //cartAdd();
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: ((context) => SummaryPage())));
+                    MaterialPageRoute(builder: ((context) => const SummaryPage())));
               },
               child: SizedBox(
                 width: size.width,
