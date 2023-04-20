@@ -27,7 +27,7 @@ class CartAPI {
   Cartjob? cartjob;
 
   Job? getJob;
-  List<Job>? _getCart= [];
+  List<Job>? _getCart = [];
   getCart() async {
     try {
       var request = http.Request(

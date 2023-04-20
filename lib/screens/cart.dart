@@ -1,9 +1,11 @@
 // ignore_for_file: avoid_print
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/getcart_api.dart';
 import 'package:internship_fair/models/getcart_model.dart' as data;
+import 'package:internship_fair/screens/summary.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -43,108 +45,88 @@ class _MyCartState extends State<MyCart> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    double sizefont = size.width * 0.07;
+    final Size size = MediaQuery.of(context).size;
+    final double sizefont = size.width * 0.07;
 
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_outlined,
-                color: Colors.black),
-            onPressed: () => Navigator.pop(context),
-          ),
-          centerTitle: true,
-          title: Text(
-            "IF CART ",
-            style: TextStyle(
-                fontFamily: 'Poppins',
-                fontSize: sizefont,
-                fontWeight: FontWeight.normal,
-                color: Colors.black),
-            textAlign: TextAlign.start,
-          ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined,
+              color: Colors.black),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: FutureBuilder(
-          future: getJob(),
-          builder: ((context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: blackTeal,
-                ),
-              );
-            } else {
-              return ListView(
-                shrinkWrap: true,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.019,
-                      ),
-                      Text(
-                        'IF Company list',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: sizefont * 0.60,
-                            fontFamily: 'popins'),
-                      ),
-                      SizedBox(width: size.width * 0.47),
-                      Text(
-                        'Price',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: sizefont * 0.6),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: size.height * 0.016),
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
+        centerTitle: true,
+        title: Text(
+          "IF CART",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: sizefont,
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),
+          textAlign: TextAlign.start,
+        ),
+      ),
+      body: FutureBuilder(
+        future: getJob(),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: blackTeal,
+              ),
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: size.height * 0.05),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                //   child: Text(
+                //     'IF Company list',
+                //     style: TextStyle(
+                //       fontWeight: FontWeight.w500,
+                //       fontSize: sizefont * 0.60,
+                //       fontFamily: 'Poppins',
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(height: size.height * 0.01),
+                Expanded(
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     itemCount: cartCount,
                     itemBuilder: (BuildContext context, int index) {
-                      //Product item = cartItems[index];
                       return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.005,
-                            vertical: size.width * 0.005),
-                        child: Card(
-                          color: Colors.white,
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(3),
-                            side: BorderSide(color: Colors.grey.shade400),
-                          ),
-                          child: ListTile(
-                            leading: FittedBox(
-                              fit: BoxFit.contain,
-                              child: Image.network(
-                                _getCart![index].logo,
-                              ),
-                            ),
-                            title: Text(
-                              _getCart![index].company,
-                              style: const TextStyle(
-                                  color: Color(0xFF187271),
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(_getCart![index].role),
-                            trailing: Text(
-                              '₹50',
-                              style: TextStyle(fontSize: sizefont * 0.65),
-                            ),
-                          ),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: CartItemCard(
+                          company: _getCart![index].company,
+                          role: _getCart![index].role,
+                          logoUrl: _getCart![index].logo,
+                          price: '₹50',
                         ),
                       );
                     },
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      right: size.width * 0.05,
+                      bottom: size.height * 0.05,
+                      left: size.width * 0.03),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const SummaryPage();
+                      }));
+                    },
                     style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF187271),
+                      backgroundColor: const Color(0xFF187271),
                       padding: EdgeInsets.symmetric(
                         vertical: size.height * 0.029,
                         horizontal: size.width * 0.2,
@@ -176,11 +158,69 @@ class _MyCartState extends State<MyCart> {
                         ),
                       ],
                     ),
-                  )
-                ],
-              );
-            }
-          }),
-        ));
+                  ),
+                ),
+              ],
+            );
+          }
+        }),
+      ),
+    );
+  }
+}
+
+class CartItemCard extends StatelessWidget {
+  final String company;
+  final String role;
+  final String logoUrl;
+  final String price;
+
+  const CartItemCard({
+    required this.company,
+    required this.role,
+    required this.logoUrl,
+    required this.price,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    final double sizefont = size.width * 0.07;
+
+    return Card(
+      color: Colors.white,
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: Colors.grey.shade400),
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          radius: 25,
+          backgroundImage: NetworkImage(logoUrl),
+        ),
+        title: Text(
+          role,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+        subtitle: Text(
+          company,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey.shade600,
+          ),
+        ),
+        trailing: Text(
+          '$price',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
+        ),
+      ),
+    );
   }
 }

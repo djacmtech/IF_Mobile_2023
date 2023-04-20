@@ -243,6 +243,7 @@ class _FilterState extends State<Filter> {
                       onPressed: () {
                         if ((_isCorrected == false && _isChecked == false) ||
                             (_isChecked == true && _isCorrected == true)) {
+                          Navigator.pop(context);
                           // GetJobApi().getJobData(low, high);
                           Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
@@ -253,6 +254,7 @@ class _FilterState extends State<Filter> {
                                       )));
                         } else if (_isCorrected == true &&
                             _isChecked == false) {
+                          Navigator.pop(context);
                           Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
                                   builder: (_) => JobProfile(
@@ -262,6 +264,7 @@ class _FilterState extends State<Filter> {
                                       )));
                         } else if (_isChecked == true &&
                             _isCorrected == false) {
+                          Navigator.pop(context);
                           Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
                                   builder: (_) => JobProfile(
@@ -292,7 +295,13 @@ class _FilterState extends State<Filter> {
                             0, // Set the elevation to 0 to remove the shadow
                       ),
                       onPressed: () {
-                        GetJobApi().getJobData(2000, 12000, 'null');
+                        Navigator.pop(context);
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (_) => JobProfile(
+                                  low: low,
+                                  high: high,
+                                  mode: 'null',
+                                )));
                         setState(() {
                           _values = SfRangeValues(2000.0, 12000.0);
                           _isChecked = false;
