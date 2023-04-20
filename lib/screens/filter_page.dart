@@ -231,12 +231,35 @@ class _FilterState extends State<Filter> {
                             0, // Set the elevation to 0 to remove the shadow
                       ),
                       onPressed: () {
-                        // GetJobApi().getJobData(low, high);
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (_) => JobProfile(
-                                  low: low,
-                                  high: high,
-                                )));
+                        if ((_isCorrected == false && _isChecked == false) ||
+                            (_isChecked == true && _isCorrected == true)) {
+                          // GetJobApi().getJobData(low, high);
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (_) => JobProfile(
+                                        low: low,
+                                        high: high,
+                                        mode: 'null',
+                                      )));
+                        } else if (_isCorrected == true &&
+                            _isChecked == false) {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (_) => JobProfile(
+                                        low: low,
+                                        high: high,
+                                        mode: "Online",
+                                      )));
+                        } else if (_isChecked == true &&
+                            _isCorrected == false) {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (_) => JobProfile(
+                                        low: low,
+                                        high: high,
+                                        mode: "Offline",
+                                      )));
+                        }
                       },
                       child: const FittedBox(
                         child: Text(
@@ -258,7 +281,7 @@ class _FilterState extends State<Filter> {
                             0, // Set the elevation to 0 to remove the shadow
                       ),
                       onPressed: () {
-                        GetJobApi().getJobData(2000, 12000);
+                        GetJobApi().getJobData(2000, 12000, 'null');
                       },
                       child: const FittedBox(
                         child: Text(

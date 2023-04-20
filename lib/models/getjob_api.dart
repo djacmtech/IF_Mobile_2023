@@ -25,14 +25,27 @@ class GetJobApi {
   GetJob? getJob;
   List<Data>? _getJob = [];
 
-  getJobData(int low, int high) async {
+  getJobData(int low, int high, String? mode) async {
     String url = "https://acm-if.onrender.com/api/acm-if/get-jobs";
     // http.Response response = await http.get(Uri.parse(url));
-    var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    var request = http.Request('GET', Uri.parse(url));
 
-    request.bodyFields = {'lowStipend': '${low}', 'highStipend': '${high}'};
-    request.headers.addAll(headers);
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+
+    var request = http.Request('GET', Uri.parse(url));
+    if (mode != 'null') {
+      request.bodyFields = {
+        'lowStipend': '${low}',
+        'highStipend': '${high}',
+        'mode': '${mode}'
+      };
+      request.headers.addAll(headers);
+    } else {
+      request.bodyFields = {
+        'lowStipend': '${low}',
+        'highStipend': '${high}',
+      };
+      request.headers.addAll(headers);
+    }
 
     http.StreamedResponse response = await request.send();
     print(low);

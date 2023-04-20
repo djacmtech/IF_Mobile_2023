@@ -55,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: ((context) => JobProfile(low: 2000, high: 12000))));
+                  builder: ((context) => JobProfile(low: 2000, high: 12000,mode: 'null',))));
         } else {
           MotionToast.error(
                   height: 65,

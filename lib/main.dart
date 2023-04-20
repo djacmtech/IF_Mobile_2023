@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: JobProfile(low: 2000,high: 12000),
+      home: JobProfile(low: 2000,high: 12000,mode: 'null'),
     );
   }
 }

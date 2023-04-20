@@ -10,7 +10,7 @@ import 'filter_page.dart';
 class JobProfile extends StatefulWidget {
   final int low, high;
   final String? mode;
-  const JobProfile({Key? key, required this.low, required this.high, this.mode})
+  const JobProfile({Key? key, required this.low, required this.high, required this.mode})
       : super(key: key);
 
   @override
@@ -20,15 +20,15 @@ class JobProfile extends StatefulWidget {
 class _JobProfileState extends State<JobProfile> {
   List<data.Data> _getJob = [];
 
-  getJob(int low, int high) async {
-    _getJob = await GetJobApi().getJobData(low, high);
+  getJob(int low, int high, String? mode) async {
+    _getJob = await GetJobApi().getJobData(low, high, mode);
     print(_getJob);
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    getJob(widget.low, widget.high);
+    getJob(widget.low, widget.high, widget.mode);
 
     super.initState();
   }
@@ -75,7 +75,7 @@ class _JobProfileState extends State<JobProfile> {
               const SizedBox(height: 30),
               Center(
                 child: FutureBuilder(
-                    future: getJob(widget.low, widget.high),
+                    future: getJob(widget.low, widget.high,widget.mode),
                     builder: ((context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
