@@ -80,7 +80,7 @@ class _JobProfileState extends State<JobProfile> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushReplacement(context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) {
                   return const MyCart();
                 }));

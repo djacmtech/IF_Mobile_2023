@@ -19,22 +19,28 @@ Future<String> addCart(
       }),
       headers: {'Content-Type': 'application/json'});
   print(res.statusCode);
+  final response = jsonDecode(res.body);
+  print(response["message"]);
+  if (response["message"]=='Job already ordered')
+  {
+      return 'Job Already in Cart';
+  }
   if (res.statusCode != 200) {
     print("Couldnt add to cart");
     return "Couldnt add to cart";
   }
   print(res.body);
 
-  final response = jsonDecode(res.body);
-  print(response['data']['jobs'][0]['cartjob']['cartId']);
-  try {
-    final box = GetStorage();
-    // box.write('token', res['token']);
-    box.write('cartId', response['data']['jobs'][0]['cartjob']['cartId']);
+  
+  //print(response['data']['jobs'][0]['cartjob']['cartId']);
+  // try {
+  //   final box = GetStorage();
+  //   // box.write('token', res['token']);
+  //   box.write('cartId', response['data']['jobs'][0]['cartjob']['cartId']);
 
-  } catch (e) {
-    print(e);
-  }
+  // } catch (e) {
+  //   print(e);
+  // }
 
   return "Success";
 }

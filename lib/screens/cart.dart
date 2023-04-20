@@ -29,7 +29,7 @@ class _MyCartState extends State<MyCart> {
 
   getJob() async {
     _getCart = await CartAPI().getCart();
-    cartCount = _getCart!.length;
+    cartCount = _getCart?.length;
     print(_getCart!.length);
 
     // print(_getCart![0].company);
@@ -120,7 +120,7 @@ class _MyCartState extends State<MyCart> {
                       left: size.width * 0.03),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(context,
+                      Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return const SummaryPage();
                       }));
@@ -187,40 +187,58 @@ class CartItemCard extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final double sizefont = size.width * 0.07;
 
-    return Card(
-      color: Colors.white,
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-        side: BorderSide(color: Colors.grey.shade400),
-      ),
-      child: ListTile(
-        leading: CircleAvatar(
-          radius: 25,
-          backgroundImage: NetworkImage(logoUrl),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: sizefont*0.5),
+      child: Card(
+        color: Colors.white,
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: BorderSide(color: Colors.grey.shade400),
         ),
-        title: Text(
-          role,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+        child: ListTile(
+          leading: CircleAvatar(
+            radius: 25,
+            backgroundImage: NetworkImage(logoUrl),
+          ),
+          title: Text(
+            role,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                company,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey.shade600,
+                ), 
+              ),
+              SizedBox(
+                height: sizefont*0.1,
+              ),
+              Text(
+            '$price',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),)
+            ],
+          ),
+          trailing: 
+            IconButton(
+              icon: Icon( Icons.delete_outlined, color: blackColor),
+              iconSize: sizefont * 1.5,
+              onPressed: () {
+                //Navigator.of(context).pop();
+                },
+            ),
           ),
         ),
-        subtitle: Text(
-          company,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade600,
-          ),
-        ),
-        trailing: Text(
-          '$price',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
-          ),
-        ),
-      ),
     );
   }
 }
