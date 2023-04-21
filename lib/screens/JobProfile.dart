@@ -99,7 +99,7 @@ class _JobProfileState extends State<JobProfile> {
                       MaterialPageRoute(
                           builder: (context) =>
                               //Summary()
-                              MyCart()));
+                              LoginScreen()));
                 },
                 icon: const Icon(Icons.logout, color: Colors.teal)),
           ],

@@ -25,6 +25,7 @@ class CartAPI {
   DateTime? updatedAt;
   dynamic orderId;
   Cartjob? cartjob;
+  int? jobid;
 
   Job? getJob;
   List<Job>? _getCart = [];
