@@ -2,10 +2,14 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/getcart_api.dart';
 import 'package:internship_fair/models/getcart_model.dart' as data;
+import 'package:internship_fair/models/removeCart.dart';
 import 'package:internship_fair/screens/summary.dart';
+import 'package:motion_toast/motion_toast.dart';
 
 class MyCart extends StatefulWidget {
   const MyCart({Key? key}) : super(key: key);
@@ -108,6 +112,8 @@ class _MyCartState extends State<MyCart> {
                           role: _getCart![index].role,
                           logoUrl: _getCart![index].logo,
                           price: '₹50',
+                          jobid: 6,
+                          //_getCart![index].jobid,
                         ),
                       );
                     },
@@ -174,18 +180,114 @@ class CartItemCard extends StatelessWidget {
   final String role;
   final String logoUrl;
   final String price;
+  final int jobid;
 
   const CartItemCard({
     required this.company,
     required this.role,
     required this.logoUrl,
-    required this.price,
+    required this.price, 
+    required this.jobid,
   });
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double sizefont = size.width * 0.07;
+
+    void cartremove() async {
+      Loader.show(context,
+          progressIndicator: CircularProgressIndicator(color: blackTeal));
+      String status = '';
+      int userid = GetStorage().read("id");
+      try {
+        status = await removeFromCart(userid, jobid);
+      } on Exception catch (e) {
+        Loader.hide();
+        print(e);
+      }
+      Loader.hide();
+
+      if (status == "Success") {
+        MotionToast.success(
+          width: size.width * 0.6,
+          height: 65,
+          borderRadius: 10,
+          padding: EdgeInsets.zero,
+          title: Text(
+            "Job successfully removed from Cart",
+            style: TextStyle(
+                color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          description: Text(
+            "Your selected job has been successfully removed from the cart",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: sizefont * 0.7,
+            ),
+          ),
+        ).show(context);
+      } else if (status == "Job not in Cart") {
+        MotionToast(
+          primaryColor: darkgrey,
+          width: size.width * 0.8,
+          height: sizefont * 5,
+          borderRadius: 10,
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          title: Text(
+            "Job not in Cart",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: sizefont * 0.8,
+            ),
+          ),
+          description: Text(
+            "Please add the job to the Card before removing it",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: sizefont * 0.7,
+            ),
+          ),
+        ).show(context);
+      } else {
+        MotionToast.error(
+          height: sizefont * 5,
+          borderRadius: 10,
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          title: Row(
+            children: [
+              // Icon(
+              //   Icons.error_outline,
+              //   color: Colors.white,
+              //   size: 24,
+              // ),
+              // SizedBox(width: 16),
+              Text(
+                "Could not remove from Cart",
+                style: TextStyle(
+                  fontFamily: "Poppins",
+                  color: whiteColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: sizefont * 0.9,
+                ),
+              ),
+            ],
+          ),
+          description: Text(
+            "Please check your internet connection and try again",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: whiteColor,
+              fontSize: sizefont * 0.7,
+            ),
+          ),
+        ).show(context);
+      }
+    }
+
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: sizefont*0.5),
@@ -234,6 +336,7 @@ class CartItemCard extends StatelessWidget {
               icon: Icon( Icons.delete_outlined, color: blackColor),
               iconSize: sizefont * 1.5,
               onPressed: () {
+                cartremove();
                 //Navigator.of(context).pop();
                 },
             ),
