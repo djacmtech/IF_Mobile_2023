@@ -31,9 +31,11 @@ class CartAPI {
   List<Job>? _getCart = [];
   getCart() async {
     try {
+      int userid = GetStorage().read("id");
+      print(userid);
       var request = http.Request(
           'GET', Uri.parse('https://acm-if.onrender.com/api/acm-if/get-cart'));
-      request.bodyFields = {'userId': '2'};
+      request.bodyFields = {'userId': "$userid"};
 
       http.StreamedResponse response = await request.send();
       http.Response streamResponse = await http.Response.fromStream(response);
