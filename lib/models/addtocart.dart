@@ -9,19 +9,19 @@ Future<String> addCart(
   int userid,
   int jobid,
 ) async {
-  print(userid);
-  print(jobid);
+  // print(userid);
+  // print(jobid);
   Uri uri = Uri.parse("https://acm-if.onrender.com/api/acm-if/add-to-cart");
   final res = await http.post(uri,
       body: jsonEncode({
-        "userId": userid,
-        "jobId": jobid,
+        "userId": "$userid",
+        "jobId": "$jobid",
       }),
-      headers: {'Content-Type': 'application/json'});
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'});
   print(res.statusCode);
   final response = jsonDecode(res.body);
   print(response["message"]);
-  if (response["message"]=='Job already ordered')
+  if (response["message"]=='Job already in cart')
   {
       return 'Job Already in Cart';
   }

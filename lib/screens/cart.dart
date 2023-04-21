@@ -111,7 +111,7 @@ class _MyCartState extends State<MyCart> {
                           role: _getCart![index].role,
                           logoUrl: _getCart![index].logo,
                           price: '₹50',
-                          jobid: 6,
+                          jobid: _getCart![index].cartjob.jobId,
                           //_getCart![index].jobid,
                         ),
                       );
