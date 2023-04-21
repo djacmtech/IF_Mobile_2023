@@ -418,12 +418,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   // sapidField,
                   Text("Email ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   emailField,
-                  Text("Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                  Text("New Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   passwordField,
                   const SizedBox(
                     height: 9,
                   ),
-                  Text("Confirm Password",
+                  Text("Confirm New Password",
                       style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   confirmPasswordField,
                   const SizedBox(
