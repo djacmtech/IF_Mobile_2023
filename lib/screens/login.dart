@@ -128,10 +128,10 @@ class _LoginScreenState extends State<LoginScreen> {
         controller: emailController,
         validator: (value) {
           if (value!.isEmpty) {
-            return ("Please enter your E-mail ID");
+            return ("Please enter your Email ID");
           }
           if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]").hasMatch(value)) {
-            return ("Please Enter a valid E-mail");
+            return ("Please Enter a valid Email");
           }
           return null;
         },
@@ -352,7 +352,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   // Text("SAPID",
                   //     style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                   // sapidField,
-                  Text("E-mail ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                  Text("Email ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                   emailField,
                   Text("Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
                   passwordField,
