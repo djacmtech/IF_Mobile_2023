@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:internship_fair/models/summary_model.dart' as SummaryClass;
 import 'package:internship_fair/models/summary_api.dart' as SummaryFunction;
+import 'package:internship_fair/screens/JobProfile.dart';
 
 class SummaryPage extends StatefulWidget {
   const SummaryPage({super.key});
@@ -40,7 +41,8 @@ class _SummaryState extends State<SummaryPage> {
   @override
   Widget build(BuildContext context) {
     //sum = sum1.toList();
-
+     var size = MediaQuery.of(context).size;
+    double sizefont = size.width * 0.04;
     return Scaffold(
       backgroundColor: textgreen,
       appBar: AppBar(
@@ -49,8 +51,11 @@ class _SummaryState extends State<SummaryPage> {
             left: MediaQuery.of(context).size.width * 0.065,
           ),
           child: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new_outlined, color: whiteColor),
-            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
+            iconSize: sizefont * 1.5,
+            onPressed: () {
+              Navigator.of(context).pop();
+              },
           ),
         ),
         centerTitle: true,

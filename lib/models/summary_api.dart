@@ -27,12 +27,14 @@ class SummaryApi {
 
     String url = "https://acm-if.onrender.com/api/acm-if/get-summary";
     http.Request request = http.Request('GET', Uri.parse(url));
-    cartID = GetStorage().read('cartId');
+    //cartID = GetStorage().read('cartId');
     int userID = GetStorage().read('id');
     print(userID);
-    print(cartID);
+    //print(cartID);
 
-    request.bodyFields = {'userId': '$userID', 'cartId': '$cartID'};
+    request.bodyFields = {'userId': '$userID', 
+    //'cartId': '$cartID'
+    };
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
