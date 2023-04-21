@@ -145,10 +145,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         controller: emailController,
         validator: (value) {
           if (value!.isEmpty) {
-            return ("Please enter your E-mail ID");
+            return ("Please enter your Email ID");
           }
           if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]").hasMatch(value)) {
-            return ("Please Enter a valid E-mail");
+            return ("Please Enter a valid Email");
           }
           return null;
         },

@@ -299,10 +299,10 @@ class _InfoPageState extends State<InfoPage> {
         controller: emailController,
         validator: (value) {
           if (value!.isEmpty) {
-            return ("Please enter your E-mail ID");
+            return ("Please enter your Email ID");
           }
           if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]").hasMatch(value)) {
-            return ("Please Enter a valid E-mail");
+            return ("Please Enter a valid Email");
           }
           return null;
         },
@@ -962,7 +962,7 @@ class _InfoPageState extends State<InfoPage> {
                   nameField,
                   Text("SAPID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   sapidField,
-                  Text("E-mail ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                  Text("Email ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   emailField,
                   Text("Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   passwordField,
