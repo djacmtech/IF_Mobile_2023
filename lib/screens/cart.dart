@@ -54,8 +54,7 @@ class _MyCartState extends State<MyCart> {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_outlined,
-              color: Colors.black),
+          icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
