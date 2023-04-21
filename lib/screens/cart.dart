@@ -8,7 +8,10 @@ import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/getcart_api.dart';
 import 'package:internship_fair/models/getcart_model.dart' as data;
 import 'package:internship_fair/models/removeCart.dart';
+import 'package:internship_fair/screens/JobProfile.dart';
+import 'package:internship_fair/screens/order_screen.dart';
 import 'package:internship_fair/screens/summary.dart';
+import 'package:internship_fair/widgets/navigationbar.dart';
 import 'package:motion_toast/motion_toast.dart';
 
 class MyCart extends StatefulWidget {
@@ -53,6 +56,51 @@ class _MyCartState extends State<MyCart> {
     final double sizefont = size.width * 0.07;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO: Add onPressed functionality for the logo button.
+        },
+        backgroundColor: Colors.white,
+        child: Image.asset(
+          'assets/images/acm_logo.png',
+          height: size.width * 0.75,
+          width: size.width * 0.75,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: MyBottomNavigationBar(
+          currentIndex: 1,
+          onTabTapped: (int index) {
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => JobProfile(
+                          low: 2000,
+                          high: 12000,
+                          mode: 'null',
+                        )),
+              );
+            } else if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyCart()),
+              );
+            } else if (index == 2) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderHistoryPage(),
+                  ));
+            }
+            else if (index == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SummaryPage()),
+              );
+            }
+           
+          }),
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
@@ -185,7 +233,7 @@ class CartItemCard extends StatelessWidget {
     required this.company,
     required this.role,
     required this.logoUrl,
-    required this.price, 
+    required this.price,
     required this.jobid,
   });
 
@@ -287,9 +335,8 @@ class CartItemCard extends StatelessWidget {
       }
     }
 
-
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: sizefont*0.5),
+      padding: EdgeInsets.symmetric(horizontal: sizefont * 0.5),
       child: Card(
         color: Colors.white,
         elevation: 3,
@@ -317,30 +364,30 @@ class CartItemCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 14,
                   color: Colors.grey.shade600,
-                ), 
+                ),
               ),
               SizedBox(
-                height: sizefont*0.1,
+                height: sizefont * 0.1,
               ),
               Text(
-            '$price',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),)
+                '$price',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              )
             ],
           ),
-          trailing: 
-            IconButton(
-              icon: Icon( Icons.delete_outlined, color: blackColor),
-              iconSize: sizefont * 1.5,
-              onPressed: () {
-                cartremove();
-                //Navigator.of(context).pop();
-                },
-            ),
+          trailing: IconButton(
+            icon: Icon(Icons.delete_outlined, color: blackColor),
+            iconSize: sizefont * 1.5,
+            onPressed: () {
+              cartremove();
+              //Navigator.of(context).pop();
+            },
           ),
         ),
+      ),
     );
   }
 }

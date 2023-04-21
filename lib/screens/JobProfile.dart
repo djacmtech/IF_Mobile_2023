@@ -5,6 +5,8 @@ import 'package:internship_fair/models/getjob_api.dart';
 import 'package:internship_fair/models/getjob_model.dart' as data;
 import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/login.dart';
+import 'package:internship_fair/screens/order_screen.dart';
+import 'package:internship_fair/screens/summary.dart';
 import 'package:internship_fair/widgets/navigationbar.dart';
 import '../widgets/JobCard.dart';
 import 'filter_page.dart';
@@ -41,7 +43,49 @@ class _JobProfileState extends State<JobProfile> {
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
     return Scaffold(
-        // bottomNavigationBar: MyBottomNavigationBar(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // TODO: Add onPressed functionality for the logo button.
+          },
+          backgroundColor: Colors.white,
+          child: Image.asset(
+            'assets/images/acm_logo.png',
+            height: size.width * 0.75,
+            width: size.width * 0.75,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: MyBottomNavigationBar(
+            currentIndex: 0,
+            onTabTapped: (int index) {
+              if (index == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => JobProfile(
+                            low: 2000,
+                            high: 12000,
+                            mode: 'null',
+                          )),
+                );
+              } else if (index == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyCart()),
+                );
+              } else if (index == 2) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderHistoryPage(),
+                    ));
+              } else if (index == 3) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SummaryPage()),
+                );
+              }
+            }),
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
