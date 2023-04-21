@@ -5,6 +5,7 @@ import 'package:internship_fair/models/getjob_api.dart';
 import 'package:internship_fair/models/getjob_model.dart' as data;
 import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/login.dart';
+import 'package:internship_fair/widgets/navigationbar.dart';
 import '../widgets/JobCard.dart';
 import 'filter_page.dart';
 
@@ -40,6 +41,7 @@ class _JobProfileState extends State<JobProfile> {
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
     return Scaffold(
+        // bottomNavigationBar: MyBottomNavigationBar(),
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
@@ -80,8 +82,7 @@ class _JobProfileState extends State<JobProfile> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return const MyCart();
                 }));
               },

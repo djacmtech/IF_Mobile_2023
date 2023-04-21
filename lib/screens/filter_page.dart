@@ -164,7 +164,7 @@ class _FilterState extends State<Filter> {
                 Padding(
                   padding: EdgeInsets.only(
                     right: size.width * 0.7,
-                    top: size.height * 0.02,
+                    top: size.height * 0.001,
                   ),
                   child: const Text(
                     "MODE",
