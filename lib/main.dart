@@ -1,7 +1,16 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:internship_fair/screens/signup.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:internship_fair/screens/JobProfile.dart';
+import 'package:internship_fair/screens/cart.dart';
+import 'package:internship_fair/screens/filter_page.dart';
+import 'package:internship_fair/screens/jobdesc.dart';
+import 'package:internship_fair/screens/login.dart';
+import 'package:internship_fair/splash_screen.dart';
+import 'package:internship_fair/screens/summary.dart' as Summaries;
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -11,8 +20,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
-      home: Signup(),
+    return const MaterialApp(
+      // home: Summaries.Summary(),
+      home: SplashScreen(),
     );
   }
 }
