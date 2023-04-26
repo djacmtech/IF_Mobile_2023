@@ -33,11 +33,7 @@ class GetJobApi {
 
     var request = http.Request('GET', Uri.parse(url));
     if (mode != 'null') {
-      request.bodyFields = {
-        'lowStipend': '${low}',
-        'highStipend': '${high}',
-        'mode': '${mode}'
-      };
+      request.bodyFields = {'lowStipend': '${low}', 'highStipend': '${high}', 'mode': '${mode}'};
       request.headers.addAll(headers);
     } else {
       request.bodyFields = {
@@ -57,22 +53,37 @@ class GetJobApi {
       if (response.statusCode == 200) {
         var data = jsonDecode(streamResponse.body);
         print(data);
-        company = data["data"][0]["company"].toString();
-        location = data["data"][0]["location"].toString();
-        stipend = data["data"][0]["stipend"];
-        role = data["data"][0]["role"];
-        mode = data["data"][0]["mode"];
-        duration = data["data"][0]["duration"];
-        logo = data["data"][0]["logo"];
-        id = data["data"][0]["id"];
-        requirements = data["data"][0]["requirements"];
-        perks = data["data"][0]["perks"];
-        skills = data["data"][0]["skills"];
-        about = data["data"][0]["about"];
-        debugPrint(company);
+        // company = data["data"][0]["company"].toString();
+        // location = data["data"][0]["location"].toString();
+        // stipend = data["data"][0]["stipend"];
+        // role = data["data"][0]["role"];
+        // mode = data["data"][0]["mode"];
+        // duration = data["data"][0]["duration"];
+        // logo = data["data"][0]["logo"];
+        // id = data["data"][0]["id"];
+        // requirements = data["data"][0]["requirements"];
+        // perks = data["data"][0]["perks"];
+        // skills = data["data"][0]["skills"];
+        // about = data["data"][0]["about"];
+        // debugPrint(company);
         print(response.statusCode);
         var getJob = GetJob.fromJson(data);
+        // if (getJob.message != "No Jobs found") {
         _getJob = getJob.data;
+        // } else {
+        //   _getJob = [];
+        // }
+
+        // var message = getJob.message;
+        // print("yash Shah here" + message);
+        // if (message == "No Jobs found") {
+        //   print("Yash here");
+        //   return [];
+        // }
+        // if (_getJob.m) {
+        //   print("Yash here");
+        //   return [];
+        // }
         return _getJob;
       }
     } on Exception catch (e) {

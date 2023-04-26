@@ -7,14 +7,7 @@ import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 
 class JobDesc extends StatefulWidget {
-  final String? jobPosition,
-      companyName,
-      minStipend,
-      duration,
-      workfromHome,
-      about,
-      logo,
-      location;
+  final String? jobPosition, companyName, minStipend, duration, workfromHome, about, logo, location;
   final List<dynamic> skills, perks, requirements;
 
   final int jobid;
@@ -50,8 +43,7 @@ class _JobDescState extends State<JobDesc> {
     double sizefont = size.width * 0.04;
 
     void cartAdd() async {
-      Loader.show(context,
-          progressIndicator: CircularProgressIndicator(color: blackTeal));
+      Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
       String status = '';
       int userid = GetStorage().read("id");
       try {
@@ -64,17 +56,16 @@ class _JobDescState extends State<JobDesc> {
 
       if (status == "Success") {
         MotionToast.success(
-          width: size.width * 0.6,
+          width: size.width * 0.7,
           height: 65,
           borderRadius: 10,
           padding: EdgeInsets.zero,
           title: Text(
-            "Job successfully added to Cart",
-            style: TextStyle(
-                color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
+            "Job added",
+            style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
           ),
           description: Text(
-            "Your selected job has been successfully added to the cart",
+            "Job successfully added to Cart",
             style: TextStyle(
               color: Colors.white,
               fontSize: sizefont * 0.7,
@@ -87,12 +78,12 @@ class _JobDescState extends State<JobDesc> {
       } else if (status == "Job already in cart") {
         MotionToast(
           primaryColor: darkgrey,
-          width: size.width * 0.8,
-          height: sizefont * 5,
+          width: size.width * 0.7,
+          height: 65,
           borderRadius: 10,
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          padding: EdgeInsets.zero,
           title: Text(
-            "Job Already in Cart",
+            "Job already in Cart",
             style: TextStyle(
               fontFamily: "Poppins",
               color: Colors.black,
@@ -101,7 +92,32 @@ class _JobDescState extends State<JobDesc> {
             ),
           ),
           description: Text(
-            "Please remove the existing job before adding a new one",
+            "Book your interviews",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: sizefont * 0.7,
+            ),
+          ),
+        ).show(context);
+      } else if (status == "Job ordered already") {
+        MotionToast(
+          primaryColor: darkgrey,
+          width: size.width * 0.7,
+          height: 65,
+          borderRadius: 10,
+          padding: EdgeInsets.zero,
+          title: Text(
+            "Interview booked",
+            style: TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: sizefont * 0.8,
+            ),
+          ),
+          description: Text(
+            "You have booked the interview for this job",
             style: TextStyle(
               fontFamily: "Poppins",
               color: Colors.black,
@@ -154,10 +170,7 @@ class _JobDescState extends State<JobDesc> {
               widget.jobPosition!,
               textAlign: TextAlign.left,
               style: TextStyle(
-                  color: textgreen,
-                  fontFamily: "poppins",
-                  fontSize: sizefont * 1.5,
-                  fontWeight: FontWeight.bold),
+                  color: textgreen, fontFamily: "poppins", fontSize: sizefont * 1.5, fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 0.003 * size.height,
@@ -403,22 +416,46 @@ class _JobDescState extends State<JobDesc> {
               ),
             );
           },
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: ListTile(
-              contentPadding: const EdgeInsets.only(bottom: 30),
-              title: Text(
-                widget.skills.toString(),
-                style: TextStyle(
-                  color: blackColor,
-                  fontFamily: "poppins",
-                  fontSize: sizefont * 0.8,
-                ),
-              ),
-            ),
-          ),
           isExpanded: jd,
           canTapOnHeader: true,
+          body: Wrap(
+            children: widget.skills.map((e) {
+              return Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 15, bottom: 8),
+                    height: 5.0,
+                    width: 5.0,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 8, bottom: 8),
+                    child: Text(
+                      e,
+                      style: TextStyle(
+                        color: blackColor,
+                        fontFamily: "poppins",
+                        fontSize: sizefont * 0.8,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }).toList(),
+          ),
+          // child: ListTile(
+          //   title: Text(
+          //     widget.skills.toString(),
+          // style: TextStyle(
+          //   color: blackColor,
+          //   fontFamily: "poppins",
+          //   fontSize: sizefont * 0.8,
+          // ),
+          //   ),
+          // ),
         ),
       ],
     );
@@ -448,19 +485,33 @@ class _JobDescState extends State<JobDesc> {
               ),
             );
           },
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: ListTile(
-              contentPadding: const EdgeInsets.only(bottom: 10),
-              title: Text(
-                widget.requirements.toString(),
-                style: TextStyle(
-                  color: blackColor,
-                  fontFamily: "poppins",
-                  fontSize: sizefont * 0.8,
-                ),
-              ),
-            ),
+          body: Wrap(
+            children: widget.requirements.map((e) {
+              return Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 15, bottom: 8),
+                    height: 5.0,
+                    width: 5.0,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 8, bottom: 8),
+                    child: Text(
+                      e,
+                      style: TextStyle(
+                        color: blackColor,
+                        fontFamily: "poppins",
+                        fontSize: sizefont * 0.8,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }).toList(),
           ),
           isExpanded: whocan,
           canTapOnHeader: true,
@@ -493,19 +544,33 @@ class _JobDescState extends State<JobDesc> {
               ),
             );
           },
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: ListTile(
-              contentPadding: const EdgeInsets.only(bottom: 30),
-              title: Text(
-                widget.perks.toString(),
-                style: TextStyle(
-                  color: blackColor,
-                  fontFamily: "poppins",
-                  fontSize: sizefont * 0.8,
-                ),
-              ),
-            ),
+          body: Wrap(
+            children: widget.perks.map((e) {
+              return Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 15, bottom: 8),
+                    height: 5.0,
+                    width: 5.0,
+                    decoration: const BoxDecoration(
+                      color: Colors.black,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 8, bottom: 8),
+                    child: Text(
+                      e,
+                      style: TextStyle(
+                        color: blackColor,
+                        fontFamily: "poppins",
+                        fontSize: sizefont * 0.8,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }).toList(),
           ),
           isExpanded: perks,
           canTapOnHeader: true,
@@ -532,10 +597,7 @@ class _JobDescState extends State<JobDesc> {
                 child: Text(
                   "Apply",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'poppins',
-                      fontSize: sizefont,
-                      color: whiteColor),
+                  style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
                 ),
               )),
         ));
@@ -544,6 +606,7 @@ class _JobDescState extends State<JobDesc> {
       resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
       appBar: AppBar(
+          elevation: 0,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios_new_outlined, color: blackColor),
             iconSize: sizefont * 1.5,
@@ -553,15 +616,11 @@ class _JobDescState extends State<JobDesc> {
           backgroundColor: whiteColor,
           title: Text(
             'Job Description',
-            style: TextStyle(
-                fontFamily: 'poppins',
-                fontSize: sizefont * 1.5,
-                color: blackColor),
+            style: TextStyle(fontFamily: 'poppins', fontSize: sizefont * 1.5, color: blackColor),
           )),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+          padding: EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,

@@ -7,20 +7,50 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:internship_fair/constants/constants.dart';
 
 class Filter extends StatefulWidget {
-  const Filter({super.key});
+  const Filter(
+      {super.key,
+      required this.callback,
+      required this.low,
+      required this.high,
+      required this.online,
+      required this.offline,
+      required this.mode,
+      required this.isChanged});
+
+  final Function(int, int, bool, bool, String mode, bool isChanged) callback;
+  final int low, high;
+  final bool online, offline;
+  final String mode;
+  final bool isChanged;
 
   @override
   State<Filter> createState() => _FilterState();
 }
 
 class _FilterState extends State<Filter> {
-  final TextEditingController _textEditingController = TextEditingController();
-  final TextEditingController _textEditingController2 = TextEditingController();
   bool _isChecked = false;
   bool _isCorrected = false;
-  bool _isTicked = false;
   SfRangeValues _values = const SfRangeValues(2000.0, 12000.0);
   int low = 2000, high = 12000;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("yash");
+    super.initState();
+    _isChecked = widget.offline;
+    _isCorrected = widget.online;
+    low = widget.low;
+    high = widget.high;
+    _values = SfRangeValues(widget.low.toDouble(), widget.high.toDouble());
+    // print("Online" + _isCorrected.toString());
+    // print("Offline" + _isChecked.toString());
+    // print("low" + widget.low.toString());
+    // print("high" + widget.high.toString());
+
+    // low = widget.low;
+    // high = widget.high;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,11 +132,9 @@ class _FilterState extends State<Filter> {
             SizedBox(
               width: size.width * 0.958,
               child: SfRangeSlider(
-                labelFormatterCallback:
-                    (dynamic actualValue, String formattedText) {
+                labelFormatterCallback: (dynamic actualValue, String formattedText) {
                   var formattedText = NumberFormat.compactCurrency(
-                    symbol:
-                        '₹', // if you want to add currency symbol then pass that in this else leave it empty.
+                    symbol: '₹', // if you want to add currency symbol then pass that in this else leave it empty.
                     decimalDigits: 0,
                   ).format(actualValue);
                   return ' $formattedText';
@@ -114,8 +142,7 @@ class _FilterState extends State<Filter> {
                 showDividers: true,
                 // showTicks: true,
                 enableTooltip: true,
-                tooltipTextFormatterCallback:
-                    (dynamic actualValue, String formattedText) {
+                tooltipTextFormatterCallback: (dynamic actualValue, String formattedText) {
                   actualValue = actualValue.round() - actualValue.round() % 500;
                   return actualValue.toStringAsFixed(00);
                 },
@@ -235,43 +262,81 @@ class _FilterState extends State<Filter> {
                 children: [
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors
-                            .transparent, // Set the background color to transparent
-                        elevation:
-                            0, // Set the elevation to 0 to remove the shadow
+                        backgroundColor: Colors.transparent, // Set the background color to transparent
+                        elevation: 0, // Set the elevation to 0 to remove the shadow
                       ),
-                      onPressed: () {
+                      onPressed: () async {
+                        // widget.callback(low, high, _isChecked, _isCorrected);
                         if ((_isCorrected == false && _isChecked == false) ||
                             (_isChecked == true && _isCorrected == true)) {
                           Navigator.pop(context);
+                          // _getJob = await GetJobApi().getJobData(low, high, 'null');
+                          print("Yash" + low.toString());
+                          print("Shah" + high.toString());
+
+                          widget.callback(low, high, _isCorrected, _isChecked, 'null', true);
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   (MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return JobProfile(
+                          //         low: low,
+                          //         high: high,
+                          //         mode: 'null',
+                          //       );
+                          //     },
+                          //   )),
+                          // );
                           // GetJobApi().getJobData(low, high);
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (_) => JobProfile(
-                                        low: low,
-                                        high: high,
-                                        mode: 'null',
-                                      )));
-                        } else if (_isCorrected == true &&
-                            _isChecked == false) {
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //     builder: (_) => JobProfile(
+                          //           low: low,
+                          //           high: high,
+                          //           mode: 'null',
+                          //         )));
+                        } else if (_isCorrected == true && _isChecked == false) {
                           Navigator.pop(context);
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (_) => JobProfile(
-                                        low: low,
-                                        high: high,
-                                        mode: "Online",
-                                      )));
-                        } else if (_isChecked == true &&
-                            _isCorrected == false) {
+                          widget.callback(low, high, _isCorrected, _isChecked, 'Online', true);
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   (MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return JobProfile(
+                          //         low: low,
+                          //         high: high,
+                          //         mode: "Online",
+                          //       );
+                          //     },
+                          //   )),
+                          // );
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //     builder: (_) => JobProfile(
+                          //           low: low,
+                          //           high: high,
+                          //           mode: "Online",
+                          //         )));
+                        } else if (_isChecked == true && _isCorrected == false) {
                           Navigator.pop(context);
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (_) => JobProfile(
-                                        low: low,
-                                        high: high,
-                                        mode: "Offline",
-                                      )));
+                          print("Hey Yash here");
+                          widget.callback(low, high, _isCorrected, _isChecked, 'Offline', true);
+                          // Navigator.pushReplacement(
+                          //   context,
+                          //   (MaterialPageRoute(
+                          //     builder: (context) {
+                          //       return JobProfile(
+                          //         low: low,
+                          //         high: high,
+                          //         mode: "Offline",
+                          //       );
+                          //     },
+                          //   )),
+                          // );
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          //     builder: (_) => JobProfile(
+                          //           low: low,
+                          //           high: high,
+                          //           mode: "Offline",
+                          //         )));
                         }
                       },
                       child: FittedBox(
@@ -289,24 +354,24 @@ class _FilterState extends State<Filter> {
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors
-                            .transparent, // Set the background color to transparent
-                        elevation:
-                            0, // Set the elevation to 0 to remove the shadow
+                        backgroundColor: Colors.transparent, // Set the background color to transparent
+                        elevation: 0, // Set the elevation to 0 to remove the shadow
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (_) => JobProfile(
-                                  low: low,
-                                  high: high,
-                                  mode: 'null',
-                                )));
-                        setState(() {
-                          _values = SfRangeValues(2000.0, 12000.0);
-                          _isChecked = false;
-                          _isCorrected = false;
-                        });
+                        widget.callback(2000, 12000, false, false, 'null', true);
+
+                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        //     builder: (_) => JobProfile(
+                        //           low: low,
+                        //           high: high,
+                        //           mode: 'null',
+                        //         )));
+                        // setState(() {
+                        //   _values = SfRangeValues(2000.0, 12000.0);
+                        //   _isChecked = false;
+                        //   _isCorrected = false;
+                        // });
                       },
                       child: FittedBox(
                         child: Text(

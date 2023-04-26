@@ -50,9 +50,9 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => JobProfile(
-                          low: 2000,
-                          high: 12000,
-                          mode: 'null',
+                        // low: 2000,
+                        // high: 12000,
+                        // mode: 'null',
                         )),
               );
             } else if (index == 1) {

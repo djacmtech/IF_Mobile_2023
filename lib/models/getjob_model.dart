@@ -8,7 +8,11 @@ class GetJob {
 
   GetJob.fromJson(Map<String, dynamic> json) {
     message = json['message'];
-    data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    if (message != "No Jobs found") {
+      data = List.from(json['data']).map((e) => Data.fromJson(e)).toList();
+    } else {
+      data = [];
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -49,7 +53,7 @@ class Data {
   late final String duration;
   String? about;
   String? description;
-  List<dynamic> link= [];
+  List<dynamic> link = [];
   List<dynamic> requirements = [];
   List<dynamic> skills = [];
   List<dynamic> perks = [];

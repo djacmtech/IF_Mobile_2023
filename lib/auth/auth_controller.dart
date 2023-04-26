@@ -83,14 +83,13 @@ class AuthController {
     // print(pdf);
     // print("request: " + request.toString());
     var res = await request.send();
-    print("This is response:" + res.toString());
-    print('Error submitting form data. Status code: ${res.statusCode}');
-    var response = jsonDecode(await res.stream.toString());
+    var responseBody = await res.stream.bytesToString();
+    var response = jsonDecode(responseBody);
     print(response);
 
     if (res.statusCode == 200) {
       // Handle success
-
+      init(response);
       print('Form data submitted successfully');
       return "Success";
     } else {
@@ -98,7 +97,29 @@ class AuthController {
       print('Error submitting form data. Status code: ${res.statusCode}');
       return "fail";
     }
-    init(response);
+  }
+
+  Future<String> resetPassword(String username, String password, String confirmpassword) async {
+    Uri uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/login');
+    final res = await http.post(uri,
+        body: jsonEncode({
+          "email": username.toString(),
+          "password": password.toString(),
+          "confirmPassword": confirmpassword.toString()
+        }),
+        headers: {'Content-Type': 'application/json'});
+    final body = res.body;
+    print(res.statusCode);
+    if (res.statusCode != 200) {
+      // print('incorrect');
+      return "User not found";
+    }
+
+    // print(res.body);
+    // final response = jsonDecode(body);
+
+    // init(response);
+    return "password changed successfully";
   }
 
   void init(res) async {
@@ -109,10 +130,5 @@ class AuthController {
     } catch (e) {
       print(e);
     }
-
-    // String? fcmToken = await _firebaseController.fcmToken;
-    // if (fcmToken == null) return;
-
-    // _firebaseController.subscribeToTopic("users");
   }
 }

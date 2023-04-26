@@ -31,8 +31,7 @@ class _InfoPageState extends State<InfoPage> {
   final TextEditingController whatsappController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmpasswordController =
-      TextEditingController();
+  final TextEditingController confirmpasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   AuthController authController = AuthController();
 
@@ -45,16 +44,7 @@ class _InfoPageState extends State<InfoPage> {
   String yearval = '2021';
   List<String> grads = <String>['2023', '2024', '2025', '2026'];
   String gradval = '2023';
-  List<String> depts = <String>[
-    'CS',
-    'IT',
-    'DS',
-    'AIML',
-    'AIDS',
-    'IOT',
-    'EXTC',
-    'MECH'
-  ];
+  List<String> depts = <String>['CS', 'IT', 'DS', 'AIML', 'AIDS', 'IOT', 'EXTC', 'MECH'];
   String deptval = 'CS';
   List<String> memb = <String>['Yes', 'No'];
   String membval = 'No';
@@ -87,8 +77,7 @@ class _InfoPageState extends State<InfoPage> {
         setState(() {
           pdf = File(result.files.single.path!);
           print('This is pdf: ' + pdf!.path);
-          var lastSeperator =
-              selectedFile.path.lastIndexOf(Platform.pathSeparator);
+          var lastSeperator = selectedFile.path.lastIndexOf(Platform.pathSeparator);
           fileName = selectedFile.path.substring(lastSeperator + 1);
         });
       }
@@ -114,24 +103,12 @@ class _InfoPageState extends State<InfoPage> {
     if (formKey.currentState!.validate()) {
       // Navigator.of(context).push(
       //     MaterialPageRoute(builder: (context) => const JobProfile()));
-      Loader.show(context,
-          progressIndicator: CircularProgressIndicator(color: blackTeal));
+      Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
       String status = '';
 
       try {
-        status = await authController.register(
-            name,
-            sap,
-            gender,
-            email,
-            whatsapp,
-            dept,
-            academicYear,
-            graduationYear,
-            password,
-            confirmPassword,
-            pdf,
-            member);
+        status = await authController.register(name, sap, gender, email, whatsapp, dept, academicYear, graduationYear,
+            password, confirmPassword, pdf, member);
       } on Exception catch (e) {
         Loader.hide();
         print(e);
@@ -139,11 +116,7 @@ class _InfoPageState extends State<InfoPage> {
       Loader.hide();
 
       if (status == "Success") {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: ((context) =>
-                    const JobProfile(low: 2000, high: 12000, mode: 'null'))));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => const JobProfile())));
       }
       // authController.login(email, password);
       // Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -262,14 +235,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => nameController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -313,14 +282,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => sapidController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -336,8 +301,7 @@ class _InfoPageState extends State<InfoPage> {
           if (value!.isEmpty) {
             return ("Please enter your E-mail ID");
           }
-          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]")
-              .hasMatch(value)) {
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9,-]+.[a-z]").hasMatch(value)) {
             return ("Please Enter a valid E-mail");
           }
           return null;
@@ -364,14 +328,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => emailController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.005, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.005, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -462,14 +422,10 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   onPressed: () => whatsappController.clear(),
                 ),
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
         ),
       ),
@@ -543,8 +499,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Gender',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -561,8 +516,7 @@ class _InfoPageState extends State<InfoPage> {
               icon: const Icon(Icons.arrow_drop_down),
               iconSize: 24,
               dropdownColor: whiteColor,
-              style: TextStyle(
-                  color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+              style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
               underline: Container(
                 height: 2,
                 color: darkgrey,
@@ -591,8 +545,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Academic Year',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -607,8 +560,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -636,8 +588,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Department',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -652,8 +603,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -681,8 +631,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Graduation Year',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -697,8 +646,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -726,8 +674,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'ACM Member',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -742,8 +689,7 @@ class _InfoPageState extends State<InfoPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             dropdownColor: whiteColor,
-            style: TextStyle(
-                color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
+            style: TextStyle(color: textgreen, fontFamily: 'poppins', fontSize: sizefont),
             underline: Container(
               height: 2,
               color: darkgrey,
@@ -771,8 +717,7 @@ class _InfoPageState extends State<InfoPage> {
           fit: FlexFit.loose,
           child: Text(
             'Resume',
-            style: TextStyle(
-                fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
+            style: TextStyle(fontFamily: 'poppins', color: textgreen, fontSize: sizefont),
           ),
         ),
         SizedBox(
@@ -809,10 +754,7 @@ class _InfoPageState extends State<InfoPage> {
                             )),
                             TextSpan(
                               text: "Add File",
-                              style: TextStyle(
-                                  fontFamily: 'poppins',
-                                  fontSize: sizefont * 0.8,
-                                  color: darkgrey),
+                              style: TextStyle(fontFamily: 'poppins', fontSize: sizefont * 0.8, color: darkgrey),
                             ),
                           ],
                         ),
@@ -853,14 +795,10 @@ class _InfoPageState extends State<InfoPage> {
         },
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01, horizontal: size.width * 0.03),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
           suffixIcon: InkWell(
             onTap: () {
@@ -905,12 +843,9 @@ class _InfoPageState extends State<InfoPage> {
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: greyColor)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: BorderSide(color: blackTeal, width: 2.0)),
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
           isDense: true,
           suffixIcon: InkWell(
             onTap: () {
@@ -967,10 +902,7 @@ class _InfoPageState extends State<InfoPage> {
                 child: Text(
                   "Register",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'poppins',
-                      fontSize: sizefont,
-                      color: whiteColor),
+                  style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: whiteColor),
                 ),
               )),
         ));
@@ -991,14 +923,16 @@ class _InfoPageState extends State<InfoPage> {
       //     )),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+          padding: EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
           child: Form(
               key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 20,
+                  ),
                   Text(
                     "SIGN UP",
                     style: TextStyle(
@@ -1008,54 +942,36 @@ class _InfoPageState extends State<InfoPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  GestureDetector(
-                    child: Text("Already have an Account? Login Here",
-                        style: TextStyle(
-                            fontFamily: 'poppins', fontSize: sizefont)),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
+                  Row(
+                    children: [
+                      Text("Already have an Account? ", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont)),
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Login Here",
+                            style: TextStyle(
+                                fontFamily: 'poppins', fontSize: sizefont, decoration: TextDecoration.underline)),
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
-                  Text("Full Name",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("Full Name", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   nameField,
-                  Text("SAPID",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("SAPID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   sapidField,
-                  Text("E-mail ID",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("E-mail ID", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   emailField,
-                  Text("Password",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("Password", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   passwordField,
                   Text("Confirm Password",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                      style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   confirmPasswordField,
                   // Text("Phone No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   // phoneField,
-                  Text("WhatsApp No.",
-                      style: TextStyle(
-                          fontFamily: 'poppins',
-                          fontSize: sizefont,
-                          color: textgreen)),
+                  Text("WhatsApp No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   whatsappField,
                   // Text("Date of Birth", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   // dobField,
@@ -1069,7 +985,7 @@ class _InfoPageState extends State<InfoPage> {
                   ),
                   uploadButton,
                   const SizedBox(
-                    height: 18,
+                    height: 30,
                   ),
                   submitButton,
                 ],
