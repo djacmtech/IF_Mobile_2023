@@ -112,6 +112,7 @@ class _JobProfileState extends State<JobProfile> {
               } else if (index == 1) {
                 Navigator.push(
                   context,
+                  
                   MaterialPageRoute(builder: (context) => MyCart()),
                 );
               } else if (index == 2) {
