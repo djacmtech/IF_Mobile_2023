@@ -6,6 +6,7 @@ import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/filter_page.dart';
 import 'package:internship_fair/screens/jobdesc.dart';
 import 'package:internship_fair/screens/login.dart';
+import 'package:internship_fair/screens/orderscreen.dart';
 import 'package:internship_fair/splash_screen.dart';
 import 'package:internship_fair/screens/summary.dart' as Summaries;
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: Summaries.Summary(),
-      home: SplashScreen(),
+      home: OrderhistoryPage(),
     );
   }
 }
