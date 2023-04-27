@@ -9,7 +9,7 @@ getHistory() async {
   var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
   var request = http.Request(
       'GET', Uri.parse('https://acm-if.onrender.com/api/acm-if/get-history'));
-  request.bodyFields = {'userId': '1'};
+  request.bodyFields = {'userId': '$userid'};
   request.headers.addAll(headers);
 
   http.StreamedResponse response = await request.send();
