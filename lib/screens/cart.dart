@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/getcart_api.dart';
 import 'package:internship_fair/models/getcart_model.dart' as data;
+import 'package:internship_fair/models/order_history_api.dart';
 import 'package:internship_fair/models/removeCart.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:internship_fair/screens/order_screen.dart';
