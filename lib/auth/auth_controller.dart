@@ -100,7 +100,7 @@ class AuthController {
   }
 
   Future<String> resetPassword(String username, String password, String confirmpassword) async {
-    Uri uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/login');
+    Uri uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/forgot-password');
     final res = await http.post(uri,
         body: jsonEncode({
           "email": username.toString(),

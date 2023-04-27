@@ -54,6 +54,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         if (status == "password changed successfully") {
           Navigator.pop(context);
           MotionToast.success(
+            toastDuration: Duration(milliseconds: 500),
             width: size.width * 0.7,
             height: 65,
             borderRadius: 10,
@@ -72,6 +73,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ).show(context);
         } else {
           MotionToast.error(
+                  toastDuration: Duration(milliseconds: 500),
                   height: 65,
                   borderRadius: 10,
                   // width: 400,

@@ -8,6 +8,7 @@ import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/getcart_api.dart';
 import 'package:internship_fair/models/getcart_model.dart' as data;
 import 'package:internship_fair/models/removeCart.dart';
+import 'package:internship_fair/screens/orderscreen.dart';
 import 'package:internship_fair/screens/summary.dart';
 import 'package:motion_toast/motion_toast.dart';
 
@@ -67,9 +68,9 @@ class _MyCartState extends State<MyCart> {
           icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        centerTitle: true,
+        // centerTitle: true,
         title: Text(
-          "IF CART",
+          "IF Cart",
           style: TextStyle(
             fontFamily: 'Poppins',
             fontSize: sizefont,
@@ -78,6 +79,26 @@ class _MyCartState extends State<MyCart> {
           ),
           textAlign: TextAlign.start,
         ),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(top: 20.0, right: 15, bottom: 10),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return OrderhistoryPage();
+                }));
+              },
+              child: Text(
+                "Booked Interviews",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: blackColor,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       body: FutureBuilder(
         future: getJob(),
@@ -154,47 +175,48 @@ class _MyCartState extends State<MyCart> {
                         ),
                       ),
                       if (_getCart!.length > 0)
-                        Padding(
-                          padding: EdgeInsets.only(
-                              right: size.width * 0.05, bottom: size.height * 0.05, left: size.width * 0.03),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                return const SummaryPage();
-                              }));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF187271),
-                              padding: EdgeInsets.symmetric(
-                                vertical: size.height * 0.029,
-                                horizontal: size.width * 0.2,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              elevation: 5.0,
-                              shadowColor: Colors.grey[800],
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.credit_card,
-                                  color: Colors.white,
-                                  size: sizefont * 0.85,
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.only(bottom: 30),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                  return const SummaryPage();
+                                }));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFF187271),
+                                padding: EdgeInsets.symmetric(
+                                  vertical: size.height * 0.029,
+                                  horizontal: size.width * 0.2,
                                 ),
-                                SizedBox(width: size.width * 0.03),
-                                Text(
-                                  'Complete Payment',
-                                  style: TextStyle(
-                                    fontFamily: 'popins',
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                                elevation: 5.0,
+                                shadowColor: Colors.grey[800],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.credit_card,
                                     color: Colors.white,
-                                    fontSize: sizefont * 0.6,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1.5,
+                                    size: sizefont * 0.85,
                                   ),
-                                ),
-                              ],
+                                  SizedBox(width: size.width * 0.03),
+                                  Text(
+                                    'Complete Payment',
+                                    style: TextStyle(
+                                      fontFamily: 'popins',
+                                      color: Colors.white,
+                                      fontSize: sizefont * 0.6,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -242,16 +264,17 @@ class CartItemCard extends StatelessWidget {
 
     if (status == "Success") {
       MotionToast.success(
+        toastDuration: Duration(milliseconds: 500),
         width: size.width * 0.7,
         height: 65,
         borderRadius: 10,
         padding: EdgeInsets.zero,
         title: Text(
-          "Job removed",
+          "Internship removed",
           style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
         ),
         description: Text(
-          "Job successfully removed from Cart",
+          "Successfully removed from Cart",
           style: TextStyle(
             color: Colors.white,
             fontSize: sizefont * 0.7,
@@ -264,13 +287,14 @@ class CartItemCard extends StatelessWidget {
       // });
     } else if (status == "Job not in Cart") {
       MotionToast(
+        toastDuration: Duration(milliseconds: 500),
         primaryColor: darkgrey,
         width: size.width * 0.8,
         height: sizefont * 5,
         borderRadius: 10,
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         title: Text(
-          "Job not in Cart",
+          "Internship not in Cart",
           style: TextStyle(
             fontFamily: "Poppins",
             color: Colors.black,
@@ -279,7 +303,7 @@ class CartItemCard extends StatelessWidget {
           ),
         ),
         description: Text(
-          "Please add the job to the Card before removing it",
+          "Please add the job to the Cart before removing it",
           style: TextStyle(
             fontFamily: "Poppins",
             color: Colors.black,
@@ -289,6 +313,7 @@ class CartItemCard extends StatelessWidget {
       ).show(context);
     } else {
       MotionToast.error(
+        toastDuration: Duration(milliseconds: 500),
         height: sizefont * 5,
         borderRadius: 10,
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),

@@ -30,8 +30,8 @@ class Filter extends StatefulWidget {
 class _FilterState extends State<Filter> {
   bool _isChecked = false;
   bool _isCorrected = false;
-  SfRangeValues _values = const SfRangeValues(2000.0, 12000.0);
-  int low = 2000, high = 12000;
+  SfRangeValues _values = const SfRangeValues(0.0, 50000.0);
+  int low = 0, high = 50000;
 
   @override
   void initState() {
@@ -149,10 +149,10 @@ class _FilterState extends State<Filter> {
 
                 inactiveColor: darkgrey,
                 activeColor: blackTeal,
-                min: 2000,
-                max: 12000,
+                min: 0,
+                max: 50000,
                 values: _values,
-                interval: 2000,
+                interval: 10000,
                 showLabels: true,
                 onChanged: (SfRangeValues newValues) {
                   setState(() {
@@ -359,19 +359,7 @@ class _FilterState extends State<Filter> {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
-                        widget.callback(2000, 12000, false, false, 'null', true);
-
-                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        //     builder: (_) => JobProfile(
-                        //           low: low,
-                        //           high: high,
-                        //           mode: 'null',
-                        //         )));
-                        // setState(() {
-                        //   _values = SfRangeValues(2000.0, 12000.0);
-                        //   _isChecked = false;
-                        //   _isCorrected = false;
-                        // });
+                        widget.callback(0, 50000, false, false, 'null', true);
                       },
                       child: FittedBox(
                         child: Text(

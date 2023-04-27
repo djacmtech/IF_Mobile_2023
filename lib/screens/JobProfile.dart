@@ -20,8 +20,8 @@ class JobProfile extends StatefulWidget {
 
 class _JobProfileState extends State<JobProfile> {
   List<data.Data> _getJob = [];
-  int lowVal = 2000;
-  int highVal = 12000;
+  int lowVal = 0;
+  int highVal = 50000;
   bool isOnline = false;
   bool isOffline = false;
   String mode = 'null';
@@ -80,8 +80,8 @@ class _JobProfileState extends State<JobProfile> {
                 showModalBottomSheet(
                   context: context,
                   builder: (context) {
-                    final screenHeight = MediaQuery.of(context).size.height;
-                    final modalHeight = screenHeight * 0.9; // set the height to 80% of the screen height
+                    // final screenHeight = MediaQuery.of(context).size.height;
+                    // final modalHeight = screenHeight * 0.7; // set the height to 80% of the screen height
 
                     return Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -105,11 +105,11 @@ class _JobProfileState extends State<JobProfile> {
               icon: const Icon(Icons.filter_alt_sharp, color: Colors.teal)),
           elevation: 0,
           title: const Text(
-            'Job Profile',
+            'All Opportunities',
             style: TextStyle(fontFamily: 'poppins', fontWeight: FontWeight.w500, color: Colors.black),
           ),
           toolbarHeight: 50,
-          centerTitle: true,
+          // centerTitle: true,
           backgroundColor: Colors.white,
           actions: [
             IconButton(
@@ -192,22 +192,22 @@ class _JobProfileState extends State<JobProfile> {
                                     height: size.height * 0.3,
                                   ),
                                   Text(
-                                    "No Jobs currently :(",
+                                    "No Internships currently :(",
                                     style: TextStyle(
                                       color: blackColor,
                                       fontFamily: "poppins",
-                                      fontSize: sizefont * 1,
+                                      fontSize: sizefont * 1.2,
                                     ),
                                   ),
                                   SizedBox(
                                     height: 10,
                                   ),
                                   Text(
-                                    "Stay tuned to view more jobs!",
+                                    "Stay tuned!",
                                     style: TextStyle(
                                       color: blackColor,
                                       fontFamily: "poppins",
-                                      fontSize: sizefont * 0.8,
+                                      fontSize: sizefont * 1,
                                     ),
                                   ),
                                 ],
