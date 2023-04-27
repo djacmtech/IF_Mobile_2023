@@ -105,23 +105,23 @@ class _JobProfileState extends State<JobProfile> {
             currentIndex: 0,
             onTabTapped: (int index) {
               if (index == 0) {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => JobProfile()),
                 );
               } else if (index == 1) {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => MyCart()),
                 );
               } else if (index == 2) {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => OrderhistoryPage(),
                     ));
               } else if (index == 3) {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SummaryPage()),
                 );
