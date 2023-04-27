@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
+import 'package:internship_fair/models/order_history_api.dart';
 
 const Color blackColor = Colors.black;
 
@@ -16,6 +19,28 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
     10,
     (index) => List.filled(5, false),
   );
+  var data;
+  void getOrderHistory() async {
+    
+    // String status = '';
+
+    try {
+      data = await getHistory();
+      print(data);
+    } on Exception catch (e) {
+      // Loader.hide();
+      print(e);
+    }
+    // Loader.hide();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getOrderHistory();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
