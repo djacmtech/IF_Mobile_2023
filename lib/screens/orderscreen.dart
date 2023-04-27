@@ -22,17 +22,9 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
     (index) => List.filled(5, false),
   );
   var orderData;
-  void getOrderHistory() async {
-    // String status = '';
-
-    try {
+  getOrderHistory() async {
       orderData = await getHistory();
       print(orderData);
-    } on Exception catch (e) {
-      // Loader.hide();
-      print(e);
-    }
-    // Loader.hide();
   }
 
   @override
@@ -104,182 +96,234 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
         // backgroundColor: Colors.grey[100],
         iconTheme: IconThemeData(color: blackColor),
       ),
-      body: ListView.builder(
-        itemCount: orderData["data"][0]["jobs"]
-            .length, // replace with actual number of orders
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
+      body: FutureBuilder(
+        future: getHistory(),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: blackTeal,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            );
+          } else
+          {
+            return orderData!.length == 0 ?
+            Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Order ${index + 1}',
+                          "Your order history is empty :(",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: sizefont * 1.2,
-                              color: blackColor),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            _isExpandedList[index]
-                                ? Icons.expand_less
-                                : Icons.expand_more,
-                            size: size.width * 0.09,
                             color: blackColor,
+                            fontFamily: "poppins",
+                            fontSize: sizefont * 0.8,
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _isExpandedList[index] = !_isExpandedList[index];
-                            });
-                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Place your order first!",
+                          style: TextStyle(
+                            color: blackColor,
+                            fontFamily: "poppins",
+                            fontSize: sizefont * 0.5,
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                  Visibility(
-                    // visible: _isExpandedList[index],
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            blurRadius: 5,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 3),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 100,
-                            child: ListView.builder(
-                              itemCount: orderData["data"][0]["jobs"].length,
-                              itemBuilder: (context, i) {
-                                // For company card
-                                return Container(
-                                  alignment: Alignment.topLeft,
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 4,
-                                  ),
-                                  child: Container(
-                                    width: size.width * 0.8,
-                                    child: Row(
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                  )
+                  : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: 
+                         ListView.builder(
+                          itemCount: orderData["data"][0]["jobs"]
+                              .length, // replace with actual number of orders
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 12),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Order ${index + 1}',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: sizefont * 1.2,
+                                                color: blackColor),
+                                          ),
+                                          IconButton(
+                                            icon: Icon(
+                                              _isExpandedList[index]
+                                                  ? Icons.expand_less
+                                                  : Icons.expand_more,
+                                              size: size.width * 0.09,
+                                              color: blackColor,
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _isExpandedList[index] = !_isExpandedList[index];
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Visibility(
+                                      // visible: _isExpandedList[index],
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(0.3),
+                                              blurRadius: 5,
+                                              offset: Offset(0, 3),
+                                            ),
+                                          ],
+                                        ),
+                                        alignment: Alignment.topLeft,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 3),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            // SizedBox(height: 10),
-                                            Text(
-                                              '${orderData["data"][i]["jobs"][i]["company"]}',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 15,
-                                                  color: blackTeal),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              '${orderData["data"][i]["jobs"][i]["role"]}',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14,
-                                                  color: blackColor),
-                                            ),
-                                            SizedBox(
-                                              height: 15,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  '₹${orderData["data"][i]["jobs"][i]["stipend"]}',
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: blackColor),
-                                                ),
-                                                SizedBox(
-                                                  width: 60,
-                                                ),
-                                                Text(
-                                                  '${orderData["data"][i]["jobs"][i]["duration"]}',
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: blackColor),
-                                                ),
-                                                SizedBox(
-                                                  width: 60,
-                                                ),
-                                                Text(
-                                                  '${orderData["data"][i]["jobs"][i]["location"]}',
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: blackColor),
-                                                ),
-                                              ],
+                                            Container(
+                                              height: 100,
+                                              child: ListView.builder(
+                                                itemCount: orderData["data"][0]["jobs"].length,
+                                                itemBuilder: (context, i) {
+                                                  // For company card
+                                                  return Container(
+                                                    alignment: Alignment.topLeft,
+                                                    padding: const EdgeInsets.symmetric(
+                                                      horizontal: 4,
+                                                    ),
+                                                    child: Container(
+                                                      width: size.width * 0.8,
+                                                      child: Row(
+                                                        children: [
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment.start,
+                                                            children: [
+                                                              // SizedBox(height: 10),
+                                                              Text(
+                                                                '${orderData["data"][i]["jobs"][i]["company"]}',
+                                                                style: TextStyle(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    fontSize: 15,
+                                                                    color: blackTeal),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 10,
+                                                              ),
+                                                              Text(
+                                                                '${orderData["data"][i]["jobs"][i]["role"]}',
+                                                                style: TextStyle(
+                                                                    fontWeight: FontWeight.bold,
+                                                                    fontSize: 14,
+                                                                    color: blackColor),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 15,
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Text(
+                                                                    '₹${orderData["data"][i]["jobs"][i]["stipend"]}',
+                                                                    style: TextStyle(
+                                                                        fontSize: 14,
+                                                                        color: blackColor),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 60,
+                                                                  ),
+                                                                  Text(
+                                                                    '${orderData["data"][i]["jobs"][i]["duration"]}',
+                                                                    style: TextStyle(
+                                                                        fontSize: 14,
+                                                                        color: blackColor),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 60,
+                                                                  ),
+                                                                  Text(
+                                                                    '${orderData["data"][i]["jobs"][i]["location"]}',
+                                                                    style: TextStyle(
+                                                                        fontSize: 14,
+                                                                        color: blackColor),
+                                                                  ),
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
+                                                          // SizedBox(
+                                                          //   width: 125,
+                                                          // ),
+                                                          // IconButton(
+                                                          //   icon: Icon(
+                                                          //     _isExpandedCList[index][i]
+                                                          //         ? Icons.expand_less
+                                                          //         : Icons.expand_more,
+                                                          //     size: 30,
+                                                          //     color: blackColor,
+                                                          //   ),
+                                                          //   onPressed: () {
+                                                          //     setState(() {
+                                                          //       _isExpandedCList[index][i] =
+                                                          //           !_isExpandedCList[index][i];
+                                                          //     });
+                                                          //   },
+                                                          // ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
                                             )
                                           ],
                                         ),
-                                        // SizedBox(
-                                        //   width: 125,
-                                        // ),
-                                        // IconButton(
-                                        //   icon: Icon(
-                                        //     _isExpandedCList[index][i]
-                                        //         ? Icons.expand_less
-                                        //         : Icons.expand_more,
-                                        //     size: 30,
-                                        //     color: blackColor,
-                                        //   ),
-                                        //   onPressed: () {
-                                        //     setState(() {
-                                        //       _isExpandedCList[index][i] =
-                                        //           !_isExpandedCList[index][i];
-                                        //     });
-                                        //   },
-                                        // ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        ],
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        
+                        ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+                    ],
+                  );
+          }
+        }
+      )
+      )
     );
   }
 }
