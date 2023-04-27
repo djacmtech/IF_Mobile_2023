@@ -23,9 +23,9 @@ Future<String> addCart(
   print(response["message"]);
   if (response["message"] == 'Job already in cart') {
     return 'Job already in cart';
-  } else if (response["message"] == 'Job ordered already') {
+  } else if (response["message"] == 'Job already ordered') {
     return 'Job ordered already';
-  } else if (res.statusCode != 200) {
+  } else if (res.statusCode != 200 && res.statusCode != 400) {
     print("Couldnt add to cart");
     return "Couldnt add to cart";
   }

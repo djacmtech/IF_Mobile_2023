@@ -32,8 +32,9 @@ class SummaryApi {
     print(userID);
     //print(cartID);
 
-    request.bodyFields = {'userId': '$userID', 
-    //'cartId': '$cartID'
+    request.bodyFields = {
+      'userId': '$userID',
+      //'cartId': '$cartID'
     };
     request.headers.addAll(headers);
 
@@ -45,17 +46,16 @@ class SummaryApi {
       var res = jsonDecode(streamResponse.body);
       print(res);
       totalPrice = res["data"]["totalPrice"];
-      print(totalPrice);
+      // print(totalPrice);
       discount = res["data"]["discount"];
       var summary = SummaryClass.Summary?.fromJson(res);
       _getJob = summary.data.jobs;
       interviewCount = _getJob!.length;
-      print(interviewCount.runtimeType);
-      print(interviewCount);
-      print("Hello");
+      // print(interviewCount.runtimeType);
+      // print(interviewCount);
+      // print("Hello");
       sum = [interviewCount, totalPrice, discount];
       print(sum);
-      
     }
     return sum;
   }

@@ -49,6 +49,7 @@ dependencies:
   motion_toast: ^2.6.6
   http: ^0.13.5
   http_parser: ^4.0.2
+  dotted_border: ^2.0.0+3
 
 
 dev_dependencies:

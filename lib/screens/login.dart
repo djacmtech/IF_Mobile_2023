@@ -55,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => JobProfile())));
         } else {
           MotionToast.error(
+                  toastDuration: Duration(milliseconds: 500),
                   height: 65,
                   borderRadius: 10,
                   // width: 400,

@@ -40,10 +40,10 @@ class _InfoPageState extends State<InfoPage> {
 
   List<String> genders = <String>['Male', 'Female', 'Prefer not to say'];
   String genderval = 'Male';
-  List<String> years = <String>['2021', '2022', '2023', '2024'];
-  String yearval = '2021';
-  List<String> grads = <String>['2023', '2024', '2025', '2026'];
-  String gradval = '2023';
+  List<String> years = <String>['2020', '2021', '2022'];
+  String yearval = '2020';
+  List<String> grads = <String>['2024', '2025', '2026'];
+  String gradval = '2024';
   List<String> depts = <String>['CS', 'IT', 'DS', 'AIML', 'AIDS', 'IOT', 'EXTC', 'MECH'];
   String deptval = 'CS';
   List<String> memb = <String>['Yes', 'No'];
@@ -103,6 +103,7 @@ class _InfoPageState extends State<InfoPage> {
     if (formKey.currentState!.validate()) {
       // Navigator.of(context).push(
       //     MaterialPageRoute(builder: (context) => const JobProfile()));
+
       Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
       String status = '';
 
@@ -117,6 +118,19 @@ class _InfoPageState extends State<InfoPage> {
 
       if (status == "Success") {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => const JobProfile())));
+      } else {
+        MotionToast.error(
+                toastDuration: Duration(milliseconds: 500),
+                height: 65,
+                borderRadius: 10,
+                // width: 400,
+                padding: EdgeInsets.zero,
+                title: Text(
+                  "Error",
+                  style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                description: Text("Enter all your details"))
+            .show(context);
       }
       // authController.login(email, password);
       // Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -879,23 +893,42 @@ class _InfoPageState extends State<InfoPage> {
           padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
           child: InkWell(
               onTap: () {
+                if (pdf == null) {
+                  MotionToast.error(
+                      toastDuration: Duration(milliseconds: 500),
+                      height: 65,
+                      borderRadius: 10,
+                      // width: 400,
+                      padding: EdgeInsets.zero,
+                      title: Text(
+                        "Error",
+                        style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      description: Text(
+                        "Enter all your details",
+                        style: TextStyle(
+                          color: whiteColor,
+                        ),
+                      )).show(context);
+                } else {
+                  register(
+                      nameController.text,
+                      sapidController.text,
+                      genderval,
+                      emailController.text,
+                      whatsappController.text,
+                      deptval,
+                      yearval,
+                      gradval,
+                      passwordController.text,
+                      confirmpasswordController.text,
+                      pdf!,
+                      membval == "Yes" ? 1 : 0,
+                      context
+                      //member: membval
+                      );
+                }
                 // Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
-                register(
-                    nameController.text,
-                    sapidController.text,
-                    genderval,
-                    emailController.text,
-                    whatsappController.text,
-                    deptval,
-                    yearval,
-                    gradval,
-                    passwordController.text,
-                    confirmpasswordController.text,
-                    pdf!,
-                    membval == "Yes" ? 1 : 0,
-                    context
-                    //member: membval
-                    );
               },
               child: SizedBox(
                 width: size.width,

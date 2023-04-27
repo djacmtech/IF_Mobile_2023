@@ -54,36 +54,37 @@ class _JobDescState extends State<JobDesc> {
       }
       Loader.hide();
 
+      print("Yash" + status);
+
       if (status == "Success") {
         MotionToast.success(
+          toastDuration: Duration(milliseconds: 500),
           width: size.width * 0.7,
           height: 65,
           borderRadius: 10,
           padding: EdgeInsets.zero,
           title: Text(
-            "Job added",
+            "Internship added",
             style: TextStyle(color: whiteColor, fontWeight: FontWeight.bold, fontSize: 16),
           ),
           description: Text(
-            "Job successfully added to Cart",
+            "Added to cart successfully",
             style: TextStyle(
               color: Colors.white,
               fontSize: sizefont * 0.7,
             ),
           ),
         ).show(context);
-        //     ),
-        //   ],
-        // ),
       } else if (status == "Job already in cart") {
         MotionToast(
+          toastDuration: Duration(milliseconds: 500),
           primaryColor: darkgrey,
           width: size.width * 0.7,
           height: 65,
           borderRadius: 10,
           padding: EdgeInsets.zero,
           title: Text(
-            "Job already in Cart",
+            "Already in Cart",
             style: TextStyle(
               fontFamily: "Poppins",
               color: Colors.black,
@@ -92,7 +93,7 @@ class _JobDescState extends State<JobDesc> {
             ),
           ),
           description: Text(
-            "Book your interviews",
+            "Book your interview",
             style: TextStyle(
               fontFamily: "Poppins",
               color: Colors.black,
@@ -100,15 +101,16 @@ class _JobDescState extends State<JobDesc> {
             ),
           ),
         ).show(context);
-      } else if (status == "Job ordered already") {
+      } else if (status == 'Job ordered already') {
         MotionToast(
+          toastDuration: Duration(milliseconds: 500),
           primaryColor: darkgrey,
           width: size.width * 0.7,
           height: 65,
           borderRadius: 10,
           padding: EdgeInsets.zero,
           title: Text(
-            "Interview booked",
+            "Already applied",
             style: TextStyle(
               fontFamily: "Poppins",
               color: Colors.black,
@@ -117,7 +119,7 @@ class _JobDescState extends State<JobDesc> {
             ),
           ),
           description: Text(
-            "You have booked the interview for this job",
+            "You have applied for this internship",
             style: TextStyle(
               fontFamily: "Poppins",
               color: Colors.black,
@@ -127,6 +129,7 @@ class _JobDescState extends State<JobDesc> {
         ).show(context);
       } else {
         MotionToast.error(
+          toastDuration: Duration(milliseconds: 500),
           height: sizefont * 5,
           borderRadius: 10,
           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
