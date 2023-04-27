@@ -192,7 +192,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                       ),
                                     ),
                                     Visibility(
-                                      // visible: _isExpandedList[index],
+                                      visible: _isExpandedList[index],
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
