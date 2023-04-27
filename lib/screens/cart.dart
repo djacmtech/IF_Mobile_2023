@@ -11,6 +11,7 @@ import 'package:internship_fair/models/order_history_api.dart';
 import 'package:internship_fair/models/removeCart.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:internship_fair/screens/order_screen.dart';
+import 'package:internship_fair/screens/orderscreen.dart';
 import 'package:internship_fair/screens/summary.dart';
 import 'package:internship_fair/widgets/navigationbar.dart';
 import 'package:motion_toast/motion_toast.dart';
@@ -63,6 +64,44 @@ class _MyCartState extends State<MyCart> {
     final double sizefont = size.width * 0.07;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // TODO: Add onPressed functionality for the logo button.
+        },
+        backgroundColor: Colors.white,
+        child: Image.asset(
+          'assets/images/acm_logo.png',
+          height: size.width * 0.75,
+          width: size.width * 0.75,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: MyBottomNavigationBar(
+          currentIndex: 1,
+          onTabTapped: (int ind) {
+            if (ind == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => JobProfile()),
+              );
+            } else if (ind == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyCart()),
+              );
+            } else if (ind == 2) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => OrderhistoryPage(),
+                  ));
+            } else if (ind == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SummaryPage()),
+              );
+            }
+          }),
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         elevation: 0,

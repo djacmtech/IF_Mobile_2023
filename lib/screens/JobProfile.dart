@@ -6,6 +6,7 @@ import 'package:internship_fair/models/getjob_model.dart' as data;
 import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/login.dart';
 import 'package:internship_fair/screens/order_screen.dart';
+import 'package:internship_fair/screens/orderscreen.dart';
 import 'package:internship_fair/screens/summary.dart';
 import 'package:internship_fair/widgets/navigationbar.dart';
 import '../widgets/JobCard.dart';
@@ -104,7 +105,7 @@ class _JobProfileState extends State<JobProfile> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OrderHistoryPage(),
+                      builder: (context) => OrderhistoryPage(),
                     ));
               } else if (index == 3) {
                 Navigator.push(
@@ -247,7 +248,7 @@ class _JobProfileState extends State<JobProfile> {
                                   Text(
                                     "No Jobs currently :(",
                                     style: TextStyle(
-                                      color: blackColor,
+                                      color: Colors.black,
                                       fontFamily: "poppins",
                                       fontSize: sizefont * 1,
                                     ),
@@ -258,7 +259,7 @@ class _JobProfileState extends State<JobProfile> {
                                   Text(
                                     "Stay tuned to view more jobs!",
                                     style: TextStyle(
-                                      color: blackColor,
+                                      color: Colors.black,
                                       fontFamily: "poppins",
                                       fontSize: sizefont * 0.8,
                                     ),
