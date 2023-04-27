@@ -10,7 +10,6 @@ import 'package:internship_fair/models/getcart_model.dart' as data;
 import 'package:internship_fair/models/order_history_api.dart';
 import 'package:internship_fair/models/removeCart.dart';
 import 'package:internship_fair/screens/JobProfile.dart';
-import 'package:internship_fair/screens/order_screen.dart';
 import 'package:internship_fair/screens/orderscreen.dart';
 import 'package:internship_fair/screens/summary.dart';
 import 'package:internship_fair/widgets/navigationbar.dart';

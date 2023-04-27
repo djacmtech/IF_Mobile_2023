@@ -16,11 +16,11 @@ getHistory() async {
   http.Response streamResponse = await http.Response.fromStream(response);
 
   var data = jsonDecode(streamResponse.body);
-
+  dynamic history = data["data"];
   // print(response.statusCode);
-  // print(userid);
+   print(userid);
   // print(data);
-  print(data["data"][0]["id"]);
-  print(data["data"][0]["jobs"][0]["role"]);
-  return data;
+  //print(data["data"][0]["id"]);
+ // print(data["data"][0]["jobs"][0]["role"]);
+  return history;
 }

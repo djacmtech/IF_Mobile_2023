@@ -21,7 +21,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
     10,
     (index) => List.filled(5, false),
   );
-  var orderData;
+ dynamic orderData;
   getOrderHistory() async {
       orderData = await getHistory();
       print(orderData);
@@ -31,6 +31,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
   void initState() {
     // TODO: implement initState
     getOrderHistory();
+    
 
     super.initState();
   }
@@ -107,7 +108,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
             );
           } else
           {
-            return orderData["data"].length == 0 ?
+            return orderData.length == 0 ?
             Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -141,8 +142,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                       Expanded(
                         child: 
                          ListView.builder(
-                          itemCount: orderData["data"][0]["jobs"]
-                              .length, // replace with actual number of orders
+                          itemCount: orderData.length, // replace with actual number of orders
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -214,7 +214,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                             Container(
                                               height: 100,
                                               child: ListView.builder(
-                                                itemCount: orderData["data"][0]["jobs"].length,
+                                                itemCount: orderData[index]["jobs"].length,
                                                 itemBuilder: (context, i) {
                                                   // For company card
                                                   return Container(
@@ -232,7 +232,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                             children: [
                                                               // SizedBox(height: 10),
                                                               Text(
-                                                                '${orderData["data"][i]["jobs"][i]["company"]}',
+                                                                '${orderData[i]["jobs"][i]["company"]}',
                                                                 style: TextStyle(
                                                                     fontWeight: FontWeight.bold,
                                                                     fontSize: 15,
@@ -242,7 +242,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                                 height: 10,
                                                               ),
                                                               Text(
-                                                                '${orderData["data"][i]["jobs"][i]["role"]}',
+                                                                '${orderData[i]["jobs"][i]["role"]}',
                                                                 style: TextStyle(
                                                                     fontWeight: FontWeight.bold,
                                                                     fontSize: 14,
@@ -254,7 +254,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                               Row(
                                                                 children: [
                                                                   Text(
-                                                                    '₹${orderData["data"][i]["jobs"][i]["stipend"]}',
+                                                                    '₹${orderData[i]["jobs"][i]["stipend"]}',
                                                                     style: TextStyle(
                                                                         fontSize: 14,
                                                                         color: blackColor),
@@ -263,7 +263,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                                     width: 60,
                                                                   ),
                                                                   Text(
-                                                                    '${orderData["data"][i]["jobs"][i]["duration"]}',
+                                                                    '${orderData[i]["jobs"][i]["duration"]}',
                                                                     style: TextStyle(
                                                                         fontSize: 14,
                                                                         color: blackColor),
@@ -272,7 +272,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                                     width: 60,
                                                                   ),
                                                                   Text(
-                                                                    '${orderData["data"][i]["jobs"][i]["location"]}',
+                                                                    '${orderData[i]["jobs"][i]["location"]}',
                                                                     style: TextStyle(
                                                                         fontSize: 14,
                                                                         color: blackColor),

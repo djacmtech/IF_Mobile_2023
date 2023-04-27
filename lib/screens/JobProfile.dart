@@ -5,7 +5,6 @@ import 'package:internship_fair/models/getjob_api.dart';
 import 'package:internship_fair/models/getjob_model.dart' as data;
 import 'package:internship_fair/screens/cart.dart';
 import 'package:internship_fair/screens/login.dart';
-import 'package:internship_fair/screens/order_screen.dart';
 import 'package:internship_fair/screens/orderscreen.dart';
 import 'package:internship_fair/screens/summary.dart';
 import 'package:internship_fair/widgets/navigationbar.dart';
@@ -69,6 +68,20 @@ class _JobProfileState extends State<JobProfile> {
 
     super.initState();
   }
+  // int activeIndex =0;
+
+  // Widget getTab() {
+  //   if (activeIndex == 0) return RoomGPT();
+  //   if (activeIndex == 1) return Videos();
+  //   if (activeIndex == 2) return MarketPlace();
+  //   // return MapScreen(
+  //   //   latitude: latitude!,
+  //   //   longitude: longitude!,
+  //   // );
+  //   if (activeIndex == 3) return Categories();
+
+  //   return ObjectLens();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -92,23 +105,23 @@ class _JobProfileState extends State<JobProfile> {
             currentIndex: 0,
             onTabTapped: (int index) {
               if (index == 0) {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => JobProfile()),
                 );
               } else if (index == 1) {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => MyCart()),
                 );
               } else if (index == 2) {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => OrderhistoryPage(),
                     ));
               } else if (index == 3) {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => SummaryPage()),
                 );
