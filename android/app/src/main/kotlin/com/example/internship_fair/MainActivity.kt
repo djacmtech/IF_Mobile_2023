@@ -1,4 +1,4 @@
-package com.example.internship_fair
+package com.djacm_internshipfair
 
 import io.flutter.embedding.android.FlutterActivity
 

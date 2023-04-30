@@ -219,7 +219,7 @@ class _SummaryState extends State<SummaryPage> {
                       ),
                     ),
                     const Text(
-                      'UPI ID:  34235346536',
+                      'UPI ID:  ghardik5902@oksbi',
                       style: TextStyle(
                         fontFamily: 'poppins',
                         fontSize: 15,
