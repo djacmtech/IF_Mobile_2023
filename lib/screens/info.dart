@@ -32,6 +32,7 @@ class _InfoPageState extends State<InfoPage> {
   final TextEditingController dobController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmpasswordController = TextEditingController();
+  final TextEditingController resumeController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   AuthController authController = AuthController();
 
@@ -40,10 +41,10 @@ class _InfoPageState extends State<InfoPage> {
 
   List<String> genders = <String>['Male', 'Female', 'Prefer not to say'];
   String genderval = 'Male';
-  List<String> years = <String>['2020', '2021', '2022'];
-  String yearval = '2020';
+  List<String> years = <String>['FE', 'SE', 'TE'];
+  String yearval = 'SE';
   List<String> grads = <String>['2024', '2025', '2026'];
-  String gradval = '2024';
+  String gradval = '2025';
   List<String> depts = <String>['CS', 'IT', 'DS', 'AIML', 'AIDS', 'IOT', 'EXTC', 'MECH'];
   String deptval = 'CS';
   List<String> memb = <String>['Yes', 'No'];
@@ -97,7 +98,7 @@ class _InfoPageState extends State<InfoPage> {
       String graduationYear,
       String password,
       String confirmPassword,
-      File pdf,
+      String resume,
       int member,
       BuildContext context) async {
     if (formKey.currentState!.validate()) {
@@ -109,7 +110,7 @@ class _InfoPageState extends State<InfoPage> {
 
       try {
         status = await authController.register(name, sap, gender, email, whatsapp, dept, academicYear, graduationYear,
-            password, confirmPassword, pdf, member);
+            password, confirmPassword, resume, member);
       } on Exception catch (e) {
         Loader.hide();
         print(e);
@@ -435,6 +436,53 @@ class _InfoPageState extends State<InfoPage> {
                     size: sizefont,
                   ),
                   onPressed: () => whatsappController.clear(),
+                ),
+          contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: blackTeal, width: 2.0)),
+          isDense: true,
+        ),
+      ),
+    );
+
+    final resumeField = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextFormField(
+        keyboardType: TextInputType.text,
+        style: TextStyle(fontSize: sizefont),
+        autofocus: false,
+        controller: resumeController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please enter your Resume.");
+          }
+          //if (!RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)').hasMatch(value)) {
+          //  return ("Please Enter a valid WhatsApp No.");
+          //}
+          //return null;
+        },
+        onSaved: (value) {
+          resumeController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          // labelText: 'WhatsApp No.',
+          // labelStyle: TextStyle(
+          //   fontFamily: 'poppins',
+          //   color: textgreen,
+          //   fontSize: sizefont,
+          // ),
+          suffixIcon: resumeController.text.isEmpty
+              ? Container(
+                  width: 0,
+                )
+              : IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    size: sizefont,
+                  ),
+                  onPressed: () => resumeController.clear(),
                 ),
           contentPadding: EdgeInsets.symmetric(vertical: size.width * 0.01, horizontal: size.width * 0.03),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(5), borderSide: BorderSide(color: greyColor)),
@@ -799,9 +847,9 @@ class _InfoPageState extends State<InfoPage> {
           if (value!.isEmpty) {
             return ("Please enter your Password");
           }
-          if (!RegExp(r'^.{8,}$').hasMatch(value)) {
-            return ("Please enter a valid Password");
-          }
+          // if (!RegExp(r'^.{8,}$').hasMatch(value)) {
+          //   return ("Please enter a valid Password");
+          // }
           return null;
         },
         onSaved: (value) {
@@ -893,7 +941,7 @@ class _InfoPageState extends State<InfoPage> {
           padding: EdgeInsets.symmetric(vertical: sizefont * 0.7),
           child: InkWell(
               onTap: () {
-                if (pdf == null) {
+                if (resumeController.text == '') {
                   MotionToast.error(
                       toastDuration: Duration(milliseconds: 500),
                       height: 65,
@@ -922,7 +970,7 @@ class _InfoPageState extends State<InfoPage> {
                       gradval,
                       passwordController.text,
                       confirmpasswordController.text,
-                      pdf!,
+                      resumeController.text,
                       membval == "Yes" ? 1 : 0,
                       context
                       //member: membval
@@ -1006,6 +1054,9 @@ class _InfoPageState extends State<InfoPage> {
                   // phoneField,
                   Text("WhatsApp No.", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   whatsappField,
+                  Text("Resume (Enter a google drive folder link containing your resume)",
+                      style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
+                  resumeField,
                   // Text("Date of Birth", style: TextStyle(fontFamily: 'poppins', fontSize: sizefont, color: textgreen)),
                   // dobField,
                   gender,
@@ -1016,7 +1067,8 @@ class _InfoPageState extends State<InfoPage> {
                   const SizedBox(
                     height: 12,
                   ),
-                  uploadButton,
+
+                  // uploadButton,
                   const SizedBox(
                     height: 30,
                   ),

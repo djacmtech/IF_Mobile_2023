@@ -38,10 +38,15 @@ class _MyCartState extends State<MyCart> {
     });
   }
 
+  void getCartCallback() {
+    setState(() {});
+  }
+
   getJob() async {
     _getCart = await CartAPI().getCart();
+    print(_getCart);
     cartCount = _getCart?.length;
-    print(_getCart!.length);
+    print(cartCount);
 
     // print(_getCart![0].company);
   }
@@ -110,7 +115,7 @@ class _MyCartState extends State<MyCart> {
               ),
             );
           } else {
-            return _getCart!.length == 0
+            return _getCart!.isEmpty
                 ? Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -163,7 +168,7 @@ class _MyCartState extends State<MyCart> {
                               child: CartItemCard(
                                   company: _getCart![index].company,
                                   role: _getCart![index].role,
-                                  logoUrl: _getCart![index].logo,
+                                  logoUrl: _getCart![index].logo ?? "https://cdn.onlinewebfonts.com/svg/img_148020.png",
                                   price: "₹ ${_getCart![index].stipend.toString()}",
                                   jobid: _getCart![index].cartjob.jobId,
                                   index: index,
@@ -181,7 +186,9 @@ class _MyCartState extends State<MyCart> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return const SummaryPage();
+                                  return SummaryPage(
+                                    callback: getCartCallback,
+                                  );
                                 }));
                               },
                               style: ElevatedButton.styleFrom(
@@ -366,6 +373,7 @@ class CartItemCard extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10.0, top: 10),
           child: ListTile(
             leading: CircleAvatar(
+              backgroundColor: whiteColor,
               radius: 25,
               backgroundImage: NetworkImage(logoUrl),
             ),

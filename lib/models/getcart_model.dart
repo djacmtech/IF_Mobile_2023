@@ -5,58 +5,56 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-
-
 class GetCart {
-    GetCart({
-        required this.message,
-        required this.data,
-    });
+  GetCart({
+    required this.message,
+    required this.data,
+  });
 
-    final String message;
-    final Data1 data;
+  final String message;
+  final Data1 data;
 
-    factory GetCart.fromJson(Map<String, dynamic> json) => GetCart(
+  factory GetCart.fromJson(Map<String, dynamic> json) => GetCart(
         message: json["message"],
         data: Data1.fromJson(json["data"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "message": message,
         "data": data.toJson(),
-    };
+      };
 }
 
 class Data1 {
-    Data1({
-        required this.id,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.userId,
-        required this.jobs,
-    });
+  Data1({
+    required this.id,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.userId,
+    required this.jobs,
+  });
 
-    final int id;
-    final DateTime createdAt;
-    final DateTime updatedAt;
-    final int userId;
-    final List<Job> jobs;
+  final int id;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final int userId;
+  final List<Job> jobs;
 
-    factory Data1.fromJson(Map<String, dynamic> json) => Data1(
+  factory Data1.fromJson(Map<String, dynamic> json) => Data1(
         id: json["id"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         userId: json["userId"],
         jobs: List<Job>.from(json["jobs"].map((x) => Job.fromJson(x))),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "userId": userId,
         "jobs": List<dynamic>.from(jobs.map((x) => x.toJson())),
-    };
+      };
 }
 
 class Job {
@@ -84,17 +82,17 @@ class Job {
   final int id;
   final String role;
   final String company;
-  final String logo;
-  final String location;
-  final String mode;
-  final int stipend;
-  final String duration;
-  final String about;
-  final String description;
-  final String link;
-  final String requirements;
-  final String skills;
-  final String perks;
+  final String? logo;
+  final String? location;
+  final String? mode;
+  final String? stipend;
+  final String? duration;
+  final String? about;
+  final String? description;
+  final String? link;
+  final String? requirements;
+  final String? skills;
+  final String? perks;
   final DateTime createdAt;
   final DateTime updatedAt;
   final dynamic orderId;

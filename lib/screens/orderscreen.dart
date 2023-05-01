@@ -20,7 +20,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
 
   dynamic orderData = [];
   getOrderHistory() async {
-    print("Yash");
+    // print("Yash");
 
     orderData = await getHistory();
 
@@ -81,8 +81,8 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                 fontSize: sizefont * 1.2,
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
+                            SizedBox(
+                              height: size.height * 0.005,
                             ),
                             Text(
                               "Book your interviews!",
@@ -98,17 +98,20 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                     : Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 10),
+                          SizedBox(height: size.height * 0.01),
                           Expanded(
                             child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
                               itemCount: orderData.length, // replace with actual number of orders
                               itemBuilder: (BuildContext context, int index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: size.width * 0.042, vertical: size.height * 0.018),
                                   child: Container(
+                                    width: double.infinity,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
+                                      borderRadius: BorderRadius.circular(sizefont * 0.8),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey.withOpacity(0.3),
@@ -121,12 +124,13 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: size.width * 0.036, vertical: size.height * 0.01),
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Internship applied ${index + 1}',
+                                                'Companies applied ${index + 1}',
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: sizefont * 1.2,
@@ -152,7 +156,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               color: Colors.white,
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius: BorderRadius.circular(sizefont * 0.8),
                                               boxShadow: [
                                                 BoxShadow(
                                                   color: Colors.grey.withOpacity(0.3),
@@ -161,18 +165,24 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                 ),
                                               ],
                                             ),
-                                            alignment: Alignment.topLeft,
-                                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
+                                            // alignment: Alignment.topLeft,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: size.width * 0.03, vertical: size.width * 0.01),
                                             child: Column(
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
+                                                // SizedBox(
+                                                //   height: size.height * 0.03,
+                                                // ),
                                                 Container(
-                                                  height: 100,
+                                                  height: size.height * 0.125 * orderData[index]["jobs"].length,
                                                   child: ListView.builder(
                                                     itemCount: orderData[index]["jobs"].length,
+                                                    physics: NeverScrollableScrollPhysics(),
                                                     itemBuilder: (context, i) {
                                                       // For company card
                                                       return Container(
+                                                        height: size.height * 0.12,
                                                         alignment: Alignment.topLeft,
                                                         padding: const EdgeInsets.symmetric(
                                                           horizontal: 4,
@@ -186,20 +196,18 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                                 children: [
                                                                   // SizedBox(height: 10),
                                                                   Text(
-                                                                    '${orderData[i]["jobs"][i]["company"]}',
+                                                                    '${orderData[index]["jobs"][i]["company"]}',
                                                                     style: TextStyle(
                                                                         fontWeight: FontWeight.bold,
-                                                                        fontSize: 15,
+                                                                        fontSize: sizefont * 1.1,
                                                                         color: blackTeal),
                                                                   ),
-                                                                  const SizedBox(
-                                                                    height: 10,
-                                                                  ),
+                                                                  SizedBox(height: size.height * 0.012),
                                                                   Text(
-                                                                    '${orderData[i]["jobs"][i]["role"]}',
+                                                                    '${orderData[index]["jobs"][i]["role"]}',
                                                                     style: TextStyle(
                                                                         fontWeight: FontWeight.bold,
-                                                                        fontSize: 14,
+                                                                        fontSize: sizefont,
                                                                         color: blackColor),
                                                                   ),
                                                                   const SizedBox(
@@ -208,7 +216,7 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                                   Row(
                                                                     children: [
                                                                       Text(
-                                                                        '₹${orderData[i]["jobs"][i]["stipend"]}',
+                                                                        '₹${orderData[index]["jobs"][i]["stipend"]}',
                                                                         style:
                                                                             TextStyle(fontSize: 14, color: blackColor),
                                                                       ),
@@ -216,7 +224,9 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                                         width: 60,
                                                                       ),
                                                                       Text(
-                                                                        '${orderData[i]["jobs"][i]["duration"]}',
+                                                                        orderData[index]["jobs"][i]["duration"] == null
+                                                                            ? "Not Specified"
+                                                                            : '${orderData[index]["jobs"][i]["duration"]}',
                                                                         style:
                                                                             TextStyle(fontSize: 14, color: blackColor),
                                                                       ),
@@ -224,11 +234,14 @@ class _OrderhistoryPageState extends State<OrderhistoryPage> {
                                                                         width: 60,
                                                                       ),
                                                                       Text(
-                                                                        '${orderData[i]["jobs"][i]["location"]}',
+                                                                        '${orderData[index]["jobs"][i]["mode"]}',
                                                                         style:
                                                                             TextStyle(fontSize: 14, color: blackColor),
                                                                       ),
                                                                     ],
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: size.height * 0.015,
                                                                   )
                                                                 ],
                                                               ),

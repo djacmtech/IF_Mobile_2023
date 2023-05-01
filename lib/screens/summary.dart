@@ -17,8 +17,8 @@ import 'package:internship_fair/screens/JobProfile.dart';
 import 'package:motion_toast/motion_toast.dart';
 
 class SummaryPage extends StatefulWidget {
-  const SummaryPage({super.key});
-
+  const SummaryPage({super.key, required this.callback});
+  final Function callback;
   @override
   State<SummaryPage> createState() => _SummaryState();
 }
@@ -38,7 +38,7 @@ class _SummaryState extends State<SummaryPage> {
 
   getSummaryData() async {
     sum = await SummaryFunction.SummaryApi().getSummaryInfo();
-    print("Yash" + sum[2].toString());
+    // print("Yash" + sum[2].toString());
   }
 
   @override
@@ -191,96 +191,106 @@ class _SummaryState extends State<SummaryPage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.036,
                     ),
-                    const Text(
-                      'Note :',
-                      style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Text(
-                      'Please pay the above amount',
-                      style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w200,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Text(
-                      'through gpay / paytm / cash',
-                      style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w200,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const Text(
-                      'UPI ID:  ghardik5902@oksbi',
-                      style: TextStyle(
-                        fontFamily: 'poppins',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.045,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Choose your payment method: ",
-                          style: TextStyle(
-                            color: whiteColor,
-                            fontFamily: "poppins",
-                          ),
+                    if (sum[1] > 0)
+                      const Text(
+                        'Note :',
+                        style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Radio(
-                                activeColor: Colors.white,
-                                value: 'UPI',
-                                groupValue: radiovalue,
-                                onChanged: (val) {
-                                  setRadioValue(val);
-                                }),
-                            Text(
-                              "UPI",
-                              style: TextStyle(
-                                color: whiteColor,
+                      ),
+                    if (sum[1] > 0)
+                      const Text(
+                        'Please pay the above amount',
+                        style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w200,
+                          color: Colors.white,
+                        ),
+                      ),
+                    if (sum[1] > 0)
+                      const Text(
+                        'through gpay / paytm / cash',
+                        style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w200,
+                          color: Colors.white,
+                        ),
+                      ),
+                    if (sum[1] > 0)
+                      const Text(
+                        'UPI ID:  ghardik5902@oksbi',
+                        style: TextStyle(
+                          fontFamily: 'poppins',
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    if (sum[1] > 0)
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.045,
+                      ),
+                    if (sum[1] > 0)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Choose your payment method: ",
+                            style: TextStyle(
+                              color: whiteColor,
+                              fontFamily: "poppins",
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Radio(
+                                  activeColor: Colors.white,
+                                  value: 'UPI',
+                                  groupValue: radiovalue,
+                                  onChanged: (val) {
+                                    setRadioValue(val);
+                                  }),
+                              Text(
+                                "UPI",
+                                style: TextStyle(
+                                  color: whiteColor,
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 30,
-                            ),
-                            Radio(
-                                activeColor: Colors.white,
-                                value: 'Cash',
-                                groupValue: radiovalue,
-                                onChanged: (val) {
-                                  setRadioValue(val);
-                                }),
-                            Text(
-                              "Cash",
-                              style: TextStyle(
-                                color: whiteColor,
+                              const SizedBox(
+                                width: 30,
                               ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                              Radio(
+                                  activeColor: Colors.white,
+                                  value: 'Cash',
+                                  groupValue: radiovalue,
+                                  onChanged: (val) {
+                                    setRadioValue(val);
+                                  }),
+                              Text(
+                                "Cash",
+                                style: TextStyle(
+                                  color: whiteColor,
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    // if (sum[1] > 0)
                     SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      'Upload screenshot of payment or photo of receipt',
+                    // if (sum[1] > 0)
+                    Text(
+                      sum[1] > 0
+                          ? 'Upload screenshot of payment or photo of receipt'
+                          : "Upload membership receipt or previous payment screenshot",
                       style: TextStyle(
                         fontFamily: 'poppins',
                         fontSize: 16,
@@ -379,11 +389,39 @@ class _SummaryState extends State<SummaryPage> {
                           ),
                         ),
                       ),
+
                     const SizedBox(
                       height: 25,
                     ),
+
                     InkWell(
                       onTap: () async {
+                        // if (sum[1] == 0) {
+                        //   // print("yash");
+                        //   Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
+                        //   // try {
+                        //   //   status = await payment.payment(radiovalue, imageFile!);
+                        //   // } on Exception catch (e) {
+                        //   //   Loader.hide();
+                        //   //   print(e);
+                        //   // }
+                        //   Uri uri = Uri.parse('https://acm-if.onrender.com/api/acm-if/create-order');
+                        //   final res = await http.post(uri,
+                        //       body: jsonEncode({
+                        //         "userId": GetStorage().read('id').toString(),
+                        //       }),
+                        //       headers: {'Content-Type': 'application/json'});
+                        //   final body = res.body;
+                        //   print(body);
+                        //   final response = jsonDecode(body);
+                        //   print(response);
+                        //   print(res.statusCode);
+                        //   // if (res.statusCode != 200) {
+                        //   //   print('incorrect');
+                        //   // }
+                        //   Loader.hide();
+                        // }
+
                         if (imageFile == null) {
                           MotionToast(
                             toastDuration: Duration(milliseconds: 500),
@@ -410,7 +448,7 @@ class _SummaryState extends State<SummaryPage> {
                               ),
                             ),
                           ).show(context);
-                        } else if (radiovalue == '') {
+                        } else if (radiovalue == '' && sum[1] > 0) {
                           MotionToast(
                             toastDuration: Duration(milliseconds: 500),
                             primaryColor: darkgrey,
@@ -441,7 +479,7 @@ class _SummaryState extends State<SummaryPage> {
                           String status = '';
 
                           try {
-                            status = await payment.payment(radiovalue, imageFile!);
+                            status = await payment.payment(sum[1] > 0 ? radiovalue : "Payment done", imageFile!);
                           } on Exception catch (e) {
                             Loader.hide();
                             print(e);
@@ -449,6 +487,7 @@ class _SummaryState extends State<SummaryPage> {
                           Loader.hide();
 
                           if (status == "Success") {
+                            widget.callback();
                             Navigator.pop(context);
                             MotionToast.success(
                               toastDuration: Duration(seconds: 1),

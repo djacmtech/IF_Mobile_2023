@@ -33,8 +33,7 @@ class CartAPI {
     try {
       int userid = GetStorage().read("id");
       print(userid);
-      var request = http.Request(
-          'GET', Uri.parse('https://acm-if.onrender.com/api/acm-if/get-cart'));
+      var request = http.Request('GET', Uri.parse('https://acm-if.onrender.com/api/acm-if/get-cart'));
       request.bodyFields = {'userId': "$userid"};
 
       http.StreamedResponse response = await request.send();
@@ -72,6 +71,7 @@ class CartAPI {
         // return cartData;
       }
     } catch (e) {
+      // log("yash");
       log(e.toString());
     }
   }

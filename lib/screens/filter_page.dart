@@ -36,7 +36,7 @@ class _FilterState extends State<Filter> {
   @override
   void initState() {
     // TODO: implement initState
-    print("yash");
+    // print("yash");
     super.initState();
     _isChecked = widget.offline;
     _isCorrected = widget.online;
@@ -271,8 +271,6 @@ class _FilterState extends State<Filter> {
                             (_isChecked == true && _isCorrected == true)) {
                           Navigator.pop(context);
                           // _getJob = await GetJobApi().getJobData(low, high, 'null');
-                          print("Yash" + low.toString());
-                          print("Shah" + high.toString());
 
                           widget.callback(low, high, _isCorrected, _isChecked, 'null', true);
                           // Navigator.pushReplacement(

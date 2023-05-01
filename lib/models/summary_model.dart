@@ -27,7 +27,7 @@ class Data {
     required this.discount,
   });
   late final List<Jobs>? jobs;
-  late final String? credits;
+  late final int? credits;
   late final int? totalPrice;
   late final int? discount;
 
@@ -85,7 +85,7 @@ class Jobs {
   late final String? logo;
   late final String? location;
   late final String? mode;
-  late final int? stipend;
+  late final String? stipend;
   late final String? duration;
   late final String? about;
   late final String? description;

@@ -1,14 +1,15 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internship_fair/constants/constants.dart';
 import 'package:internship_fair/models/addtocart.dart';
-import 'package:internship_fair/screens/summary.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class JobDesc extends StatefulWidget {
-  final String? jobPosition, companyName, minStipend, duration, workfromHome, about, logo, location;
-  final List<dynamic> skills, perks, requirements;
+  final String? jobPosition, companyName, minStipend, duration, workfromHome, about, description, logo, location;
+  final List<dynamic> skills, perks, requirements, link;
 
   final int jobid;
   const JobDesc(
@@ -23,8 +24,10 @@ class JobDesc extends StatefulWidget {
       required this.perks,
       required this.location,
       required this.requirements,
+      required this.link,
       this.logo,
-      required this.skills})
+      required this.skills,
+      this.description})
       : super(key: key);
 
   @override
@@ -36,11 +39,29 @@ class _JobDescState extends State<JobDesc> {
   bool jd = false;
   bool whocan = false;
   bool perks = false;
+  bool link = false;
+  bool desc = false;
+  Future<void> _launchURL(String url) async {
+    final Uri uri = Uri.parse("https://$url"); // include https:// prefix
+    if (!await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw "Can not launch url";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     double sizefont = size.width * 0.04;
+    // void _launchURL(String url) async {
+    //   if (await canLaunch(url)) {
+    //     await launch(url);
+    //   } else {
+    //     throw 'Could not launch $url';
+    //   }
+    // }
 
     void cartAdd() async {
       Loader.show(context, progressIndicator: CircularProgressIndicator(color: blackTeal));
@@ -54,14 +75,14 @@ class _JobDescState extends State<JobDesc> {
       }
       Loader.hide();
 
-      print("Yash" + status);
+      // print("Yash" + status);
 
       if (status == "Success") {
         MotionToast.success(
           toastDuration: Duration(milliseconds: 500),
           width: size.width * 0.7,
-          height: 65,
-          borderRadius: 10,
+          height: sizefont * 4,
+          borderRadius: sizefont * 0.45,
           padding: EdgeInsets.zero,
           title: Text(
             "Internship added",
@@ -80,14 +101,14 @@ class _JobDescState extends State<JobDesc> {
           toastDuration: Duration(milliseconds: 500),
           primaryColor: darkgrey,
           width: size.width * 0.7,
-          height: 65,
-          borderRadius: 10,
+          height: sizefont * 4,
+          borderRadius: sizefont * 0.45,
           padding: EdgeInsets.zero,
           title: Text(
             "Already in Cart",
             style: TextStyle(
               fontFamily: "Poppins",
-              color: Colors.black,
+              color: blackColor,
               fontWeight: FontWeight.bold,
               fontSize: sizefont * 0.8,
             ),
@@ -106,8 +127,8 @@ class _JobDescState extends State<JobDesc> {
           toastDuration: Duration(milliseconds: 500),
           primaryColor: darkgrey,
           width: size.width * 0.7,
-          height: 65,
-          borderRadius: 10,
+          height: sizefont * 4,
+          borderRadius: sizefont * 0.45,
           padding: EdgeInsets.zero,
           title: Text(
             "Already applied",
@@ -169,45 +190,67 @@ class _JobDescState extends State<JobDesc> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              widget.jobPosition!,
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  color: textgreen, fontFamily: "poppins", fontSize: sizefont * 1.5, fontWeight: FontWeight.bold),
+            Wrap(
+              children: [
+                Container(
+                  width: size.width * 0.5,
+                  child: Text(
+                    widget.jobPosition!,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                        color: textgreen, fontFamily: "poppins", fontSize: sizefont * 1.5, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 0.003 * size.height,
             ),
-            Text(
-              widget.companyName!,
-              style: TextStyle(
-                color: blackColor,
-                fontFamily: "poppins",
-                fontSize: sizefont * 1.2,
-              ),
+            Wrap(
+              children: [
+                Container(
+                  width: size.width * 0.5,
+                  child: Text(
+                    widget.companyName!,
+                    style: TextStyle(
+                      color: blackColor,
+                      fontFamily: "poppins",
+                      fontSize: sizefont * 1.2,
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 0.003 * size.height,
             ),
-            Text(
-              widget.location!,
-              style: TextStyle(
-                color: darkgrey,
-                fontFamily: "poppins",
-                fontSize: sizefont,
-              ),
+            Wrap(
+              children: [
+                Container(
+                  width: size.width * 0.5,
+                  child: Text(
+                    widget.location!,
+                    style: TextStyle(
+                      color: darkgrey,
+                      fontFamily: "poppins",
+                      fontSize: sizefont,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
         SizedBox(
-          width: size.width * 0.2,
+          width: size.width * 0.13,
         ),
         Container(
-          width: size.width * 0.2,
+          height: size.height * 0.1,
+          width: size.height * 0.1,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(widget.logo!),
-              fit: BoxFit.cover,
+              fit: BoxFit.fitWidth,
             ),
           ),
         )
@@ -246,13 +289,20 @@ class _JobDescState extends State<JobDesc> {
                     fontSize: sizefont,
                   ),
                 ),
-                Text(
-                  widget.workfromHome!,
-                  style: TextStyle(
-                    color: blackColor,
-                    fontFamily: "poppins",
-                    fontSize: sizefont * 0.8,
-                  ),
+                Wrap(
+                  children: [
+                    Container(
+                      width: size.width * 0.12,
+                      child: Text(
+                        widget.workfromHome!,
+                        style: TextStyle(
+                          color: blackColor,
+                          fontFamily: "poppins",
+                          fontSize: sizefont * 0.8,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -283,7 +333,7 @@ class _JobDescState extends State<JobDesc> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'MIN STIPEND',
+                  'STIPEND',
                   style: TextStyle(
                     color: darkgrey,
                     fontFamily: "poppins",
@@ -334,13 +384,20 @@ class _JobDescState extends State<JobDesc> {
                     fontSize: sizefont,
                   ),
                 ),
-                Text(
-                  widget.duration!,
-                  style: TextStyle(
-                    color: blackColor,
-                    fontFamily: "poppins",
-                    fontSize: sizefont * 0.8,
-                  ),
+                Wrap(
+                  children: [
+                    Container(
+                      width: size.width * 0.2,
+                      child: Text(
+                        widget.duration!,
+                        style: TextStyle(
+                          color: blackColor,
+                          fontFamily: "poppins",
+                          fontSize: sizefont * 0.8,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -360,24 +417,21 @@ class _JobDescState extends State<JobDesc> {
       children: [
         ExpansionPanel(
           headerBuilder: (context, isExpanded) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: ListTile(
-                title: Text(
-                  'About The Company',
-                  style: TextStyle(
-                    color: blackColor,
-                    fontFamily: "poppins",
-                    fontSize: sizefont,
-                  ),
+            return ListTile(
+              title: Text(
+                'About The Company',
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont,
                 ),
               ),
             );
           },
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
+            padding: EdgeInsets.symmetric(horizontal: sizefont),
             child: ListTile(
-              contentPadding: const EdgeInsets.only(bottom: 30),
+              contentPadding: EdgeInsets.only(bottom: sizefont * 0.6),
               title: Text(
                 widget.about!,
                 style: TextStyle(
@@ -394,6 +448,48 @@ class _JobDescState extends State<JobDesc> {
       ],
     );
 
+    final description = ExpansionPanelList(
+      expansionCallback: (panelIndex, isExpanded) {
+        setState(() {
+          desc = !desc;
+        });
+      },
+      dividerColor: greyColor,
+      animationDuration: const Duration(milliseconds: 500),
+      children: [
+        ExpansionPanel(
+          headerBuilder: (context, isExpanded) {
+            return ListTile(
+              title: Text(
+                'Description',
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont,
+                ),
+              ),
+            );
+          },
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: sizefont),
+            child: ListTile(
+              contentPadding: EdgeInsets.only(bottom: sizefont * 0.6),
+              title: Text(
+                widget.description!,
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont * 0.8,
+                ),
+              ),
+            ),
+          ),
+          isExpanded: desc,
+          canTapOnHeader: true,
+        ),
+      ],
+    );
+
     final jD = ExpansionPanelList(
       expansionCallback: (panelIndex, isExpanded) {
         setState(() {
@@ -405,50 +501,76 @@ class _JobDescState extends State<JobDesc> {
       children: [
         ExpansionPanel(
           headerBuilder: (context, isExpanded) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: ListTile(
-                title: Text(
-                  'Skills',
-                  style: TextStyle(
-                    color: blackColor,
-                    fontFamily: "poppins",
-                    fontSize: sizefont,
-                  ),
+            return ListTile(
+              title: Text(
+                'Skills',
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont,
                 ),
               ),
             );
           },
           isExpanded: jd,
           canTapOnHeader: true,
-          body: Wrap(
-            children: widget.skills.map((e) {
-              return Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 15, bottom: 8),
-                    height: 5.0,
-                    width: 5.0,
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8, bottom: 8),
-                    child: Text(
-                      e,
-                      style: TextStyle(
-                        color: blackColor,
-                        fontFamily: "poppins",
-                        fontSize: sizefont * 0.8,
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }).toList(),
-          ),
+          body: Container(
+              width: size.width,
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: widget.skills.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Wrap(
+                          // alignment: WrapAlignment.start,
+                          // crossAxisAlignment: WrapCrossAlignment.start,
+                          // direction: Axis.horizontal,
+                          // alignment: Wra.,
+                          children: [
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: sizefont, bottom: sizefont * 0.45),
+                                  height: 5.0,
+                                  width: 5.0,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.black,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Container(
+                                  width: size.width * 0.8,
+                                  margin: EdgeInsets.only(top: 11),
+                                  child: Wrap(
+                                    direction: Axis.horizontal,
+                                    children: [
+                                      // SizedBox(
+                                      //   width: 15,
+                                      // ),
+                                      Text(
+                                        widget.skills[index],
+                                        softWrap: true,
+                                        style: TextStyle(
+                                          color: blackColor,
+                                          fontFamily: "poppins",
+                                          fontSize: sizefont * 0.8,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]),
+                    );
+                  })),
           // child: ListTile(
           //   title: Text(
           //     widget.skills.toString(),
@@ -474,48 +596,111 @@ class _JobDescState extends State<JobDesc> {
       children: [
         ExpansionPanel(
           headerBuilder: (context, isExpanded) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: ListTile(
-                title: Text(
-                  'Requirements',
-                  style: TextStyle(
-                    color: blackColor,
-                    fontFamily: "poppins",
-                    fontSize: sizefont,
-                  ),
+            return ListTile(
+              title: Text(
+                'Requirements',
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont,
                 ),
               ),
             );
           },
-          body: Wrap(
-            children: widget.requirements.map((e) {
-              return Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 15, bottom: 8),
-                    height: 5.0,
-                    width: 5.0,
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8, bottom: 8),
-                    child: Text(
-                      e,
-                      style: TextStyle(
-                        color: blackColor,
-                        fontFamily: "poppins",
-                        fontSize: sizefont * 0.8,
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }).toList(),
-          ),
+          body: Container(
+              width: size.width,
+              child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: widget.requirements.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Wrap(
+                          // alignment: WrapAlignment.start,
+                          // crossAxisAlignment: WrapCrossAlignment.start,
+                          // direction: Axis.horizontal,
+                          // alignment: Wra.,
+                          children: [
+                            Row(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: sizefont, bottom: sizefont * 0.45),
+                                  height: 5.0,
+                                  width: 5.0,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.black,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 8,
+                                ),
+                                Container(
+                                  width: size.width * 0.8,
+                                  margin: EdgeInsets.only(top: 11),
+                                  child: Wrap(
+                                    direction: Axis.horizontal,
+                                    children: [
+                                      // SizedBox(
+                                      //   width: 15,
+                                      // ),
+                                      Text(
+                                        widget.requirements[index],
+                                        softWrap: true,
+                                        style: TextStyle(
+                                          color: blackColor,
+                                          fontFamily: "poppins",
+                                          fontSize: sizefont * 0.8,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ]),
+                    );
+                  })),
+
+          // body: Padding(
+          //   padding: EdgeInsets.only(bottom: sizefont * 0.7),
+          //   child: Wrap(
+          //     children: widget.requirements.map((e) {
+          //       return Wrap(
+          //         children: [
+          //           Row(
+          //             children: [
+          // Container(
+          //   margin: EdgeInsets.only(left: sizefont, bottom: sizefont * 0.45),
+          //   height: 5.0,
+          //   width: 5.0,
+          //   decoration: const BoxDecoration(
+          //     color: Colors.black,
+          //     shape: BoxShape.circle,
+          //   ),
+          //               ),
+          //               Container(
+          //                 margin: EdgeInsets.only(left: sizefont * 0.45, bottom: sizefont * 0.45),
+          //                 child: Text(
+          //                   e,
+          //                   softWrap: true,
+          //                   style: TextStyle(
+          //                     color: blackColor,
+          //                     fontFamily: "poppins",
+          //                     fontSize: sizefont * 0.8,
+          //                   ),
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ],
+          //       );
+          //     }).toList(),
+          //   ),
+          // ),
           isExpanded: whocan,
           canTapOnHeader: true,
         ),
@@ -533,47 +718,47 @@ class _JobDescState extends State<JobDesc> {
       children: [
         ExpansionPanel(
           headerBuilder: (context, isExpanded) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: ListTile(
-                title: Text(
-                  'Perks',
-                  style: TextStyle(
-                    color: blackColor,
-                    fontFamily: "poppins",
-                    fontSize: sizefont,
-                  ),
+            return ListTile(
+              title: Text(
+                'Perks',
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont,
                 ),
               ),
             );
           },
-          body: Wrap(
-            children: widget.perks.map((e) {
-              return Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 15, bottom: 8),
-                    height: 5.0,
-                    width: 5.0,
-                    decoration: const BoxDecoration(
-                      color: Colors.black,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8, bottom: 8),
-                    child: Text(
-                      e,
-                      style: TextStyle(
-                        color: blackColor,
-                        fontFamily: "poppins",
-                        fontSize: sizefont * 0.8,
+          body: Padding(
+            padding: EdgeInsets.only(bottom: sizefont * 0.7),
+            child: Wrap(
+              children: widget.perks.map((e) {
+                return Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: sizefont, bottom: sizefont * 0.45),
+                      height: 5.0,
+                      width: 5.0,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
                       ),
                     ),
-                  ),
-                ],
-              );
-            }).toList(),
+                    Container(
+                      margin: EdgeInsets.only(left: sizefont * 0.45, bottom: sizefont * 0.45),
+                      child: Text(
+                        e,
+                        style: TextStyle(
+                          color: blackColor,
+                          fontFamily: "poppins",
+                          fontSize: sizefont * 0.8,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
           ),
           isExpanded: perks,
           canTapOnHeader: true,
@@ -591,9 +776,6 @@ class _JobDescState extends State<JobDesc> {
           child: MaterialButton(
               onPressed: () {
                 cartAdd();
-                //   Navigator.pushReplacement(context,
-                //       MaterialPageRoute(builder: ((context) => SummaryPage())));
-                // },
               },
               child: SizedBox(
                 width: size.width,
@@ -605,6 +787,68 @@ class _JobDescState extends State<JobDesc> {
               )),
         ));
 
+    final links = ExpansionPanelList(
+      expansionCallback: (panelIndex, isExpanded) {
+        setState(() {
+          link = !link;
+        });
+      },
+      dividerColor: greyColor,
+      animationDuration: const Duration(milliseconds: 500),
+      children: [
+        ExpansionPanel(
+          headerBuilder: (context, isExpanded) {
+            return ListTile(
+              title: Text(
+                'Link',
+                style: TextStyle(
+                  color: blackColor,
+                  fontFamily: "poppins",
+                  fontSize: sizefont,
+                ),
+              ),
+            );
+          },
+          body: Padding(
+            padding: EdgeInsets.only(bottom: sizefont * 0.7),
+            child: Wrap(
+              children: widget.link.map((e) {
+                return Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: sizefont, bottom: sizefont * 0.45),
+                      height: 5.0,
+                      width: 5.0,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: sizefont * 0.45, bottom: sizefont * 0.45),
+                      child: InkWell(
+                        onTap: () => _launchURL(e),
+                        child: Text(
+                          e,
+                          style: TextStyle(
+                            color: blackColor,
+                            fontFamily: "poppins",
+                            fontSize: sizefont * 0.8,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+          isExpanded: link,
+          canTapOnHeader: true,
+        ),
+      ],
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: whiteColor,
@@ -615,7 +859,7 @@ class _JobDescState extends State<JobDesc> {
             iconSize: sizefont * 1.5,
             onPressed: () => Navigator.pop(context),
           ),
-          centerTitle: true,
+          // centerTitle: true,
           backgroundColor: whiteColor,
           title: Text(
             'Job Description',
@@ -623,7 +867,7 @@ class _JobDescState extends State<JobDesc> {
           )),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 27, horizontal: size.width * 0.06),
+          padding: EdgeInsets.symmetric(vertical: sizefont * 2, horizontal: size.width * 0.06),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -637,6 +881,14 @@ class _JobDescState extends State<JobDesc> {
                   height: size.width * 0.05,
                 ),
                 aboutComp,
+                SizedBox(
+                  height: size.width * 0.03,
+                ),
+                description,
+                SizedBox(
+                  height: size.width * 0.03,
+                ),
+                links,
                 SizedBox(
                   height: size.width * 0.03,
                 ),

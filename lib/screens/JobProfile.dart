@@ -138,6 +138,7 @@ class _JobProfileState extends State<JobProfile> {
         ),
         backgroundColor: Colors.grey[100],
         body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -170,17 +171,19 @@ class _JobProfileState extends State<JobProfile> {
                                   }
                                   return JobCard(
                                     companyName: _getJob[index].company,
-                                    duration: _getJob[index].duration,
+                                    duration: _getJob[index].duration ?? "Not specified",
                                     stipend: _getJob[index].stipend.toString(),
                                     location: _getJob[index].location,
                                     position: _getJob[index].role,
                                     mode: _getJob[index].mode,
                                     logo: _getJob[index].logo,
-                                    requirements: _getJob[index].requirements,
-                                    perks: _getJob[index].perks,
+                                    requirements: _getJob[index].requirements ?? [],
+                                    perks: _getJob[index].perks ?? [],
                                     about: _getJob[index].about,
-                                    skills: _getJob[index].skills,
+                                    skills: _getJob[index].skills ?? [],
                                     jobid: _getJob[index].id,
+                                    description: _getJob[index].description,
+                                    link: _getJob[index].link ?? [],
                                   );
                                 },
                               )

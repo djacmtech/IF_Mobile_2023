@@ -41,34 +41,34 @@ class AuthController {
     String graduationYear,
     String password,
     String confirmPassword,
-    File pdf,
+    String resume,
     int member,
   ) async {
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse("https://acm-if.onrender.com/api/acm-if/register"),
-    );
-    request.fields.addAll({
-      "name": name,
-      "email": email,
-      "sap": sap,
-      "contact": whatsapp,
-      "gender": gender,
-      "academicYear": academicYear,
-      "department": dept,
-      "graduationYear": graduationYear,
-      'acmMember': member.toString(),
-      'password': password,
-      "confirmPassword": confirmPassword,
-    });
-    http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
-      'resume',
-      pdf.path,
-      contentType: MediaType("application", "pdf"),
-    );
-    request.files.add(
-      multipartFile,
-    );
+    final res = await http.post(Uri.parse("https://acm-if.onrender.com/api/acm-if/register"),
+        body: jsonEncode({
+          "name": name,
+          "email": email,
+          "sap": sap,
+          "contact": whatsapp,
+          "gender": gender,
+          "academicYear": academicYear,
+          "department": dept,
+          "graduationYear": graduationYear,
+          'acmMember': member.toString(),
+          'password': password,
+          "confirmPassword": confirmPassword,
+          "resume": resume
+        }),
+        headers: {'Content-Type': 'application/json'});
+    // request.fields.addAll({});
+    // http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
+    //   'resume',
+    //   pdf.path,
+    //   contentType: MediaType("application", "pdf"),
+    // );
+    // request.files.add(
+    //   multipartFile,
+    // );
     // print(name);
     // print(email);
     // print(sap);
@@ -82,8 +82,9 @@ class AuthController {
     // print(confirmPassword);
     // print(pdf);
     // print("request: " + request.toString());
-    var res = await request.send();
-    var responseBody = await res.stream.bytesToString();
+    // var res = await request.send();
+    // var responseBody = await res.stream.bytesToString();
+    final responseBody = res.body;
     var response = jsonDecode(responseBody);
     print(response);
 

@@ -46,11 +46,14 @@ class SummaryApi {
       var res = jsonDecode(streamResponse.body);
       print(res);
       totalPrice = res["data"]["totalPrice"];
-      // print(totalPrice);
+
       discount = res["data"]["discount"];
       var summary = SummaryClass.Summary?.fromJson(res);
       _getJob = summary.data.jobs;
+      // print("Yash");
+      // print(_getJob);
       interviewCount = _getJob!.length;
+      // print("Yash" + interviewCount.toString());
       // print(interviewCount.runtimeType);
       // print(interviewCount);
       // print("Hello");
